@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Builder
 public class EmployeeCareerDto {
     // 사원 경력 테이블 Dto
 

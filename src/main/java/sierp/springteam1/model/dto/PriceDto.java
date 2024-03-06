@@ -7,6 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Builder
 public class PriceDto {
     // 초중고 연봉 테이블 Dto
     int pno;                 //1이면 초급, 2이면 중급 3이면고급

@@ -7,6 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Builder
 public class ProjectlogDto {
     int eno;        // 사원 번호
     int pjno;       // 프로젝트 번호

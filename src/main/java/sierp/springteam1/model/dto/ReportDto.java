@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Builder
 public class ReportDto {
     // 보고 Dto
 

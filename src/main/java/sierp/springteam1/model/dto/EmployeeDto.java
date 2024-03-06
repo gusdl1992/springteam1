@@ -4,7 +4,7 @@ package sierp.springteam1.model.dto;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
-@Getter@Setter@AllArgsConstructor@NoArgsConstructor@ToString
+@Getter@Setter@AllArgsConstructor@NoArgsConstructor@ToString@Builder
 public class EmployeeDto {
     // 사원 Dto
 

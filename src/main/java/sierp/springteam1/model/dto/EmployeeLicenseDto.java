@@ -7,6 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Builder
 public class EmployeeLicenseDto {
     // 사원 자격증 로그 Dto
     int eno;            // 사원 번호
