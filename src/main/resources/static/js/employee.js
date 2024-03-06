@@ -27,7 +27,7 @@ function onSignup(){// 사원등록 함수
     console.log(employeeFormData); // new FormData
 
     $.ajax({
-           url : '어디로 갈까',
+           url : '/esignup',
            method : 'post',
            data : employeeFormData,
            contentType: false,
@@ -36,10 +36,9 @@ function onSignup(){// 사원등록 함수
                console.log(result);
                //4. 결과
                if(result){
-                   alert('회원가입 성공');
-                   location.href='/member/login';
+                   alert('사원정보 성공');
                }else {
-                   alert('회원가입 실패');
+                   alert('사원정보 실패');
                }
            }
    });//ajax 끝
@@ -52,7 +51,7 @@ function onSignup(){// 사원등록 함수
    console.log(ecareerFormData); // new FormData
 
    $.ajax({
-          url : '어디로 갈까',
+          url : '/csignup',
           method : 'post',
           data : ecareerFormData,
           contentType: false,
@@ -61,10 +60,9 @@ function onSignup(){// 사원등록 함수
               console.log(result);
               //4. 결과
               if(result){
-                  alert('회원가입 성공');
-                  location.href='/member/login';
+                  alert('경력등록 성공');
               }else {
-                  alert('회원가입 실패');
+                  alert('경력등록 실패');
               }
           }
   });//ajax 끝
@@ -77,7 +75,7 @@ function onSignup(){// 사원등록 함수
    console.log(licenseFormData); // new FormData
 
    $.ajax({
-          url : '어디로 갈까',
+          url : '/lsignup',
           method : 'post',
           data : licenseFormData,
           contentType: false,
@@ -86,10 +84,10 @@ function onSignup(){// 사원등록 함수
               console.log(result);
               //4. 결과
               if(result){
-                  alert('회원가입 성공');
+                  alert('자격증등록 성공');
                   location.href='/member/login';
               }else {
-                  alert('회원가입 실패');
+                  alert('자격증등록 실패');
               }
           }
   })//ajax 끝
