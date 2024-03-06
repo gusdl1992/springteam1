@@ -47,16 +47,19 @@ public class OneprojectController {
         List<Integer> list2 = Arrays.stream(list).map(str -> Integer.valueOf(str)).collect(Collectors.toList());
         list = request.getParameterValues("list3");
         List<Integer> list3 = Arrays.stream(list).map(str -> Integer.valueOf(str)).collect(Collectors.toList());
+        System.out.println("프로젝트로그에 올라갈 초급인원");
         for(int i : list1){
-            System.out.println(i);
+            System.out.print(i+" ");
         }
+        System.out.println("\n프로젝트로그에 올라갈 중급인원");
         for(int i : list2){
-            System.out.println(i);
+            System.out.print(i+" ");
         }
+        System.out.println("\n프로젝트로그에 올라갈 고급인원 :");
         for(int i : list3){
-            System.out.println(i);
+            System.out.print(i+" ");
         }
-        System.out.println("pjno = " +pjno+ ", list1 = " + list );
+        System.out.println("\npjno = " +pjno+ ", list1 = " + list );
         return true;
     }
 }
