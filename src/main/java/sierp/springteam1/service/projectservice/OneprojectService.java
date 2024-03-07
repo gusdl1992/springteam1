@@ -3,8 +3,15 @@ package sierp.springteam1.service.projectservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import sierp.springteam1.model.dao.projectcontroller.OneprojectDao;
+import sierp.springteam1.model.dto.EmployeeDto;
 import sierp.springteam1.model.dto.ProjectDto;
+import sierp.springteam1.model.dto.ProjectlogDto;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 @Service
 public class OneprojectService {
@@ -15,5 +22,21 @@ public class OneprojectService {
         System.out.println("OneprojectController.oneProject");
         System.out.println(pjno);
         return oneprojectDao.oneProject(pjno);
+    }
+
+    public ArrayList<EmployeeDto>[] memberlist(int pjno){
+        System.out.println("안뇽.memberlist");
+        System.out.println(pjno);
+        String start_date = oneprojectDao.oneProject(pjno).getStart_date();
+
+        return oneprojectDao.memberlist(start_date);
+    }
+
+    public boolean createprojectlog(ProjectlogDto projectlogDto){
+        return oneprojectDao.createprojectlog(projectlogDto);
+    }
+
+    public ArrayList<Integer> findlog( int pjno){
+        return oneprojectDao.findlog(pjno);
     }
 }

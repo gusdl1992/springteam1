@@ -15,6 +15,7 @@ function onView(){
     $.ajax({
         url: "/project/view.do?pjno="+pjno,
         method : "get",
+        async: false,
         success : (r) => {
             console.log(r)
             document.querySelector(".pjno").innerHTML = "제목 : "+r.pjno
@@ -30,6 +31,22 @@ function onView(){
             document.querySelector(".state").innerHTML = "첨부파일 : "+r.state
             document.querySelector(".price").innerHTML = "첨부파일 : "+r.price
             document.querySelector(".buttons").innerHTML = `<button type="button" onclick=location.href="/project/view/rec?pjno=${pjno}">프로젝트 인원 등록</button>`
+        }
+    })
+
+    $.ajax({
+        url: "/project/view/list?pjno="+pjno,
+        method:"get",
+        success : (r) =>{
+            console.log(r.length)
+            let html = "프로젝트에 참여중인 인원: ";
+            console.log(r[1])
+            console.log(r[0])
+            for(let i = 0; i < r.length; i++){
+                html += `${r[i]}번`
+            }
+            console.log(html)
+            document.querySelector(".logs").innerHTML= html;
         }
     })
 }
