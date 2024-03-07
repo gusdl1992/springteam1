@@ -1,11 +1,55 @@
 package sierp.springteam1.model.dao;
 
 import org.springframework.stereotype.Component;
+import sierp.springteam1.model.dto.EmployeeCareerDto;
+import sierp.springteam1.model.dto.EmployeeDto;
+import sierp.springteam1.model.dto.EmployeeLicenseDto;
 
 @Component
 public class EmployeeDao extends SuperDao{
 
-    public boolean signup(){
+    //사원등록 요청
+    public boolean eSignup(EmployeeDto employeeDto){
+        System.out.println("EmployeeDao.eSignup");
+        try {
+            String sql= "insert into employee(id, pw, ename,email,  phone, img)values(?,?,?,?,?,?)";
+            ps=conn.prepareStatement(sql);
+            ps.setString(1,employeeDto.getId());
+            ps.setString(2,employeeDto.getPw());
+            ps.setString(3,employeeDto.getEname());
+            ps.setString(4,employeeDto.getEmail());
+            ps.setString(5,employeeDto.getPhone());
+            //ps.set(6, employeeDto.getMfile());
+
+            System.out.println(employeeDto);
+            int count= ps.executeUpdate();
+            if(count==1){return true;}
+
+        }catch (Exception e){
+            System.out.println("memberDao.doPostSignup");
+        }
+        return  false;
+    }
+
+    // 경력로그 등록 요청
+    public boolean cSignup(EmployeeCareerDto careerDto){
+        System.out.println("EmployeeDao.cSignup");
+        try {
+            String sql="";
+        }catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return false;
+    }
+
+    // 자격증로그 등록 요청
+    public boolean lSignup(EmployeeLicenseDto licenseDto){
+        System.out.println("EmployeeDao.lSignup");
+        try {
+            String sql="";
+        }catch (Exception e){
+            System.out.println("e = " + e);
+        }
         return false;
     }
 
