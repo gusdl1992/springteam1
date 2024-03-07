@@ -1,0 +1,9 @@
+
+/* 마이페이지 CSS  */
+
+#pcontainer{
+    margin: 0 auto;
+    width: 960px;
+    height: 550px;
+    border: 1px solid rebeccapurple;
+}

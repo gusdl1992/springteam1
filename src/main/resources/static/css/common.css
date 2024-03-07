@@ -4,13 +4,6 @@
     font-weight: 400;
     font-style: normal;
 }
-/* https://noonnu.cc/font_page/694*/
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-
-.nanumgothic * {
- font-family: 'Nanum Gothic', sans-serif;
-}
-/* https://noonnu.cc/font_page/39 */
 
 
 *{
