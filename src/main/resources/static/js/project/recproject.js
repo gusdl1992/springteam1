@@ -17,6 +17,5 @@ function onWrite(){
         success: (r) => {
         console.log(r)
         }
-
     })
 }
