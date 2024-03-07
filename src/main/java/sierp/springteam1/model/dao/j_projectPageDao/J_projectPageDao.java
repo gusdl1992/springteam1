@@ -42,7 +42,7 @@ public class J_projectPageDao extends SuperDao {
     }//m end
 
     //프로젝트 세부 리스트 출력
-    public ProjectDto printProjectDetail(int pjno){
+    public ProjectDto getProjectDetail(int pjno){
         System.out.println("J_ProjectPageController.printProjectDetail");
         try{
             String sql="select * from project where pjno=?;";
@@ -72,4 +72,47 @@ public class J_projectPageDao extends SuperDao {
         return null;
     }//m end
 
-}
+    //프로젝트 내역 수정
+    public boolean updateProjectDetail(ProjectDto projectDto){
+        System.out.println("J_projectPageDao.updateProjectDetail");
+        System.out.println("projectDto = " + projectDto);
+        try{
+            String sql="update project set \n" +
+                    "\tstart_date=?, \n" +
+                    "\tend_date=? ,\n" +
+                    "\trank1_count=? ,\n" +
+                    "\trank2_count=? ,\n" +
+                    "\trank3_count=? ,\n" +
+                    "\ttitle=? ,\n" +
+                    "\trequest=? ,\n" +
+                    "\tcompannyname=? ,\n" +
+                    "\tprice=?\n" +
+                    "where pjno=?;";
+            ps=conn.prepareStatement(sql);
+            ps.setString(1,projectDto.getStart_date());
+            ps.setString(2,projectDto.getEnd_date());
+            ps.setInt(3,projectDto.getRank1_count());
+            ps.setInt(4,projectDto.getRank2_count());
+            ps.setInt(5,projectDto.getRank3_count());
+            ps.setString(6,projectDto.getTitle());
+            ps.setString(7,projectDto.getRequest());
+            ps.setString(8,projectDto.getCompannyname());
+            ps.setString(9,projectDto.getPrice());
+            ps.setInt(10,projectDto.getPjno());
+
+            int count= ps.executeUpdate();
+            System.out.println("count = " + count);
+            if(count==1){
+                return true;
+            }
+        }
+        catch (Exception e){
+            System.out.println("e = " + e);
+        }
+
+        return false;
+    }//m end
+
+    //프로젝트 내역 삭제
+
+}//c end

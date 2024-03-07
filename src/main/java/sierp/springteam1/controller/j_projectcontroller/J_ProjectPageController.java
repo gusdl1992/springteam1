@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sierp.springteam1.model.dao.j_projectPageDao.J_projectPageDao;
@@ -36,13 +37,42 @@ public class J_ProjectPageController {
 
         return j_projectPageService.printProjectList();
     }//m end
-
-    //프로젝트 세부 리스트 출력
+    
+    //프로젝트 세부리스트 출력
     @GetMapping("/detail")
-    @ResponseBody
-    public ProjectDto printProjectDetail(int pjno){
+    public String printProjectDetail(int pjno){
         System.out.println("J_ProjectPageController.printProjectDetail");
 
-        return j_projectPageService.printProjectDetail(pjno);
+        return "/j_projectPage/projectDetail";
     }//m end
-}
+
+    //프로젝트 세부 리스트 정보 가져오기
+    @GetMapping("/detail.do")
+    @ResponseBody
+    public ProjectDto getProjectDetail(int pjno){
+        System.out.println("J_ProjectPageController.printProjectDetail");
+
+        return j_projectPageService.getProjectDetail(pjno);
+    }//m end
+
+    //프로젝트 내역 수정페이지 호출
+    @GetMapping("/update")
+    public String updateProjectDetailPage(){
+        System.out.println("J_ProjectPageController.updateProjectDetail");
+
+        return "/j_projectPage/updateProject";
+    }//m end
+
+    //프로젝트 내역 수정
+    @PutMapping("/update.do")
+    @ResponseBody
+    public boolean updateProjectDetail(ProjectDto projectDto){
+        System.out.println("J_ProjectPageController.updateProjectDetail");
+        System.out.println("projectDto = " + projectDto);
+
+        return j_projectPageService.updateProjectDetail(projectDto);
+    }//m end
+
+    //프로젝트 내역 삭제
+
+}//c end
