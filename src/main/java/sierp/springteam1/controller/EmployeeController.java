@@ -5,10 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sierp.springteam1.model.dto.EmployeeCareerDto;
-import sierp.springteam1.model.dto.EmployeeDto;
-import sierp.springteam1.model.dto.EmployeeLicenseDto;
+import sierp.springteam1.model.dto.*;
 import sierp.springteam1.service.EmployeeSrvice;
+
+import java.util.List;
 
 @Controller
 public class EmployeeController {
@@ -45,5 +45,23 @@ public class EmployeeController {
     public String viewSignup(){
         System.out.println("EmployeeController.viewSignup");
         return "/signup";
+    }
+
+    //=========== 출력
+
+    //부서명 전체 출력
+    @GetMapping("/partList")
+    @ResponseBody
+    public List<PartDto> partList (){
+        System.out.println("EmployeeController.partDtoList");
+        return employeeSrvice.partList();
+    }
+
+    // 자격증 종류 출력
+    @GetMapping("/license")
+    @ResponseBody
+    public List<LicenseDto> licenseList(){
+        System.out.println("EmployeeController.licenseList");
+        return employeeSrvice.licenseList();
     }
 }

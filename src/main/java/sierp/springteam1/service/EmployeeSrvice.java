@@ -3,10 +3,9 @@ package sierp.springteam1.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sierp.springteam1.model.dao.EmployeeDao;
-import sierp.springteam1.model.dto.EmployeeCareerDto;
-import sierp.springteam1.model.dto.EmployeeDto;
-import sierp.springteam1.model.dto.EmployeeLicenseDto;
+import sierp.springteam1.model.dto.*;
 
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -19,7 +18,7 @@ public class EmployeeSrvice {
         System.out.println("EmployeeSrvice.eSignup");
         //1. 아이디 생성 / 후보 : 1.사원번호+이름 2.사원이메일 앞부분 3.?
         //샘플
-        String id="123kim";
+        String id= employeeDto.getEmail().split("@")[1];
         //2. 초기 비밀번호 난수 부여
         String newPw="";
         Random random=new Random();
@@ -44,6 +43,16 @@ public class EmployeeSrvice {
     public boolean lSignup(EmployeeLicenseDto licenseDto){
         System.out.println("EmployeeSrvice.lSignup");
         return employeeDao.lSignup(licenseDto);
+    }
+
+    //===================호출
+    public List<PartDto> partList (){
+        System.out.println("EmployeeController.partDtoList");
+        return employeeDao.partList();
+    }
+
+    public List<LicenseDto> licenseList(){
+        return employeeDao.licenseList();
     }
 }
 
