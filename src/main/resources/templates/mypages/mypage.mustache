@@ -1,0 +1,45 @@
+{{>headerfooter/header}}
+
+
+    <div id="p_container">
+        <div id="p_mypageSideWrap">
+            <ul id="p_mypageSide">
+                <li><a href="#">내정보 보기</a></li>
+                <li><a href="#">내 프로젝트</a></li>
+                <li><a href="#">출결 관리</a></li>
+                <li><a href="#">일정 관리</a></li>
+            </ul>
+        </div>
+        <div id="p_dataViewWrap">
+            <div id="p_dataView">
+                <!--  사원 데이터 출력 표시    -->
+            </div>
+            <div class="btnBox">
+                <button onclick="#" type="button"><a href="/mypage/updateView">수정</a></button>
+            </div>
+        </div>
+    </div>
+
+
+
+<script src="/js/mypages/mypage.js"></script>
+{{>headerfooter/footer}}
+
+<!--
+    int eno;
+    String eeducation;  // 학력 ( 고졸 , 초대졸 , 대졸 )
+    String id;          // 아이디
+    String pw;          // 비밀번호
+    String ename;       // 이름
+    String email;       // 이메일
+    String phone;       // 전화번호
+    String address;     // 주소
+    boolean sex;        // 성별 0 남성 1 여성
+    String img;         // 업로드한 이미지 이름
+    String edate;       // 입사일 ( 등록일 )
+    int pno;            // 파트 ( 업무 부서 )
+    MultipartFile mfile; // 파일 업로드
+
+
+
+-->

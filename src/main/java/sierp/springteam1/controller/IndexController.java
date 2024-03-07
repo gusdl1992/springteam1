@@ -1,12 +1,11 @@
 package sierp.springteam1.controller;
 
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sierp.springteam1.model.dao.MypageDao;
+import sierp.springteam1.model.dao.mypageDao.MypageDao;
 
 @Controller
 public class IndexController {
@@ -18,6 +17,7 @@ public class IndexController {
 
     @GetMapping("/")
     public String indexview(){
+        request.getSession().setAttribute("eno" ,1);
         return "index";
     }
 

@@ -1,10 +1,11 @@
-package sierp.springteam1.model.dao;
+package sierp.springteam1.model.dao.mypageDao;
 
 import org.springframework.stereotype.Component;
+import sierp.springteam1.model.dao.SuperDao;
 import sierp.springteam1.model.dto.EmployeeDto;
 
 @Component
-public class MypageDao extends SuperDao{
+public class MypageDao extends SuperDao {
 
 
     // 사원 정보 요청
@@ -22,7 +23,7 @@ public class MypageDao extends SuperDao{
             if (rs.next()){
                 employeeDto = new EmployeeDto(
                         rs.getInt(1),rs.getString(2),
-                        rs.getString(3),null // 비밀번호
+                        rs.getString(3), null // 비밀번호
                         , rs.getString(5), rs.getString(6),
                         rs.getString(7) , rs.getString(8),
                         rs.getBoolean(9)//성별
@@ -57,6 +58,13 @@ public class MypageDao extends SuperDao{
         }
         System.out.println("id = " + id);
         return id;
+    }
+
+    // 마이페이지 내 개인정보 수정 요청
+    public boolean doMypageUpdate( String eno){
+        System.out.println("MypageDao.doMypageUpdate");
+        System.out.println("eno = " + eno);
+        return false;
     }
 /*
     int eno;

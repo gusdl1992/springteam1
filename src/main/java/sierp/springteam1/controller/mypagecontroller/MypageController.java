@@ -4,10 +4,9 @@ package sierp.springteam1.controller.mypagecontroller;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import sierp.springteam1.model.dto.EmployeeDto;
-import sierp.springteam1.service.MypageService;
+import sierp.springteam1.service.mypageService.MypageService;
 
 @Controller
 public class MypageController {
@@ -21,11 +20,11 @@ public class MypageController {
     @GetMapping("/mypage")
     public String mypageView(){
         System.out.println("MypageController.mypageView");
-        request.getSession().setAttribute("eno" ,1);
-        return "mypage";
+//        request.getSession().setAttribute("eno" ,1);
+        return "mypages/mypage";
     }
 
-    // 마이페이지 내 정보 가져오기
+    // 사원번호로 사원 정보 가져오기.
     @GetMapping("/mypage/info")
     @ResponseBody
     public EmployeeDto doGetLoginInfo(){
@@ -37,6 +36,24 @@ public class MypageController {
         EmployeeDto employeeDto = mypageService.doGetLoginInfo(eno);
         System.out.println("employeeDto = " + employeeDto);
         return employeeDto;
+    }
+
+
+
+    // 마이페이지 수정 페이지 요청
+    @GetMapping("/mypage/updateView")
+    public String doGetUpdateView(){
+        System.out.println("MypageController.doGetUpdateView");
+        return "mypages/mypageupdate";
+    }
+
+    // 마이페이지 내 개인정보 수정 요청
+    @PutMapping("/mypage/update.do")
+    @ResponseBody
+    public boolean doMypageUpdate(@RequestParam String eno){
+        System.out.println("MypageController.doMypageUpdate");
+        System.out.println("eno = " + eno);
+        return mypageService.doMypageUpdate(eno);
     }
 
 
