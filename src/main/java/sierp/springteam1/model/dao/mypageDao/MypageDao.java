@@ -60,12 +60,68 @@ public class MypageDao extends SuperDao {
         return id;
     }
 
+    // 사원 번호로 사원 비밀번호 반환
+
+
     // 마이페이지 내 개인정보 수정 요청
-    public boolean doMypageUpdate( String eno){
+    public boolean doMypageUpdate( EmployeeDto employeeDto){
         System.out.println("MypageDao.doMypageUpdate");
-        System.out.println("eno = " + eno);
+        System.out.println("employeeDto = " + employeeDto);
+        try {
+        String sql = "update employee set email = ? , phone = ? ,address = ? where eno = ?";
+        ps = conn.prepareStatement(sql);
+        ps.setString(1,employeeDto.getEmail());
+        ps.setString(2,employeeDto.getPhone());
+        ps.setString(3,employeeDto.getAddress());
+        ps.setString(4, String.valueOf(employeeDto.getEno()));
+        int count = ps.executeUpdate();
+        if (count == 1){
+            return true;
+        }
+        }catch (Exception e){
+            System.out.println("MypageDao.doMypageUpdate : e = " + e);
+        }
         return false;
     }
+
+    // 마이페이지 비밀번호 수정 요청
+    public boolean doMypageUpdatePw(String eno, String newpw){ // pwc : 변경 패스워드
+        System.out.println("MypageDao.doMypageUpdatePw");
+        try {
+            String sql = "update employee set pw = ? where eno = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,newpw);
+            ps.setString(2,eno);
+            int count = ps.executeUpdate();
+            if (count == 1){
+                return true;
+            }
+        }catch (Exception e){
+            System.out.println("MypageDao.doMypageUpdatePw :e = " + e);
+        }
+        return false;
+    }
+
+    // 사원 번호로 패스워드 반환
+    public String passwordCheck(String eno){
+        System.out.println("MypageDao.passwordCheck");
+        System.out.println("MypageDao.passwordCheck : eno = " + eno);
+        try {
+            String sql = "select pw from employee where eno = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,eno);
+            rs = ps.executeQuery();
+            if (rs.next()){
+                System.out.println("rs.getString(1) = " + rs.getString(1));
+                return rs.getString(1);
+            }
+        }catch (Exception e){
+            System.out.println("MypageDao.passwordCheck : e = " + e);
+        }
+        
+        return null;
+    }
+
 /*
     int eno;
     String eeducation;  // 학력 ( 고졸 , 초대졸 , 대졸 )

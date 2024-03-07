@@ -29,10 +29,7 @@ public class MypageController {
     @ResponseBody
     public EmployeeDto doGetLoginInfo(){
         System.out.println("MypageController.doGetLoginInfo");
-        String eno = null;
-        Object sessionObj = request.getSession().getAttribute("eno");
-        if(sessionObj != null){ eno = String.valueOf(sessionObj); }
-        // 만약에 로그인했으면(세션에 데이터가 있으면) 강제형변환을 통해 데이터 호출 아니면 0
+        String eno = mypageService.sessionEno();
         EmployeeDto employeeDto = mypageService.doGetLoginInfo(eno);
         System.out.println("employeeDto = " + employeeDto);
         return employeeDto;
@@ -47,18 +44,37 @@ public class MypageController {
         return "mypages/mypageupdate";
     }
 
-    // 마이페이지 내 개인정보 수정 요청
+
+    // 마이페이지 내 개인정보 수정 요청 ( 이메일 , 전화번호 , 주소  )
     @PutMapping("/mypage/update.do")
     @ResponseBody
-    public boolean doMypageUpdate(@RequestParam String eno){
+    public boolean doMypageUpdate(String email , String phone , String address){
         System.out.println("MypageController.doMypageUpdate");
-        System.out.println("eno = " + eno);
-        return mypageService.doMypageUpdate(eno);
+        // 세션에서 사원번호 가져오기
+        String eno = mypageService.sessionEno();
+        // 빌더 패턴 생성자 객체화
+        EmployeeDto employeeDto = EmployeeDto.builder()
+                .eno(Integer.parseInt(eno))
+                .email(email)
+                .phone(phone)
+                .address(address)
+                .build();
+//        System.out.println("employeeDto = " + employeeDto);
+//        if (employeeDto.getEmail().trim().isEmpty()){
+//            System.out.println("빈문자 입니다.");
+//        }
+        return mypageService.doMypageUpdate(employeeDto);
     }
-
-
-
-
+    // 마이페이지 비밀번호 수정 요청
+    @PutMapping("/mypage/updatepw.do")
+    @ResponseBody
+    public boolean doMypageUpdatePw(String pw , String newpw){ // pwc : 변경 패스워드
+        System.out.println("MypageController.doMypageUpdatePw");
+        // 세션에서 사원번호 가져오기
+        String eno = mypageService.sessionEno();
+        // 사원번호 와 입력받은 값 서비스 전달
+        return mypageService.doMypageUpdatePw(eno, pw , newpw);
+    }
 }
 /*
     - 내정보 보기 ( 사원번호 , 아이디 , 이름 , 이메일 , 전화번호 , 주소 , 성별 , 자기이미지 , 입사일 , 파트 ,  )
