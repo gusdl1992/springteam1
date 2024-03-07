@@ -12,10 +12,15 @@ import java.util.Random;
 public class EmployeeSrvice {
     @Autowired
     private EmployeeDao employeeDao;
+    @Autowired
+    private FileService fileService;
+
 
     //사원등록 요청
     public boolean eSignup(EmployeeDto employeeDto){
         System.out.println("EmployeeSrvice.eSignup");
+        //증명사진 파일 처리
+        String fileName=fileService.eFileUpload(employeeDto.getMfile());
         //1. 아이디 생성 / 후보 : 1.사원번호+이름 2.사원이메일 앞부분 3.?
         //샘플
         String id= employeeDto.getEmail().split("@")[1];
