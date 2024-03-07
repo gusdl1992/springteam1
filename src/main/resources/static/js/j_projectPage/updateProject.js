@@ -33,6 +33,9 @@ function updateDetail(){
     $ajax({
          url : "/update.do",
          method : "Put",
-         data :
+         data :,
+         success : (r) => {
+            console.log(r);
+         }
     })
 }
