@@ -12,12 +12,23 @@ public class EmployeeDao extends SuperDao{
     public boolean eSignup(EmployeeDto employeeDto){
         System.out.println("EmployeeDao.eSignup");
         try {
-            String sql="insert ";
+            String sql= "insert into employee(id, pw, ename,email,  phone, img)values(?,?,?,?,?,?)";
             ps=conn.prepareStatement(sql);
+            ps.setString(1,employeeDto.getId());
+            ps.setString(2,employeeDto.getPw());
+            ps.setString(3,employeeDto.getEname());
+            ps.setString(4,employeeDto.getEmail());
+            ps.setString(5,employeeDto.getPhone());
+            //ps.set(6, employeeDto.getMfile());
+
+            System.out.println(employeeDto);
+            int count= ps.executeUpdate();
+            if(count==1){return true;}
+
         }catch (Exception e){
-            System.out.println("e = " + e);
+            System.out.println("memberDao.doPostSignup");
         }
-        return false;
+        return  false;
     }
 
     // 경력로그 등록 요청

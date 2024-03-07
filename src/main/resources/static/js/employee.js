@@ -32,7 +32,7 @@ function onSignup(){// 사원등록 함수
            data : employeeFormData,
            contentType: false,
            processData : false,
-           success : function result( result ){
+           success :  (r)=>{
                console.log(result);
                //4. 결과
                if(result){
@@ -56,10 +56,10 @@ function onSignup(){// 사원등록 함수
           data : ecareerFormData,
           contentType: false,
           processData : false,
-          success : function result( result ){
-              console.log(result);
+          success : (r)=>{
+              console.log(r);
               //4. 결과
-              if(result){
+              if(r){
                   alert('경력등록 성공');
               }else {
                   alert('경력등록 실패');
@@ -78,12 +78,11 @@ function onSignup(){// 사원등록 함수
           url : '/lsignup',
           method : 'post',
           data : licenseFormData,
-          contentType: false,
-          processData : false,
-          success : function result( result ){
-              console.log(result);
+          success :(r)=>{
+              console.log(r);
               //4. 결과
-              if(result){
+              if(r){
+              // 자격증까지 성공하면 사원 목록 페이지?
                   alert('자격증등록 성공');
                   location.href='/member/login';
               }else {
