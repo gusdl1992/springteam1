@@ -14,7 +14,7 @@ public class EmployeeDao extends SuperDao{
         System.out.println("EmployeeDao.eSignup");
         try{
             String sql= "insert into employee(id, pw, ename,email,  phone, address,sex,img,pno,eeducation)" +
-                    " values(?,?,?,?,?,?,?,?,?)";
+                    " values(?,?,?,?,?,?,?,?,?,?)";
             ps=conn.prepareStatement(sql);
             ps.setString(1,employeeDto.getId());
             ps.setString(2,employeeDto.getPw());
@@ -31,7 +31,7 @@ public class EmployeeDao extends SuperDao{
             int count= ps.executeUpdate();
             if(count==1){return true;}
         }catch (Exception e){
-            System.out.println("memberDao.doPostSignup");
+            System.out.println("e = " + e);
         }
         return  false;
     }
@@ -40,7 +40,7 @@ public class EmployeeDao extends SuperDao{
     public boolean cSignup(EmployeeCareerDto careerDto){
         System.out.println("EmployeeDao.cSignup");
         try {
-            String sql="";
+            String sql="insert into employeecareer";
         }catch (Exception e){
             System.out.println("e = " + e);
         }

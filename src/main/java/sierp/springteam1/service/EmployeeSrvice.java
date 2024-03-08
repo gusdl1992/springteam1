@@ -20,10 +20,24 @@ public class EmployeeSrvice {
     public boolean eSignup(EmployeeDto employeeDto){
         System.out.println("EmployeeSrvice.eSignup");
         //증명사진 파일 처리
-        String fileName=fileService.eFileUpload(employeeDto.getMfile());
+        String fileName="";
+        System.out.println("employeeDto.getMfile() = " + employeeDto.getMfile());
+        if(!employeeDto.getMfile().isEmpty()) {
+            fileName = fileService.eFileUpload(employeeDto.getMfile());
+            if (fileName == null) { // 업로드 성공했으면
+                return false;
+            }
+        }
+        //2. DB
+        //dto에 업로드 성공한 파일명을 대입한다
+        employeeDto.setImg(fileName);
+
+        //*이메일 테스트
+        //if(result){emailService.send();}
+
         //1. 아이디 생성 / 후보 : 1.사원번호+이름 2.사원이메일 앞부분 3.?
         //샘플
-        String id= employeeDto.getEmail().split("@")[1];
+        String id= employeeDto.getEmail().split("@")[0];
         //2. 초기 비밀번호 난수 부여
         String newPw="";
         Random random=new Random();
