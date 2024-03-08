@@ -13,7 +13,7 @@ function onWrite(){
         url: "/project/view/re.do?pjno="+pjno,
         async : false,
         success: (r) => {
-            console.rog(r)
+            console.log(r)
             check = [r[0].length,r[1].length,r[2].length]
             console.log(check)
             console.log(r)
