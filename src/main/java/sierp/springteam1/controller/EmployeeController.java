@@ -69,4 +69,11 @@ public class EmployeeController {
         System.out.println("EmployeeController.licenseList");
         return employeeSrvice.licenseList();
     }
+
+    @GetMapping("/employeeList")
+    @ResponseBody
+    public List<EmployeeDto> employeeList(){
+        System.out.println("EmployeeController.employeeList");
+        return employeeSrvice.employeeList();
+    }
 }

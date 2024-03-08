@@ -1,3 +1,4 @@
+onEmployeeAllView()
 // 전체 사원 호출하기
 function onEmployeeAllView(){
     $.ajax({ // 부서명 전체 출력
@@ -9,41 +10,42 @@ function onEmployeeAllView(){
             let k_employee = document.querySelector("#k_employee");
             html=`<table>
                               <thead>
-                              <tr>
-                                  <th>사원번호</th>
-                                  <th>이름</th>
-                                  <th>부서</th>
-                                  <th>전화번호</th>
-                                  <th>입사날짜</th>
-                              </tr>
+                                  <tr>
+                                      <th>사원번호</th>
+                                      <th>이름</th>
+                                      <th>부서</th>
+                                      <th>전화번호</th>
+                                      <th>입사날짜</th>
+                                  </tr>
                               </thead>
                               <tbody id="k_eList">
 
                               </tbody>
                           </table>`
             k_employee.innerHTML = html;
-            let k_employeeList = document.querySelector("#k_eList");
-            html='';
-            r.forEach( employee => {
-                 html+=`<tr>
-                              <th>${employee.eno}</th>
-                              <th>${employee.ename}</th>
-                              <th>${employee.eno}</th>// 부서 번호로 이름 받아오기
-                              <th>${employee.phone}</th>
-                              <th>${employee.edate}</th>
-                          </tr>`;
+            $.ajax({
+                url:`/employeeList`,
+                method:`get`,
+                success: (re)=>{
+                    let k_eList = document.querySelector("#k_eList");
+                        html='';
+                        re.forEach( employee => {
+                             html+=`<tr>
+                                          <th>${employee.eno}</th>
+                                          <th>${employee.ename}</th>
+                                          <th>${employee.eno}</th>
+                                          <th>${employee.phone}</th>
+                                          <th>${employee.edate}</th>
+                                      </tr>`;
+                        });
+                         k_eList.innerHTML = html;
+
+                    }
             });
-             pnoCategory.innerHTML = html;
+
          }
     });
 }
-
-
-
-
-
-
-
 
 
 

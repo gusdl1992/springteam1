@@ -85,6 +85,11 @@ public class EmployeeSrvice {
     public List<LicenseDto> licenseList(){
         return employeeDao.licenseList();
     }
+
+    public List<EmployeeDto> employeeList(){
+        System.out.println("EmployeeController.employeeList");
+        return employeeDao.employeeList();
+    }
 }
 
 
