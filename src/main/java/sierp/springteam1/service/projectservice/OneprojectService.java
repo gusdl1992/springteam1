@@ -39,4 +39,12 @@ public class OneprojectService {
     public ArrayList<Integer> findlog( int pjno){
         return oneprojectDao.findlog(pjno);
     }
+
+    public int findscore(int eno){
+        return oneprojectDao.findscore(eno);
+    }
+    public ArrayList<EmployeeDto>[] updatememberlist(int pjno){
+        String start_date = oneprojectDao.oneProject(pjno).getStart_date();
+        return oneprojectDao.updatememberlist(start_date);
+    }
 }

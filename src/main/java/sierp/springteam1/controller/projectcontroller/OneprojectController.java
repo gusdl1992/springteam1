@@ -23,13 +23,26 @@ public class OneprojectController {
     @Autowired
     OneprojectService oneprojectService;
 
+    //세부게시물 페이지 출력
     @GetMapping("/view")
     public String oneProjectview(int pjno){
         return "project/oneproject";
     }
+    //게시물의 인원 배정페이지 출력
     @GetMapping("/view/rec")
     public String oneProjectd(int pjno){
         return "project/recproject";
+    }
+
+    @GetMapping("/view/re")
+    public String updateProjectd(int pjno){
+        return "project/upemp";
+    }
+    @GetMapping("/view/rec.check")
+    @ResponseBody
+    public int findscore(int eno){
+
+        return oneprojectService.findscore(eno);
     }
 
     @GetMapping("/view.do")
@@ -39,10 +52,15 @@ public class OneprojectController {
         System.out.println(pjno);
         return oneprojectService.oneProject(pjno);
     }
-
+    @GetMapping("/view/re.do")
+    @ResponseBody
+    public ArrayList<EmployeeDto>[] updatememberlist(int pjno){
+        System.out.println("\"ddddd\" = " + "ddddd");
+        return oneprojectService.updatememberlist(pjno);
+    }
     @GetMapping("/view/rec.do")
     @ResponseBody
-    public ArrayList<EmployeeDto>[] memberlist(@RequestParam int pjno){
+    public  List<EmployeeDto>[] memberlist(@RequestParam int pjno){
         System.out.println("안뇽안뇽");
         System.out.println(pjno);
         return oneprojectService.memberlist(pjno);

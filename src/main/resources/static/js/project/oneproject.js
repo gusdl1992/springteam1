@@ -30,7 +30,8 @@ function onView(){
             document.querySelector(".compannyname").innerHTML = "첨부파일 : "+r.compannyname
             document.querySelector(".state").innerHTML = "첨부파일 : "+r.state
             document.querySelector(".price").innerHTML = "첨부파일 : "+r.price
-            document.querySelector(".buttons").innerHTML = `<button type="button" onclick=location.href="/project/view/rec?pjno=${pjno}">프로젝트 인원 등록</button>`
+            document.querySelector(".buttons").innerHTML = `<button type="button" onclick=location.href="/project/view/rec?pjno=${pjno}">프로젝트 인원 등록</button>
+             <button type="button" onclick=location.href="/project/view/re?pjno=${pjno}">프로젝트 인원 수정</button>`
         }
     })
 

@@ -44,7 +44,7 @@ public class OneprojectDao extends SuperDao {
             System.out.println("e = " + e);
         }
 
-
+        
         return projectDto;
     }
     public ArrayList<EmployeeDto>[] memberlist(String start_date){
@@ -95,10 +95,87 @@ public class OneprojectDao extends SuperDao {
            return result;
         }
         catch (Exception e){
-
+            System.out.println("e = " + e);
         }
 
         return result;
+    }
+    public ArrayList<EmployeeDto>[] updatememberlist(String start_date){
+        ArrayList<EmployeeDto>[] result = new ArrayList[3];
+        System.out.println("\"\" = " + "안녕안녕");
+        for (int i = 0; i < result.length; i++) {
+            result[i] = new ArrayList<>();
+        }
+        try {
+            String sql = " select a.eno, (sum(coalesce(datediff(b.end_date,b.start_date),0))+datediff(now(),a.edate)) as alltime\n" +
+                    "from employee as a left outer join  employeecareer as b on a.eno = b.eno\n" +
+                    "where a.eno in(\n" +
+                    "\t\tselect d.eno\n" +
+                    "\t\tfrom \n" +
+                    "\t\t(select b.pjno , end_date, a.eno  from project b \n" +
+                    "\t\tright outer join projectlog a\n" +
+                    "\t\t on a.pjno = b.pjno) as c \n" +
+                    "\t\tright outer join\n" +
+                    "\t\t employee d \n" +
+                    "\t\t on c.eno = d.eno\n" +
+                    "\t\t group by d.eno\n" +
+                    "\t\t having ( coalesce(datediff(?,max(end_date)),1) > 0)\n" +
+                    ")\n" +
+                    "or a.eno in(\n" +
+                    "\tselect eno from projectlog where pjno = 1\n" +
+                    ")\n" +
+                    "group by a.eno;";
+            ps=conn.prepareStatement(sql);
+            ps.setString(1,start_date);
+            rs= ps.executeQuery();
+            while (rs.next()){
+                EmployeeDto employeeDto = EmployeeDto.builder()
+                        .eno(rs.getInt("eno"))
+                        .build();
+
+                int allday = rs.getInt("alltime");
+
+                System.out.println(allday);
+
+                if(allday < 1459 ){
+                    result[0].add(employeeDto);
+                }
+                else if (allday > 3650) {
+                    result[2].add(employeeDto);
+                }
+                else {
+                    result[1].add(employeeDto);
+                }
+
+            }
+            return result;
+        }
+        catch (Exception e){
+            System.out.println("e = " + e);
+        }
+
+        return result;
+    }
+    public int findscore(int eno){
+        try {
+            String sql = "select a.평가점수 as score\n" +
+                    "from (select e.* , sum(coalesce(score,0)) as 평가점수  \n" +
+                    "\tfrom employee as e left outer join projectlog p on e.eno = p.eno\n" +
+                    "    group by e.eno\n" +
+                    " )as a left outer join  employeecareer as b on a.eno = b.eno " +
+                    " where a.eno = ?;";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,eno);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                System.out.println("rs.getInt(1) = " + rs.getInt(1));
+                return rs.getInt(1);
+            }
+        }
+        catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return -1;
     }
     public boolean createprojectlog(ProjectlogDto projectlogDto){
         try {

@@ -1,18 +1,19 @@
-
 let pjno = new URL(location.href).searchParams.get("pjno")
 let check = [];
 let score = {};
-
+console.log("안녕")
 onWrite();
+
 function onWrite(){
     console.log(pjno)
     let html = "사용 가능한 초급 인원 : <br/>";
 
     $.ajax({
         type: "get",
-        url: "/project/view/rec.do?pjno="+pjno,
+        url: "/project/view/re.do?pjno="+pjno,
         async : false,
         success: (r) => {
+            console.rog(r)
             check = [r[0].length,r[1].length,r[2].length]
             console.log(check)
             console.log(r)
