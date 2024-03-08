@@ -2,8 +2,9 @@
 
 // 1. 로그인 여부 확인 요청 [ JS 열릴때마다 체크 ]
 $.ajax({
-    url : 'employee/login/check' ,
+    url : '/employee/login/check' ,
     method : 'get' ,
+    async : false,
     success : (r)=>{
         console.log(r);
         // 1. 어디에
@@ -12,7 +13,7 @@ $.ajax({
         let html = '';
         if(r != ''){ // 로그인 했을떄
         $.ajax({
-            url : 'employee/login/checkname' ,
+            url : '/employee/login/checkname' ,
             method : 'get' ,
             data:{eno : r},
             async : false ,

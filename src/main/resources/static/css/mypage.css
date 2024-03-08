@@ -1,9 +1,21 @@
 
 /* 마이페이지 CSS  */
 
-#pcontainer{
+#p_container{
     margin: 0 auto;
     width: 960px;
     height: 550px;
+    border: 1px solid rebeccapurple;
+    display: flex;
+}
+#p_mypageSideWrap{
+    width: 170px;
+    height: 550px;
+    border: 1px solid rebeccapurple;
+}
+#p_mypageSide{
+    margin: 50px auto;
+    padding: 0;
+    width: 130px;
     border: 1px solid rebeccapurple;
 }
