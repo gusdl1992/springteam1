@@ -1,20 +1,39 @@
-{{>headerfooter/header}}
-<link href="/css/projectPage.css" rel="stylesheet">
-<!--프로젝트 전체 wrap-->
-<div id="j_projectWrap">
-    <!--사이드바-->
-    <div id="j_projectSideWrap">
-        <ul id="j_pjMainSide">
-            <li>프로젝트 보기</li>
-            <li>프로젝트 등록</li>
-            <li>프로젝트 성과 관리</li>
-        </ul>
-    </div>
+{{>j_projectPage/projectTop}}
+<!--검색-->
+<!--검색기준-->
+<select>
+    <option>프로젝트명</option>
+    <option>회사명</option>
+    <option>규모</option>
+    <option>필요인원</option>
+    <option>상태</option>
+    <option>시작일</option>
+    <option>종료일</option>
+</select>
 
-    <!--================ main 구역 =================-->
-    <div id="projectMainView">
+<input type="text" />
+<button type="button">검색</button>
 
-    </div>
-</div>
-<script src="/js/j_projectPage/j_projectPage.js"></script>
-{{>headerfooter/footer}}
+<!--프로젝트 전체 출력-->
+<table>
+    <thead>
+        <tr>
+            <th>no.</th>
+            <th>프로젝트명</th>
+            <th>회사명</th>
+            <th>규모</th>
+            <th>필요인원</th>
+            <th>상태</th>
+            <th>시작일</th>
+            <th>종료일</th>
+        </tr>
+    </thead>
+
+    <tbody id="projectList">
+
+    </tbody>
+</table>
+<script src="/js/j_projectPage/projectPage.js"></script>
+{{>j_projectPage/projectBottom}}
+
+
