@@ -121,9 +121,9 @@ insert into price(startyear,endyear,pprice) values(11,15,10000);
 insert into part values(1,"인사과");
 insert into part values(2,"영업");
 insert into part value(3,"프로그래머");
-insert into employee(id,ename,pw,email,phone,address,pno,sex) values("admina","admina","admina","aaa@aa.aa","phonea","adressa",1,0);
-insert into employee(id,ename,pw,email,phone,address,pno,sex) values("adminb","adminb","adminb","bbb@bb.bb","phoneb","adressb",1,1);
-insert into employee(id,ename,pw,email,phone,address,pno,sex) values("adminc","adminc","adminc","ccc@cc.cc","phonec","adressc",1,0);
+insert into employee(id,eeducation,ename,pw,email,phone,address,pno,sex) values("admina","고졸","admina","admina","aaa@aa.aa","phonea","adressa",1,0);
+insert into employee(id,eeducation,ename,pw,email,phone,address,pno,sex) values("adminb","초대졸","adminb","adminb","bbb@bb.bb","phoneb","adressb",1,1);
+insert into employee(id,eeducation,ename,pw,email,phone,address,pno,sex) values("adminc","대졸","adminc","adminc","ccc@cc.cc","phonec","adressc",1,0);
 
 insert into employee(id,ename,pw,email,phone,address,pno,sex) values("salesa","salesa","salesa","ddd@dd.dd","phoned","adressd",2,0);
 insert into employee(id,ename,pw,email,phone,address,pno,sex) values("salesb","salesb","salesb","eee@ee.ee","phonee","adresse",2,1);

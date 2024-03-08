@@ -9,6 +9,7 @@ import sierp.springteam1.model.dto.EmployeeDto;
 import sierp.springteam1.service.mypageService.MypageService;
 
 @Controller
+@RequestMapping("/mypage")
 public class MypageController {
 
     @Autowired
@@ -17,15 +18,14 @@ public class MypageController {
     private HttpServletRequest request;
 
     // 마이페이지 페이지 요청
-    @GetMapping("/mypage")
+    @GetMapping("")
     public String mypageView(){
         System.out.println("MypageController.mypageView");
-//        request.getSession().setAttribute("eno" ,1);
-        return "mypages/mypage";
+        return "/mypages/mypage";
     }
 
     // 사원번호로 사원 정보 가져오기.
-    @GetMapping("/mypage/info")
+    @GetMapping("/info")
     @ResponseBody
     public EmployeeDto doGetLoginInfo(){
         System.out.println("MypageController.doGetLoginInfo");
@@ -38,15 +38,15 @@ public class MypageController {
 
 
     // 마이페이지 수정 페이지 요청
-    @GetMapping("/mypage/updateView")
+    @GetMapping("/updateView")
     public String doGetUpdateView(){
         System.out.println("MypageController.doGetUpdateView");
-        return "mypages/mypageupdate";
+        return "/mypages/mypageupdate";
     }
 
 
     // 마이페이지 내 개인정보 수정 요청 ( 이메일 , 전화번호 , 주소  )
-    @PutMapping("/mypage/update.do")
+    @PutMapping("/update.do")
     @ResponseBody
     public boolean doMypageUpdate(String email , String phone , String address){
         System.out.println("MypageController.doMypageUpdate");
@@ -66,7 +66,7 @@ public class MypageController {
         return mypageService.doMypageUpdate(employeeDto);
     }
     // 마이페이지 비밀번호 수정 요청
-    @PutMapping("/mypage/updatepw.do")
+    @PutMapping("/updatepw.do")
     @ResponseBody
     public boolean doMypageUpdatePw(String pw , String newpw){ // pwc : 변경 패스워드
         System.out.println("MypageController.doMypageUpdatePw");
