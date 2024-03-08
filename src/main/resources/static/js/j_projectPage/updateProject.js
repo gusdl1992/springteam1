@@ -27,15 +27,23 @@ function inputData(){
     })//ajax end
 }//f end
 
-//프로젝트 정보 수정
+//확인 클릭 시 프로젝트 정보 수정
 function updateDetail(){
-    let
-    $ajax({
+    console.log("js-updateDetail()");
+    let projectData=document.querySelector(".projectData");
+    let projectArray=new FormData(projectData);
+    $.ajax({
          url : "/update.do",
          method : "Put",
-         data :,
+         data :projectArray,
          success : (r) => {
-            console.log(r);
-         }
-    })
-}
+            console.log("updateDetail-r"+r);
+         }//success end
+    })//ajax end
+}//f end
+
+//취소 클릭 시 세부리스트페이지로 이동
+function backDetailpage(){
+console.log("backDetailpage()");
+    location.href= `/projectPage/detail?pjno=${pjno}`;
+}//f end

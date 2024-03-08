@@ -27,5 +27,5 @@ function printProjectDetail(){
 }//f end
 
 function changeToUpdate(){
-location.href= `/projectPage/update?pjno=${pjno}`   ;
+location.href= `/projectPage/update?pjno=${pjno}`;
 }//f end

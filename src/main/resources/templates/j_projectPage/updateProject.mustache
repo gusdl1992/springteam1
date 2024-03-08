@@ -1,5 +1,5 @@
 {{>j_projectPage/projectTop}}
-<form>
+<form class="projectData">
     <div>pjno : <input class="update_pjno" name="pjno" /> </div>
     <div>start_date : <input class="update_start_date" name="start_date" /> </div>
     <div>end_date : <input class="update_end_date" name="end_date" /> </div>
@@ -14,8 +14,8 @@
     <div>price : <input class="update_price" name="price" /> </div>
 </form>
 
-<button type="button">확인</button>
-<button type="button">취소</button>
+<button type="button" onclick="updateDetail()">확인</button>
+<button type="button" onclick="backDetailpage()">취소</button>
 
 
 <script src="/js/j_projectPage/updateProject.js"></script>
