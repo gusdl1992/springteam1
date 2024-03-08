@@ -3,6 +3,7 @@ package sierp.springteam1.service.j_projectPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sierp.springteam1.model.dao.j_projectPageDao.J_projectPageDao;
@@ -38,4 +39,12 @@ public class J_projectPageService {
     }//m end
 
     //프로젝트 내역 삭제
+
+    //프로젝트 등록
+    public int insertProject(ProjectDto projectDto){
+        System.out.println("J_projectPageService.insertProject");
+        System.out.println("projectDto = " + projectDto);
+
+        return j_projectPageDao.insertProject(projectDto);
+    }//m end
 }//c end

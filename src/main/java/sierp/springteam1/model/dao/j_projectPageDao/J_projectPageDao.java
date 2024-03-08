@@ -9,12 +9,12 @@ import java.util.List;
 
 @Component
 public class J_projectPageDao extends SuperDao {
-    //프로젝트 전체 리스트 출력
+    //프로젝트 전체(진행전) 리스트 출력
     public List<ProjectDto> printProjectList(){
         System.out.println("J_projectPageDao.printProjectList");
         List<ProjectDto> projectDtos=new ArrayList<>();
         try{
-            String sql="select * from project;";
+            String sql="select * from project ;";
             ps=conn.prepareStatement(sql);
             rs=ps.executeQuery();
             while(rs.next()){
@@ -116,5 +116,39 @@ public class J_projectPageDao extends SuperDao {
     }//m end
 
     //프로젝트 내역 삭제
+
+    //프로젝트 등록
+    public int insertProject(ProjectDto projectDto){
+        System.out.println("J_projectPageDao.insertProject");
+        System.out.println("projectDto = " + projectDto);
+        try{
+            String[] key={"pjno"};
+            String sql="insert into project(start_date, end_date, rank1_count, rank2_count, rank3_count, title, request, note, compannyname, state, price) " +
+                    "values(?,?,?,?,?,?,?,?,?,?,?)";
+            ps=conn.prepareStatement(sql, key);
+            ps.setString(1,projectDto.getStart_date());
+            ps.setString(2,projectDto.getEnd_date());
+            ps.setInt(3,projectDto.getRank1_count());
+            ps.setInt(4,projectDto.getRank2_count());
+            ps.setInt(5,projectDto.getRank3_count());
+            ps.setString(6,projectDto.getTitle());
+            ps.setString(7,projectDto.getRequest());
+            ps.setString(8,projectDto.getNote());
+            ps.setString(9,projectDto.getCompannyname());
+            ps.setInt(10,projectDto.getState());
+            ps.setString(11,projectDto.getPrice());
+
+            ps.executeUpdate();
+            rs=ps.getGeneratedKeys();
+
+            if(rs.next()){
+                return rs.getInt(1);
+            }//if end
+        }//try end
+        catch (Exception e ){
+            System.out.println("e = " + e);
+        }
+        return 0;
+    }//m end
 
 }//c end
