@@ -24,7 +24,7 @@ public class J_projectPageService {
 
     //프로젝트 세부 리스트 출력
     public ProjectDto getProjectDetail(int pjno){
-        System.out.println("J_ProjectPageController.printProjectDetail");
+        System.out.println("J_projectPageService.getProjectDetail");
 
         return j_projectPageDao.getProjectDetail(pjno);
     }//m end

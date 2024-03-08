@@ -33,11 +33,20 @@ function updateDetail(){
     let projectData=document.querySelector(".projectData");
     let projectArray=new FormData(projectData);
     $.ajax({
-         url : "/update.do",
+         url : "/projectPage/update.do",
          method : "Put",
          data :projectArray,
+        contentType : false,
+        processData : false,
          success : (r) => {
-            console.log("updateDetail-r"+r);
+            console.log("updateDetail-r="+r);
+            if(r){
+                alert("수정 성공");
+                location.href=`/projectPage/detail?pjno=${pjno}`;
+            }
+            else{
+                alert("수정 실패");
+            }
          }//success end
     })//ajax end
 }//f end

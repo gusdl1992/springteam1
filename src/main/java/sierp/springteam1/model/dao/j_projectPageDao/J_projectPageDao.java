@@ -43,7 +43,7 @@ public class J_projectPageDao extends SuperDao {
 
     //프로젝트 세부 리스트 출력
     public ProjectDto getProjectDetail(int pjno){
-        System.out.println("J_ProjectPageController.printProjectDetail");
+        System.out.println("J_projectPageDao.getProjectDetail");
         try{
             String sql="select * from project where pjno=?;";
             ps=conn.prepareStatement(sql);
@@ -85,6 +85,7 @@ public class J_projectPageDao extends SuperDao {
                     "\trank3_count=? ,\n" +
                     "\ttitle=? ,\n" +
                     "\trequest=? ,\n" +
+                    "\tnote=? ,\n" +
                     "\tcompannyname=? ,\n" +
                     "\tprice=?\n" +
                     "where pjno=?;";
@@ -96,9 +97,10 @@ public class J_projectPageDao extends SuperDao {
             ps.setInt(5,projectDto.getRank3_count());
             ps.setString(6,projectDto.getTitle());
             ps.setString(7,projectDto.getRequest());
-            ps.setString(8,projectDto.getCompannyname());
-            ps.setString(9,projectDto.getPrice());
-            ps.setInt(10,projectDto.getPjno());
+            ps.setString(8,projectDto.getNote());
+            ps.setString(9,projectDto.getCompannyname());
+            ps.setString(10,projectDto.getPrice());
+            ps.setInt(11,projectDto.getPjno());
 
             int count= ps.executeUpdate();
             System.out.println("count = " + count);
