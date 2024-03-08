@@ -1,3 +1,54 @@
+// 전체 사원 호출하기
+function onEmployeeAllView(){
+    $.ajax({ // 부서명 전체 출력
+        url: `/employee`,
+        method: `get`,
+        success: (r)=>{
+        console.log(r)
+            let html='';
+            let k_employee = document.querySelector("#k_employee");
+            html=`<table>
+                              <thead>
+                              <tr>
+                                  <th>사원번호</th>
+                                  <th>이름</th>
+                                  <th>부서</th>
+                                  <th>전화번호</th>
+                                  <th>입사날짜</th>
+                              </tr>
+                              </thead>
+                              <tbody id="k_eList">
+
+                              </tbody>
+                          </table>`
+            k_employee.innerHTML = html;
+            let k_employeeList = document.querySelector("#k_eList");
+            html='';
+            r.forEach( employee => {
+                 html+=`<tr>
+                              <th>${employee.eno}</th>
+                              <th>${employee.ename}</th>
+                              <th>${employee.eno}</th>// 부서 번호로 이름 받아오기
+                              <th>${employee.phone}</th>
+                              <th>${employee.edate}</th>
+                          </tr>`;
+            });
+             pnoCategory.innerHTML = html;
+         }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+//============================
 onSelectPrint()
 //부서명 출력
 function onSelectPrint(){// 부서명/자격증명 받아오는 함수
@@ -51,12 +102,31 @@ function onSignup(){// 사원등록 함수
                console.log(r);
                //4. 결과
                if(r){
-                   alert('사원정보 성공');
+                   alert('사원정보 등록');
+                   location.href='/employee/employeeView'+r;
                }else {
                    alert('사원정보 실패');
                }
            }
    });//ajax 끝
+
+}
+// 경력 입력칸 추가 함수
+function onPlusCareer(){
+console.log('onPlusCareer()')
+    let ecareer = document.querySelector('.ecareer');
+    let html='';
+        html+=`<tr>
+                        <td><input type="text" class="companyname" name="companyname"></td>
+                        <td><input onchange="" class="start_date" name="start_date"type="date"></td>
+                        <td><input onchange=" " class="end_date" name="end_date" type="date"></td>
+                        <td><input type="text" class="note" name="note"></td>
+                        <td><button onclick="onPlusCareer()">추가</button></td>
+                        <td><button onclick="">삭제</button></td>
+                    </tr>`
+    ecareer.innerHTML += html;
+}
+// 나중에 버튼으로 넣을 예정
 /*
    //=============== 경력 form=============================
    let ecareerForm = document.querySelector('.ecareerForm');
@@ -81,7 +151,7 @@ function onSignup(){// 사원등록 함수
               }
           }
   });//ajax 끝
-
+/*
    //=================자격증 form==============================
    let licenseForm = document.querySelector('.licenseForm');
        console.log(licenseForm)
@@ -105,4 +175,3 @@ function onSignup(){// 사원등록 함수
               }
           }
   })//ajax 끝*/
-}

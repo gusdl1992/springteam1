@@ -40,11 +40,16 @@ public class EmployeeController {
     }
 
     //================= 페이지 요청
+    // 인사관리 페이지 요청
+    @GetMapping("/employee")
+    public String employeeView(){
+        return "/employee/employeeView";
+    }
     //사원등록 페이지 요청
     @GetMapping("/signup")
     public String viewSignup(){
         System.out.println("EmployeeController.viewSignup");
-        return "/signup";
+        return "/employee/signup";
     }
 
     //=========== 출력
