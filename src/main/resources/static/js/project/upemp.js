@@ -13,54 +13,38 @@ function onWrite(){
         url: "/project/view/re.do?pjno="+pjno,
         async : false,
         success: (r) => {
-            console.log(r)
             check = [r[0].length,r[1].length,r[2].length]
             console.log(check)
             console.log(r)
             for(let j=0; j < r[0].length; j++){
-                html += `<input type ="checkbox" onclick='getCheckboxValue()' value ="${r[0][j].eno}">${r[0][j].eno}번 </input>`
-                let eno = r[0][j].eno+"";
-                $.ajax({
-                        type: "get",
-                        url: "/project/view/rec.check?eno="+r[0][j].eno,
-                        async:false,
-                        success : (a) =>{
-                            console.log(j)
-                            console.log(a)
-                            score[`${r[0][j].eno}`] = a;
-
-                        }
-                })
+                html += `<div> <input type ="checkbox" onclick='getCheckboxValue()' value ="${r[0][j].employeeDto.eno}">
+                <span>${r[0][j].employeeDto.eno}번</span>
+                <span>이름 : ${r[0][j].employeeDto.ename}번</span>
+                <span>사진 : ${r[0][j].employeeDto.img}번</span>
+                <span>고과점수 : ${r[0][j].score}</span>
+                </input> </div>`
             }
 
             document.querySelector(".s_check1").innerHTML = html;
             html = "사용 가능한 중급 인원 : <br/>";
             for(let j=0; j < r[1].length; j++){
-                html += `<input type ="checkbox" onclick='getCheckboxValue()' value ="${r[1][j].eno}">${r[1][j].eno}번 </input>`
-                                $.ajax({
-                                        type: "get",
-                                        url: "/project/view/rec.check?eno="+r[1][j].eno,
-                                        async:false,
-                                        success : (a) =>{
-                                            console.log(a)
-                                            score[`${r[1][j].eno}`] = a;
-                                        }
-                                })
+                html += `<div> <input type ="checkbox" onclick='getCheckboxValue()' value ="${r[1][j].employeeDto.eno}">
+                <span>${r[1][j].employeeDto.eno}번</span>
+                <span>이름 : ${r[1][j].employeeDto.ename}</span>
+                <span>사진 : ${r[1][j].employeeDto.img} </span>
+                <span>고과점수 : ${r[1][j].score}</span>
+                </input> </div>`
             }
             document.querySelector(".s_check2").innerHTML = html;
 
             html = "사용 가능한 고급 인원 :<br/>";
             for(let j=0; j < r[2].length; j++){
-                html += `<input type ="checkbox" onclick='getCheckboxValue()' value ="${r[2][j].eno}">${r[2][j].eno}번 </input>`
-                                $.ajax({
-                                        type: "get",
-                                        url: "/project/view/rec.check?eno="+r[2][j].eno,
-                                        async:false,
-                                        success : (a) =>{
-                                            console.log(a)
-                                            score[`${r[2][j].eno}`] = a;
-                                        }
-                                })
+                html += `<div> <input type ="checkbox" onclick='getCheckboxValue()' value ="${r[0][2].employeeDto.eno}">
+                <span>${r[2][j].employeeDto.eno}번</span>
+                <span>이름 : ${r[2][j].employeeDto.ename}</span>
+                <span>사진 : ${r[2][j].employeeDto.img} </span>
+                <span>고과점수 : ${r[2][j].score}</span>
+                </input> </div>`
             }
             document.querySelector(".s_check3").innerHTML = html;
             console.log(score);
@@ -83,7 +67,7 @@ function s_doPost(){
         type: 'post',
         contentType: 'application/json',
         data: JSON.stringify(data), // 수정된 부분
-        url: '/project/view/assign',
+        url: '/project/view/reassign',
         success: function(data) {
             alert(data);
         },

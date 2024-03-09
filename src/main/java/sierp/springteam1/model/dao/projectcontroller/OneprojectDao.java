@@ -7,6 +7,7 @@ import sierp.springteam1.model.dao.SuperDao;
 import sierp.springteam1.model.dto.EmployeeDto;
 import sierp.springteam1.model.dto.ProjectDto;
 import sierp.springteam1.model.dto.ProjectlogDto;
+import sierp.springteam1.model.dto.PsendEmployeeDto;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,18 +48,21 @@ public class OneprojectDao extends SuperDao {
         
         return projectDto;
     }
-    public ArrayList<EmployeeDto>[] memberlist(String start_date){
-        ArrayList<EmployeeDto>[] result = new ArrayList[3];
+    public ArrayList<PsendEmployeeDto>[] memberlist(String start_date){
+        ArrayList<PsendEmployeeDto>[] result = new ArrayList[3];
         for (int i = 0; i < result.length; i++) {
             result[i] = new ArrayList<>();
         }
         try {
-           String sql = "select a.eno, (sum(coalesce(datediff(b.end_date,b.start_date),0))+datediff(now(),a.edate)) as alltime\n" +
-                   "from employee as a left outer join  employeecareer as b on a.eno = b.eno\n" +
+           String sql = "select a.ename as ename , a.img as img, a.eno as eno, a.평가점수 as score, (sum(coalesce(datediff(b.end_date,b.start_date),0))+datediff(now(),a.edate)) as alltime \n" +
+                   "from (select e.* , sum(coalesce(score,0)) as 평가점수  \n" +
+                   "\tfrom employee as e left outer join projectlog p on e.eno = p.eno\n" +
+                   "    group by e.eno\n" +
+                   " )as a left outer join  employeecareer as b on a.eno = b.eno \n" +
                    "where a.eno in(\n" +
                    "\t\tselect d.eno\n" +
                    "\t\tfrom \n" +
-                   "\t\t(select b.pjno , end_date, a.eno  from project b \n" +
+                   "\t\t(select b.pjno , end_date, a.eno  from project b  \n" +
                    "\t\tright outer join projectlog a\n" +
                    "\t\t on a.pjno = b.pjno) as c \n" +
                    "\t\tright outer join\n" +
@@ -67,21 +71,27 @@ public class OneprojectDao extends SuperDao {
                    "\t\t group by d.eno\n" +
                    "\t\t having ( coalesce(datediff(?,max(end_date)),1) > 0)\n" +
                    ")\n" +
-                   "group by a.eno";
+                   "group by a.eno;";
 
            ps=conn.prepareStatement(sql);
            ps.setString(1,start_date);
            rs= ps.executeQuery();
            while (rs.next()){
-               EmployeeDto employeeDto = EmployeeDto.builder()
-                       .eno(rs.getInt("eno"))
+               int score = rs.getInt("score");
+               PsendEmployeeDto employeeDto = PsendEmployeeDto.builder()
+                       .employeeDto(EmployeeDto.builder()
+                               .eno(rs.getInt("eno"))
+                               .ename(rs.getString("ename"))
+                               .img(rs.getString("img"))
+                               .build())
+                       .score(score)
                        .build();
 
                int allday = rs.getInt("alltime");
-
                System.out.println(allday);
 
                if(allday < 1459 ){
+
                    result[0].add(employeeDto);
                }
                else if (allday > 3650) {
@@ -100,19 +110,22 @@ public class OneprojectDao extends SuperDao {
 
         return result;
     }
-    public ArrayList<EmployeeDto>[] updatememberlist(String start_date){
-        ArrayList<EmployeeDto>[] result = new ArrayList[3];
-        System.out.println("\"\" = " + "안녕안녕");
+
+    public ArrayList<PsendEmployeeDto>[] updatememberlist(int pjno, String start_date){
+        ArrayList<PsendEmployeeDto>[] result = new ArrayList[3];
         for (int i = 0; i < result.length; i++) {
             result[i] = new ArrayList<>();
         }
         try {
-            String sql = " select a.eno, (sum(coalesce(datediff(b.end_date,b.start_date),0))+datediff(now(),a.edate)) as alltime\n" +
-                    "from employee as a left outer join  employeecareer as b on a.eno = b.eno\n" +
+            String sql = "select a.ename as ename , a.img as img, a.eno as eno, a.평가점수 as score, (sum(coalesce(datediff(b.end_date,b.start_date),0))+datediff(now(),a.edate)) as alltime \n" +
+                    "from (select e.* , sum(coalesce(score,0)) as 평가점수  \n" +
+                    "\tfrom employee as e left outer join projectlog p on e.eno = p.eno\n" +
+                    "    group by e.eno\n" +
+                    " )as a left outer join  employeecareer as b on a.eno = b.eno \n" +
                     "where a.eno in(\n" +
                     "\t\tselect d.eno\n" +
                     "\t\tfrom \n" +
-                    "\t\t(select b.pjno , end_date, a.eno  from project b \n" +
+                    "\t\t(select b.pjno , end_date, a.eno  from project b  \n" +
                     "\t\tright outer join projectlog a\n" +
                     "\t\t on a.pjno = b.pjno) as c \n" +
                     "\t\tright outer join\n" +
@@ -122,22 +135,29 @@ public class OneprojectDao extends SuperDao {
                     "\t\t having ( coalesce(datediff(?,max(end_date)),1) > 0)\n" +
                     ")\n" +
                     "or a.eno in(\n" +
-                    "\tselect eno from projectlog where pjno = 1\n" +
+                    "\tselect eno from projectlog where pjno = ?\n" +
                     ")\n" +
                     "group by a.eno;";
+
             ps=conn.prepareStatement(sql);
             ps.setString(1,start_date);
+            ps.setInt(2,pjno);
             rs= ps.executeQuery();
             while (rs.next()){
-                EmployeeDto employeeDto = EmployeeDto.builder()
-                        .eno(rs.getInt("eno"))
+                int score = rs.getInt("score");
+                PsendEmployeeDto employeeDto = PsendEmployeeDto.builder()
+                        .employeeDto(EmployeeDto.builder()
+                                .eno(rs.getInt("eno"))
+                                .ename(rs.getString("ename"))
+                                .img(rs.getString("img"))
+                                .build())
+                        .score(score)
                         .build();
 
                 int allday = rs.getInt("alltime");
 
-                System.out.println(allday);
-
                 if(allday < 1459 ){
+
                     result[0].add(employeeDto);
                 }
                 else if (allday > 3650) {
@@ -168,7 +188,6 @@ public class OneprojectDao extends SuperDao {
             ps.setInt(1,eno);
             rs = ps.executeQuery();
             if(rs.next()){
-                System.out.println("rs.getInt(1) = " + rs.getInt(1));
                 return rs.getInt(1);
             }
         }
@@ -196,8 +215,20 @@ public class OneprojectDao extends SuperDao {
         }
         return true;
     }
+    public boolean deleteprojectlog(ProjectlogDto projectlogDto){
+        try {
+            String sql = "delete from projectlog where pjno = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,projectlogDto.getPjno());
+            ps.executeUpdate();
+        }
+        catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return true;
+    }
 
-    public ArrayList<Integer> findlog( int pjno){
+    public ArrayList<Integer> findlog( int pjno){ //이거 고쳐서 eno와 경력이 같이 나가게 하기
         ArrayList<Integer> result = new ArrayList<>();
         try {
             String sql = "select eno from projectlog where pjno = ?";

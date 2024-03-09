@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import sierp.springteam1.model.dto.EmployeeDto;
 import sierp.springteam1.model.dto.ProjectDto;
 import sierp.springteam1.model.dto.ProjectlogDto;
+import sierp.springteam1.model.dto.PsendEmployeeDto;
 import sierp.springteam1.service.projectservice.OneprojectService;
 
 import java.util.ArrayList;
@@ -38,31 +39,30 @@ public class OneprojectController {
     public String updateProjectd(int pjno){
         return "project/upemp";
     }
-    @GetMapping("/view/rec.check")
-    @ResponseBody
-    public int findscore(int eno){
 
-        return oneprojectService.findscore(eno);
-    }
+
+//    @GetMapping("/view/rec.check")
+//    @ResponseBody
+//    public int findscore(int eno){
+//
+//        return oneprojectService.findscore(eno);
+//    }
 
     @GetMapping("/view.do")
     @ResponseBody
     public ProjectDto oneProject(int pjno){
         System.out.println("OneprojectController.oneProject");
-        System.out.println(pjno);
         return oneprojectService.oneProject(pjno);
     }
     @GetMapping("/view/re.do")
     @ResponseBody
-    public ArrayList<EmployeeDto>[] updatememberlist(int pjno){
-        System.out.println("\"ddddd\" = " + "ddddd");
+    public ArrayList<PsendEmployeeDto>[] updatememberlist(int pjno){
         return oneprojectService.updatememberlist(pjno);
     }
     @GetMapping("/view/rec.do")
     @ResponseBody
-    public  List<EmployeeDto>[] memberlist(@RequestParam int pjno){
+    public  ArrayList<PsendEmployeeDto>[] memberlist(@RequestParam int pjno){
         System.out.println("안뇽안뇽");
-        System.out.println(pjno);
         return oneprojectService.memberlist(pjno);
     }
 
@@ -70,6 +70,12 @@ public class OneprojectController {
     @ResponseBody
     public boolean createprojectlog(@RequestBody ProjectlogDto projectlogDto){
         return oneprojectService.createprojectlog(projectlogDto);
+    }
+
+    @PostMapping("/view/reassign")
+    @ResponseBody
+    public boolean updateprojectlog(@RequestBody ProjectlogDto projectlogDto){
+        return oneprojectService.updateprojectlog(projectlogDto);
     }
 
     @GetMapping("/view/list")

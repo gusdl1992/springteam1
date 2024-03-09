@@ -9,6 +9,7 @@ import sierp.springteam1.model.dao.projectcontroller.OneprojectDao;
 import sierp.springteam1.model.dto.EmployeeDto;
 import sierp.springteam1.model.dto.ProjectDto;
 import sierp.springteam1.model.dto.ProjectlogDto;
+import sierp.springteam1.model.dto.PsendEmployeeDto;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class OneprojectService {
         return oneprojectDao.oneProject(pjno);
     }
 
-    public ArrayList<EmployeeDto>[] memberlist(int pjno){
+    public ArrayList<PsendEmployeeDto>[] memberlist(int pjno){
         System.out.println("안뇽.memberlist");
         System.out.println(pjno);
         String start_date = oneprojectDao.oneProject(pjno).getStart_date();
@@ -36,15 +37,25 @@ public class OneprojectService {
         return oneprojectDao.createprojectlog(projectlogDto);
     }
 
+    public boolean updateprojectlog(ProjectlogDto projectlogDto) {
+        boolean result = oneprojectDao.deleteprojectlog(projectlogDto);
+        if (result) {
+
+            return oneprojectDao.createprojectlog(projectlogDto);
+
+        }
+        return result;
+    }
+
     public ArrayList<Integer> findlog( int pjno){
         return oneprojectDao.findlog(pjno);
     }
 
-    public int findscore(int eno){
-        return oneprojectDao.findscore(eno);
-    }
-    public ArrayList<EmployeeDto>[] updatememberlist(int pjno){
+//    public int findscore(int eno){
+//        return oneprojectDao.findscore(eno);
+//    }
+    public ArrayList<PsendEmployeeDto>[] updatememberlist(int pjno){
         String start_date = oneprojectDao.oneProject(pjno).getStart_date();
-        return oneprojectDao.updatememberlist(start_date);
+        return oneprojectDao.updatememberlist(pjno ,start_date);
     }
 }
