@@ -69,12 +69,18 @@ public class OneprojectController {
     @PostMapping("/view/assign")
     @ResponseBody
     public boolean createprojectlog(@RequestBody ProjectlogDto projectlogDto){
+        for(ArrayList<Integer> i : projectlogDto.getEnos()){
+            for(int j : i){
+                System.out.println("update"+j);
+            }
+        }
         return oneprojectService.createprojectlog(projectlogDto);
     }
 
     @PostMapping("/view/reassign")
     @ResponseBody
     public boolean updateprojectlog(@RequestBody ProjectlogDto projectlogDto){
+
         return oneprojectService.updateprojectlog(projectlogDto);
     }
 

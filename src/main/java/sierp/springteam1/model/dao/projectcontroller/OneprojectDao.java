@@ -198,14 +198,16 @@ public class OneprojectDao extends SuperDao {
     }
     public boolean createprojectlog(ProjectlogDto projectlogDto){
         try {
-            for(int i : projectlogDto.getEnos()){
-                String sql = "insert into projectlog(eno, pjno) values(?,?);";
-                ps = conn.prepareStatement(sql);
-                ps.setInt(1,i);
-                ps.setInt(2,projectlogDto.getPjno());
-                int count = ps.executeUpdate();
-                if(count != 1){
-                    return false;
+            for (ArrayList<Integer> i : projectlogDto.getEnos()) {
+                for(int j : i){
+                    String sql = "insert into projectlog(eno, pjno) values(?,?);";
+                    ps = conn.prepareStatement(sql);
+                    ps.setInt(1, j);
+                    ps.setInt(2, projectlogDto.getPjno());
+                    int count = ps.executeUpdate();
+                    if (count != 1) {
+                        return false;
+                    }
                 }
             }
         }
@@ -231,7 +233,15 @@ public class OneprojectDao extends SuperDao {
     public ArrayList<Integer> findlog( int pjno){ //이거 고쳐서 eno와 경력이 같이 나가게 하기
         ArrayList<Integer> result = new ArrayList<>();
         try {
-            String sql = "select eno from projectlog where pjno = ?";
+            String sql = "select a.eno as eno, (sum(coalesce(datediff(b.end_date,b.start_date),0))+datediff(now(),a.edate)) as alltime  #프로젝트 로그에 남은 사원들 경력+eno 가져오기\n" +
+                    "from (select e.* , sum(coalesce(score,0)) as 평가점수  \n" +
+                    "\tfrom employee as e left outer join projectlog p on e.eno = p.eno\n" +
+                    "    group by e.eno\n" +
+                    " )as a left outer join  employeecareer as b on a.eno = b.eno\n" +
+                    " where a.eno in(\n" +
+                    "\tselect eno from projectlog where pjno = ?\n" +
+                    ")\n" +
+                    " group by a.eno;";
             ps = conn.prepareStatement(sql);
             ps.setInt(1,pjno);
             rs = ps.executeQuery();

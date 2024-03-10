@@ -68,11 +68,20 @@ function onWrite(){
 }
 
 function s_doPost(){
-    let enos = [];
-    let checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-    checkboxes.forEach(function(checkbox) {
-        enos.push(checkbox.value);
+    let enos = [[],[],[]];
+    let checkboxes1 = document.querySelectorAll('.s_check1  input:checked');
+    let checkboxes2 = document.querySelectorAll('.s_check2  input:checked');
+    let checkboxes3 = document.querySelectorAll('.s_check3  input:checked');
+    checkboxes1.forEach(function(checkbox) {
+        enos[0].push(checkbox.value);
     });
+    checkboxes2.forEach(function(checkbox) {
+            enos[1].push(checkbox.value);
+        });
+    checkboxes3.forEach(function(checkbox) {
+        enos[2].push(checkbox.value);
+    });
+    console.log(enos)
     let data = {
         enos: enos,
         pjno: pjno
@@ -97,13 +106,26 @@ function s_doPost(){
 
 function getCheckboxValue()  {
   // 선택된 목록 가져오기
-    let enos = [];
-    let result = '';
-    let checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-    checkboxes.forEach(function(checkbox) {
-        enos.push(checkbox.value);
+      let result = '';
+    let enos = [[],[],[]];
+    let checkboxes1 = document.querySelectorAll('.s_check1  input:checked');
+    let checkboxes2 = document.querySelectorAll('.s_check2  input:checked');
+    let checkboxes3 = document.querySelectorAll('.s_check3  input:checked');
+    checkboxes1.forEach(function(checkbox) {
+        enos[0].push(checkbox.value);
+        console.log(checkbox)
         result += checkbox.value+"번 ";
     });
+    checkboxes2.forEach(function(checkbox) {
+            enos[1].push(checkbox.value);
+            result += checkbox.value+"번 ";
+        });
+    checkboxes3.forEach(function(checkbox) {
+        enos[2].push(checkbox.value);
+        result += checkbox.value+"번 ";
+    });
+
+    console.log(enos)
 
   // 선택된 목록에서 value 찾기
 
