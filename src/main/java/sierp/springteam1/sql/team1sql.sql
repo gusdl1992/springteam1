@@ -154,3 +154,38 @@ insert into projectlike(eno, pjno) values(3,2);
 select * from employee;
 
 select * from projectlike;
+
+
+
+
+
+
+
+DELIMITER //
+
+CREATE EVENT IF NOT EXISTS update_project_state
+ON SCHEDULE EVERY 1 DAY
+DO
+BEGIN
+  UPDATE project
+  SET state = CASE
+                WHEN start_date > NOW() THEN 0 #시작일자가 오늘 날짜보다 크면 아직 시작안함
+                WHEN end_date < NOW() THEN 2 #종료일자가 오늘 날짜보다 작으면 종료된 프로젝트
+                ELSE 1 #그 사이인 경우이니 아직 진행중인 프로젝트
+              END;
+END//
+
+DELIMITER ;
+
+show events;
+
+
+
+
+
+
+
+
+
+
+
