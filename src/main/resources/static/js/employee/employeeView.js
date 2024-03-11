@@ -70,30 +70,32 @@ function CareerPrint(){
 }
 // 자격증 선택
 function OnLicensePlus(){
-$.ajax({// 자격증명
-            url: `/license`,
-            method: `get`,
-            success: (r)=>{
+    $.ajax({// 자격증명
+        url: `/license`,
+        method: `get`,
+        success: (r)=>{
             console.log(r)
-            let licenseCategory = document.querySelector(".licenseCategory");
+            let licenseBox = document.querySelector('.licenseBox');
             let html='';
+                html=` <tr>
+                         <td>
+                            <select class="licenseCategory">
+
+                            </select>
+                           </td>
+                           <td><input type="date"></td>
+                        </tr>`
+            licenseBox.innerHTML+=html;
+
+            let licenseCategory = document.querySelector(".licenseCategory");
+            html='';
             r.forEach( license => {
-                         html+=`<option value="${license.lno}">${license.lname}</option>`;
-                    });
-                     licenseCategory.innerHTML = html;
-                 }
-        })
-    let licenseBox = document.querySelector('.licenseBox');
-    let html='';
-    html=` <tr>
-             <td>
-                <select>
-                <option value="${license.lno}">${license.lname}</option>
-                </select>
-               </td>
-               <td><input type="date"></td>
-            </tr>`
-    licenseBox.innerHTML+=html;
+                 html+=`<option value="${license.lno}">${license.lname}</option>`;
+            });
+            licenseCategory.innerHTML = html;
+        }
+    })
+
 }
 //=============== 경력 form=============================
   /* let ecareerForm = document.querySelector('.ecareerForm');

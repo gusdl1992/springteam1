@@ -71,7 +71,7 @@ public class EmployeeDao extends SuperDao{
 
     //부서명 전체 출력
     public List<PartDto> partList(){
-        System.out.println("EmployeeController.partDtoList");
+        System.out.println("EmployeeDao.partDtoList");
         List<PartDto>list=new ArrayList<>();
         PartDto partDto=null;
         try {
@@ -113,7 +113,7 @@ public class EmployeeDao extends SuperDao{
     }
     // 전체 사원 출력
     public List<EmployeeDto> employeeList(){
-        System.out.println("EmployeeController.employeeList");
+        System.out.println("EmployeeDao.employeeList");
         List<EmployeeDto>list=new ArrayList<>();
         EmployeeDto employeeDto=null;
         try {
@@ -143,13 +143,27 @@ public class EmployeeDao extends SuperDao{
     }
     //경력 내역 출력
     public List<EmployeeCareerDto> careerList(int eno){
-        System.out.println("EmployeeService.careerList");
+        System.out.println("EmployeeDao.careerList");
+        List<EmployeeCareerDto>clist=new ArrayList<>();
+        EmployeeCareerDto careerDto;
         try {
-            String sql="";
+            String sql="select * from employeecareer where eno="+eno;
+            ps= conn.prepareStatement(sql);
+            rs= ps.executeQuery();
+            while (rs.next()){
+                careerDto=EmployeeCareerDto.builder()
+                        .companyname(rs.getString("companyname"))
+                        .start_date(rs.getString("start_date"))
+                        .end_date(rs.getString("end_date"))
+                        .note(rs.getString("note"))
+                        .eimg(rs.getString("eimg"))
+                        .build();
+                clist.add(careerDto);
+            }
         }catch (Exception e){
             System.out.println("e = " + e);
         }
-        return null;
+        return clist;
     }
     /*
     create table employee( #사원테이블

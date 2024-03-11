@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sierp.springteam1.model.dto.*;
-import sierp.springteam1.service.EmployeeService;
+import sierp.springteam1.service.employeeserive.EmployeeService;
 
 import java.util.List;
 
