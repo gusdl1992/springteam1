@@ -37,10 +37,20 @@ public class EmployeeDao extends SuperDao{
     }
 
     // 경력로그 등록 요청
-    public boolean cSignup(EmployeeCareerDto careerDto){
+    public boolean careerPost(EmployeeCareerDto careerDto){
         System.out.println("EmployeeDao.cSignup");
         try {
-            String sql="insert into employeecareer";
+            String sql="insert into employeecareer( companyname, note, eimg ,start_date,  end_date)" +
+                    "values(?,?,?,?,?)";
+            ps=conn.prepareStatement(sql);
+            ps.setString(1,careerDto.getCompanyname());
+            ps.setString(2,careerDto.getNote());
+            ps.setString(3,careerDto.getEimg());
+            ps.setString(4,careerDto.getStart_date());
+            ps.setString(5,careerDto.getEnd_date());
+            System.out.println(careerDto);
+            int count= ps.executeUpdate();
+            if(count==1){return true;}
         }catch (Exception e){
             System.out.println("e = " + e);
         }
@@ -107,7 +117,7 @@ public class EmployeeDao extends SuperDao{
         List<EmployeeDto>list=new ArrayList<>();
         EmployeeDto employeeDto=null;
         try {
-            String spl="select eno, ename, phone, edate, pno from employee;";
+            String spl=" select * from employee em , part p where em.pno = p.pno;";
             ps= conn.prepareStatement(spl);
             rs=ps.executeQuery();
             while (rs.next()){
@@ -116,7 +126,7 @@ public class EmployeeDao extends SuperDao{
                         .ename(rs.getString("ename"))
                         .phone(rs.getString("phone"))
                         .edate(rs.getString("edate"))
-                        .pno(rs.getInt("pno"))
+                        .pname(rs.getString("pname"))
                         .build()
                         /*rs.getInt("eno"),
                     rs.getString("ename"),
@@ -130,6 +140,16 @@ public class EmployeeDao extends SuperDao{
             System.out.println("e = " + e);
         }
         return list;
+    }
+    //경력 내역 출력
+    public List<EmployeeCareerDto> careerList(int eno){
+        System.out.println("EmployeeService.careerList");
+        try {
+            String sql="";
+        }catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return null;
     }
     /*
     create table employee( #사원테이블

@@ -4,44 +4,51 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sierp.springteam1.model.dto.*;
-import sierp.springteam1.service.EmployeeSrvice;
+import sierp.springteam1.service.EmployeeService;
 
 import java.util.List;
 
 @Controller
 public class EmployeeController {
     @Autowired
-    private EmployeeSrvice employeeSrvice;
+    private EmployeeService employeeService;
     //================ 등록 요청
     //사원등록 요청
     @PostMapping("/esignup")
     @ResponseBody
     public boolean eSignup(EmployeeDto employeeDto){
         System.out.println("EmployeeController.eSignup");
-        return employeeSrvice.eSignup(employeeDto);
+        return employeeService.eSignup(employeeDto);
     }
 
     // 경력로그 등록 요청
-    @PostMapping("/csignup")
+    @PostMapping("/careerPost")
     @ResponseBody
-    public boolean cSignup(EmployeeCareerDto careerDto){
+    public boolean careerPost(EmployeeCareerDto careerDto){
         System.out.println("EmployeeController.cSignup");
-        return employeeSrvice.cSignup(careerDto);
+        System.out.println(careerDto);
+        return employeeService.careerPost(careerDto);
     }
 
     // 자격증로그 등록 요청
-    @PostMapping("/lsignup")
+    @PostMapping("/licensePost")
     @ResponseBody
     public boolean lSignup(EmployeeLicenseDto licenseDto){
         System.out.println("EmployeeController.lSignup");
-        return employeeSrvice.lSignup(licenseDto);
+        return employeeService.lSignup(licenseDto);
     }
 
     //================= 페이지 요청
     // 인사관리 페이지 요청
     @GetMapping("/employee")
+    public String getemployee(){
+        return "/employee/employee";
+    }
+    // 인사관리 페이지 요청
+    @GetMapping("/employee/view.do")
     public String employeeView(){
         return "/employee/employeeView";
     }
@@ -59,7 +66,7 @@ public class EmployeeController {
     @ResponseBody
     public List<PartDto> partList (){
         System.out.println("EmployeeController.partDtoList");
-        return employeeSrvice.partList();
+        return employeeService.partList();
     }
 
     // 자격증 종류 출력
@@ -67,7 +74,7 @@ public class EmployeeController {
     @ResponseBody
     public List<LicenseDto> licenseList(){
         System.out.println("EmployeeController.licenseList");
-        return employeeSrvice.licenseList();
+        return employeeService.licenseList();
     }
 
     // 전체 사원 호출
@@ -75,10 +82,18 @@ public class EmployeeController {
     @ResponseBody
     public List<EmployeeDto> employeeList(){
         System.out.println("EmployeeController.employeeList");
-        return employeeSrvice.employeeList();
+        return employeeService.employeeList();
     }
     // 개별 사원 호출
    /* @GetMapping
     @ResponseBody
     public EmployeeDto*/
+
+    //경력 내역 출력
+    @GetMapping("/careerView")
+    @ResponseBody
+    public List<EmployeeCareerDto> careerList(@RequestParam int eno){
+        System.out.println("EmployeeController.careerList");
+        return employeeService.careerList(eno);
+    }
 }

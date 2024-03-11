@@ -8,24 +8,63 @@
         </ul>
     </div>
     <div id="k_employee">
-        <!--<table>
-            <thead>
-            <tr>
-                <th>사원번호</th>
-                <th>이름</th>
-                <th>부서</th>
-                <th>전화번호</th>
-                <th>입사날짜</th>
-            </tr>
-            </thead>
-            <tbody id="k_eList">
+        개별 사원 정보
+        <div>
+            경력사항
+            <button onclick="OnCareerPlus()" type="button">경력 편집</button>
+            <button onclick="OnCareer()" type="button">경력 등록</button>
+            <form class="careerForm">
 
-            </tbody>
-        </table>-->
-        사원 목록
+            <table>
+                <thead>
+                    <tr>
+                        <th>회사명</th>
+                        <th>입사날짜</th>
+                        <th>퇴사날짜</th>
+                        <th>담당업무</th>
+                        <th>경력증명서</th>
+                    </tr>
+                </thead>
+                    <tbody class="careerBox">
+
+
+                       <!-- <tr>
+                            <td><input type="text"></td>
+                            <td><input type="date"></td>
+                            <td><input type="date"></td>
+                            <td><input type="text"></td>
+                            <td><input type="file"></td>
+                        </tr>-->
+                    </tbody>
+            </table>
+            </form>
+
+        </div>
+
+        <button onclick="OnLicensePlus()" type="button">자격증 등록</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>자격증명</th>
+                        <th>취득일</th>
+                    </tr>
+                </thead>
+                <tbody class="licenseBox">
+
+
+                <!-- <tr>
+                      <td>
+                        <select>
+                            <option value="${license.lno}">${license.lname}</option>
+                        </select>
+                    </td>
+                     <td><input type="date"></td>
+                 </tr>-->
+                </tbody>
+            </table>
     </div>
 
 </div>
-<script src="/js/employee.js"></script>
+<script src="/js/employee/employeeView.js"></script>
 
 {{>headerfooter/footer}}

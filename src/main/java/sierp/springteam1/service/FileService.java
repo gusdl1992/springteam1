@@ -27,15 +27,15 @@ public class FileService {
     }
 
     public String cFileUpload(MultipartFile multipartFile){
-        String eUpload="C:\\Users\\504\\Desktop\\springteam1\\build\\resources\\main\\static\\img\\cimg";
+        String cUpload="C:\\Users\\504\\Desktop\\springteam1\\build\\resources\\main\\static\\img\\cimg";
         String uuid= UUID.randomUUID().toString();
         String filename = "career_"+uuid+"_"+multipartFile.getOriginalFilename().replace("_","-");
-        File file= new File(eUpload+filename);
-        System.out.println("file = " + file);
-        System.out.println("file.exists() = " + file.exists());
+        File file1= new File(cUpload+filename);
+        System.out.println("file = " + file1);
+        System.out.println("file.exists() = " + file1.exists());
         //2.
         try {
-            multipartFile.transferTo(file);
+            multipartFile.transferTo(file1);
         }catch (Exception e){
             System.out.println("e = " + e);
             return null;

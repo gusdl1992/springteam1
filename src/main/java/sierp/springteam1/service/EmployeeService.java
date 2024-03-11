@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 @Service
-public class EmployeeSrvice {
+public class EmployeeService {
     @Autowired
     private EmployeeDao employeeDao;
     @Autowired
@@ -18,7 +18,7 @@ public class EmployeeSrvice {
 
     //사원등록 요청
     public boolean eSignup(EmployeeDto employeeDto){
-        System.out.println("EmployeeSrvice.eSignup");
+        System.out.println("EmployeeService.eSignup");
         //증명사진 파일 처리
         String fileName="";
         System.out.println("employeeDto.getMfile() = " + employeeDto.getMfile());
@@ -53,11 +53,11 @@ public class EmployeeSrvice {
     }
 
     // 경력로그 등록 요청
-    public boolean cSignup(EmployeeCareerDto careerDto){
-        System.out.println("EmployeeSrvice.cSignup");
+    public boolean careerPost(EmployeeCareerDto careerDto){
+        System.out.println("EmployeeService.cSignup");
         //경력증명서 파일 처리
         String fileName="";
-        System.out.println("employeeDto.getMfile() = " + careerDto.getCimg());
+        System.out.println("careerDto.getCimg() = " + careerDto.getCimg());
         if(!careerDto.getCimg().isEmpty()) {
             fileName = fileService.cFileUpload(careerDto.getCimg());
             if (fileName == null) { // 업로드 성공했으면
@@ -67,18 +67,18 @@ public class EmployeeSrvice {
         //2. DB
         //dto에 업로드 성공한 파일명을 대입한다
         careerDto.setEimg(fileName);
-        return employeeDao.cSignup(careerDto);
+        return employeeDao.careerPost(careerDto);
     }
 
     // 자격증로그 등록 요청
     public boolean lSignup(EmployeeLicenseDto licenseDto){
-        System.out.println("EmployeeSrvice.lSignup");
+        System.out.println("EmployeeService.lSignup");
         return employeeDao.lSignup(licenseDto);
     }
 
     //===================호출
     public List<PartDto> partList (){
-        System.out.println("EmployeeController.partDtoList");
+        System.out.println("EmployeeService.partDtoList");
         return employeeDao.partList();
     }
 
@@ -87,8 +87,12 @@ public class EmployeeSrvice {
     }
 
     public List<EmployeeDto> employeeList(){
-        System.out.println("EmployeeController.employeeList");
+        System.out.println("EmployeeService.employeeList");
         return employeeDao.employeeList();
+    }
+    public List<EmployeeCareerDto> careerList(int eno){
+        System.out.println("EmployeeService.careerList");
+        return employeeDao.careerList(eno);
     }
 }
 
