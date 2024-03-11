@@ -230,8 +230,11 @@ public class OneprojectDao extends SuperDao {
         return true;
     }
 
-    public ArrayList<Integer> findlog( int pjno){ //이거 고쳐서 eno와 경력이 같이 나가게 하기
-        ArrayList<Integer> result = new ArrayList<>();
+    public ArrayList<Integer>[] findlog( int pjno){//이거 고쳐서 eno와 경력이 같이 나가게 하기
+        ArrayList<Integer>[] result = new ArrayList[3];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = new ArrayList<>();
+        }
         try {
             String sql = "select a.eno as eno, (sum(coalesce(datediff(b.end_date,b.start_date),0))+datediff(now(),a.edate)) as alltime  #프로젝트 로그에 남은 사원들 경력+eno 가져오기\n" +
                     "from (select e.* , sum(coalesce(score,0)) as 평가점수  \n" +
@@ -246,7 +249,38 @@ public class OneprojectDao extends SuperDao {
             ps.setInt(1,pjno);
             rs = ps.executeQuery();
             while (rs.next()){
-                result.add(rs.getInt("eno"));
+                int allday = rs.getInt("alltime");
+
+                if(allday < 1459 ){
+
+                    result[0].add(rs.getInt("eno"));
+
+                }
+                else if (allday > 3650) {
+                    result[1].add(rs.getInt("eno"));
+                }
+                else {
+                    result[2].add(rs.getInt("eno"));
+                }
+            }
+        }
+        catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return result;
+    }
+
+    public int[] findrankcount(int pjno){
+        int[] result = new int[3];
+        try {
+            String sql = "select rank1_count,rank2_count,rank3_count from project where pjno =?;";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,pjno);
+            rs= ps.executeQuery();
+            if(rs.next()){
+                result[0] = rs.getInt("rank1_count");
+                result[1] = rs.getInt("rank2_count");
+                result[2] = rs.getInt("rank3_count");
             }
         }
         catch (Exception e){

@@ -97,6 +97,9 @@ function s_doPost(){
             alert("전송 성공")
             location.href="/project/view?pjno="+pjno
             }
+            else{
+            alert("인원수 초과")
+            }
         },
         error:(e) => {
             alert("error: " + e);

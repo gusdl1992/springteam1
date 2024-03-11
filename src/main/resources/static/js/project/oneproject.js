@@ -44,7 +44,7 @@ function onView(){
             console.log(r[1])
             console.log(r[0])
             for(let i = 0; i < r.length; i++){
-                html += `${r[i]}번`
+                html += `${r[i]} `
             }
             console.log(html)
             document.querySelector(".logs").innerHTML= html;

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import sierp.springteam1.model.dao.projectcontroller.OneprojectDao;
 import sierp.springteam1.model.dto.EmployeeDto;
 import sierp.springteam1.model.dto.ProjectDto;
@@ -34,6 +35,14 @@ public class OneprojectService {
     }
 
     public boolean createprojectlog(ProjectlogDto projectlogDto){
+        ArrayList<Integer>[] a = oneprojectDao.findlog(projectlogDto.getPjno());
+        System.out.println(a);
+        int[] b =oneprojectDao.findrankcount(projectlogDto.getPjno());
+        for (int i = 0 ; i<3; i++) {
+            if (a[i].size()+projectlogDto.getEnos()[i].size() > b[i]){
+                return false;
+            }
+        }
         return oneprojectDao.createprojectlog(projectlogDto);
     }
 
@@ -47,9 +56,6 @@ public class OneprojectService {
         return result;
     }
 
-    public ArrayList<Integer> findlog( int pjno){
-        return oneprojectDao.findlog(pjno);
-    }
 
 //    public int findscore(int eno){
 //        return oneprojectDao.findscore(eno);
@@ -58,4 +64,9 @@ public class OneprojectService {
         String start_date = oneprojectDao.oneProject(pjno).getStart_date();
         return oneprojectDao.updatememberlist(pjno ,start_date);
     }
+
+    public ArrayList<Integer>[] findlog(@RequestParam int pjno){
+        return oneprojectDao.findlog(pjno);
+    }
+
 }

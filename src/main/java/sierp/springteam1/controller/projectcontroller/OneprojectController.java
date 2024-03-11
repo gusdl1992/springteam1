@@ -86,8 +86,9 @@ public class OneprojectController {
 
     @GetMapping("/view/list")
     @ResponseBody
-    public ArrayList<Integer> findlog(@RequestParam int pjno){
+    public ArrayList<Integer>[] findlog(@RequestParam int pjno){
         return oneprojectService.findlog(pjno);
     }
+
 
 }
