@@ -1,6 +1,6 @@
 {{>j_projectPage/projectTop}}
-<form class="projectData">
-    <div>pjno : <input class="update_pjno" name="pjno" readonly/> </div>
+
+<form id="insertProjectData">
     <div>start_date : <input class="update_start_date" name="start_date" /> </div>
     <div>end_date : <input class="update_end_date" name="end_date" /> </div>
     <div>rank1_count : <input class="update_rank1_count" name="rank1_count" /> </div>
@@ -14,9 +14,10 @@
     <div>price : <input class="update_price" name="price" /> </div>
 </form>
 
-<button type="button" onclick="updateDetail()">확인</button>
-<button type="button" onclick="backDetailpage()">취소</button>
+<button type="button" onclick="insertProject()">등록</button>
+<button type="button" onclick="backList()">취소</button>
 
 
-<script src="/js/j_projectPage/updateProject.js"></script>
+<script src="/js/j_projectPage/insertProject.js"></script>
+
 {{>j_projectPage/projectBottom}}

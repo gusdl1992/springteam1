@@ -10,6 +10,7 @@ function printProjectDetail(){
          data : {"pjno" : pjno},
          success : (r)=>{
             console.log("결과출력");
+            console.log(r);
             document.querySelector(".detaile_pjno").innerHTML=r.pjno;
             document.querySelector(".detaile_start_date").innerHTML=r.start_date;
             document.querySelector(".detaile_end_date").innerHTML=r.end_date;

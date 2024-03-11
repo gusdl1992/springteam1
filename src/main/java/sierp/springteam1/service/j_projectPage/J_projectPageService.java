@@ -3,12 +3,14 @@ package sierp.springteam1.service.j_projectPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sierp.springteam1.model.dao.j_projectPageDao.J_projectPageDao;
 import sierp.springteam1.model.dto.ProjectDto;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class J_projectPageService {
@@ -24,7 +26,7 @@ public class J_projectPageService {
 
     //프로젝트 세부 리스트 출력
     public ProjectDto getProjectDetail(int pjno){
-        System.out.println("J_ProjectPageController.printProjectDetail");
+        System.out.println("J_projectPageService.getProjectDetail");
 
         return j_projectPageDao.getProjectDetail(pjno);
     }//m end
@@ -38,4 +40,12 @@ public class J_projectPageService {
     }//m end
 
     //프로젝트 내역 삭제
+
+    //프로젝트 등록
+    public int insertProject(Map<String, String> insertArray){
+        System.out.println("J_projectPageService.insertProject");
+        System.out.println("insertArray = " + insertArray);
+
+        return j_projectPageDao.insertProject(insertArray);
+    }//m end
 }//c end

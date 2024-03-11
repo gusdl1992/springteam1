@@ -1,17 +1,16 @@
 package sierp.springteam1.controller.j_projectcontroller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import sierp.springteam1.model.dao.j_projectPageDao.J_projectPageDao;
 import sierp.springteam1.model.dto.ProjectDto;
 import sierp.springteam1.service.j_projectPage.J_projectPageService;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/projectPage")
@@ -74,5 +73,21 @@ public class J_ProjectPageController {
     }//m end
 
     //프로젝트 내역 삭제
+
+    //프로젝트 등록 페이지 출력
+    @GetMapping("/insert")
+    public String insertProjectPage(){
+        return "/j_projectPage/insertProject";
+    }//m end
+
+    //프로젝트 등록
+    @PostMapping("/insert.do")
+    @ResponseBody
+    public int insertProject(@RequestParam Map<String, String> insertArray){
+        System.out.println("J_ProjectPageController.insertProject");
+        System.out.println("insertArray = " + insertArray);
+
+        return j_projectPageService.insertProject(insertArray);
+    }//m end
 
 }//c end
