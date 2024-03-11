@@ -30,7 +30,7 @@ function onEmployeeAllView(){
                     let k_eList = document.querySelector("#k_eList");
                         html='';
                         re.forEach( employee => {
-                             html+=`<tr>
+                             html+=`<tr><a href='/'
                                           <th>${employee.eno}</th>
                                           <th>${employee.ename}</th>
                                           <th>${employee.eno}</th>

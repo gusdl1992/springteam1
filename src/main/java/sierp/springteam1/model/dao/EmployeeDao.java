@@ -80,7 +80,7 @@ public class EmployeeDao extends SuperDao{
         }
         return list;
     }
-
+    // 자격증 전체 호출
     public List<LicenseDto> licenseList(){
         List<LicenseDto>llist=new ArrayList<>();
         LicenseDto licenseDto=null;
@@ -101,7 +101,7 @@ public class EmployeeDao extends SuperDao{
         }
         return llist;
     }
-
+    // 전체 사원 출력
     public List<EmployeeDto> employeeList(){
         System.out.println("EmployeeController.employeeList");
         List<EmployeeDto>list=new ArrayList<>();

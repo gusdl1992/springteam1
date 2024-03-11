@@ -70,10 +70,15 @@ public class EmployeeController {
         return employeeSrvice.licenseList();
     }
 
+    // 전체 사원 호출
     @GetMapping("/employeeList")
     @ResponseBody
     public List<EmployeeDto> employeeList(){
         System.out.println("EmployeeController.employeeList");
         return employeeSrvice.employeeList();
     }
+    // 개별 사원 호출
+   /* @GetMapping
+    @ResponseBody
+    public EmployeeDto*/
 }

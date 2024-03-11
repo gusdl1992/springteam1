@@ -21,5 +21,8 @@ public class EmployeeDto {
     String edate;       // 입사일 ( 등록일 )
     int pno;            // 파트 ( 업무 부서 )
     MultipartFile mfile; // 파일 업로드
+    //====== 추가한 필드
+
+    String pname;       // 부서 이름
 
 }
