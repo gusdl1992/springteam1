@@ -1,15 +1,21 @@
 //프로젝트 등록
 function insertProject(){
-    console.log("insertProject()");
-    let insertProjectData=document.querySelector(".insertProjectData");
-    let insertArray=new FormData(insertProjectData);
-    console.log(insertArray);
+console.log(document.querySelector(".update_start_date").value);
     $.ajax({
         url : "/projectPage/insert.do",
         method : "Post",
-        data : insertArray,
-        contentType : false,
-        processData : false,
+        data : {"start_date" : document.querySelector(".update_start_date").value,
+            "end_date" : document.querySelector(".update_end_date").value,
+            "rank1_count" : document.querySelector(".update_rank1_count").value,
+            "rank2_count" : document.querySelector(".update_rank2_count").value,
+            "rank3_count" : document.querySelector(".update_rank3_count").value,
+            "title" : document.querySelector(".update_title").value,
+            "request" : document.querySelector(".update_request").value,
+            "note" : document.querySelector(".update_note").value,
+            "compannyname" : document.querySelector(".update_compannyname").value,
+            "state" : document.querySelector(".update_state").value,
+            "price" : document.querySelector(".update_price").value,
+            },
         success : (r)=>{
             console.log(r);
             if(r){

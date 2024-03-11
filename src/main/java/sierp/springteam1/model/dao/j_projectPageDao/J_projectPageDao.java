@@ -6,6 +6,7 @@ import sierp.springteam1.model.dto.ProjectDto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class J_projectPageDao extends SuperDao {
@@ -118,25 +119,25 @@ public class J_projectPageDao extends SuperDao {
     //프로젝트 내역 삭제
 
     //프로젝트 등록
-    public int insertProject(ProjectDto projectDto){
+    public int insertProject(Map<String, String> insertArray){
         System.out.println("J_projectPageDao.insertProject");
-        System.out.println("projectDto = " + projectDto);
+        System.out.println("insertArray = " + insertArray);
         try{
             String[] key={"pjno"};
             String sql="insert into project(start_date, end_date, rank1_count, rank2_count, rank3_count, title, request, note, compannyname, state, price) " +
                     "values(?,?,?,?,?,?,?,?,?,?,?)";
             ps=conn.prepareStatement(sql, key);
-            ps.setString(1,projectDto.getStart_date());
-            ps.setString(2,projectDto.getEnd_date());
-            ps.setInt(3,projectDto.getRank1_count());
-            ps.setInt(4,projectDto.getRank2_count());
-            ps.setInt(5,projectDto.getRank3_count());
-            ps.setString(6,projectDto.getTitle());
-            ps.setString(7,projectDto.getRequest());
-            ps.setString(8,projectDto.getNote());
-            ps.setString(9,projectDto.getCompannyname());
-            ps.setInt(10,projectDto.getState());
-            ps.setString(11,projectDto.getPrice());
+            ps.setString(1,insertArray.get("start_date"));
+            ps.setString(2,insertArray.get("end_date"));
+            ps.setString(3,insertArray.get("rank1_count"));
+            ps.setString(4,insertArray.get("rank2_count"));
+            ps.setString(5,insertArray.get("rank3_count"));
+            ps.setString(6,insertArray.get("title"));
+            ps.setString(7,insertArray.get("request"));
+            ps.setString(8,insertArray.get("note"));
+            ps.setString(9,insertArray.get("compannyname"));
+            ps.setString(10,insertArray.get("state"));
+            ps.setString(11,insertArray.get("price"));
 
             ps.executeUpdate();
             rs=ps.getGeneratedKeys();
