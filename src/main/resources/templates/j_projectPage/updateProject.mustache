@@ -1,16 +1,22 @@
 {{>j_projectPage/projectTop}}
 <form class="projectData">
-    <div>pjno : <input class="update_pjno" name="pjno" readonly/> </div>
-    <div>start_date : <input class="update_start_date" name="start_date" /> </div>
-    <div>end_date : <input class="update_end_date" name="end_date" /> </div>
-    <div>rank1_count : <input class="update_rank1_count" name="rank1_count" /> </div>
-    <div>rank2_count : <input class="update_rank2_count" name="rank2_count" /> </div>
-    <div>rank3_count : <input class="update_rank3_count" name="rank3_count" /> </div>
+    <div>pjno : <input type="number" class="update_pjno" name="pjno" readonly/> </div>
+    <div>start_date : <input type="date" class="update_start_date" name="start_date" /> </div>
+    <div>end_date : <input type="date"  class="update_end_date" name="end_date" /> </div>
+    <div>rank1_count : <input type="number" class="update_rank1_count" name="rank1_count" /> </div>
+    <div>rank2_count : <input type="number" class="update_rank2_count" name="rank2_count" /> </div>
+    <div>rank3_count : <input type="number" class="update_rank3_count" name="rank3_count" /> </div>
     <div>title : <input class="update_title" name="title" /> </div>
     <div>request : <textarea class="update_request" name="request" ></textarea> </div>
     <div>note : <textarea class="update_note" name="note" > </textarea></div>
     <div>compannyname : <input class="update_compannyname" name="compannyname" /> </div>
-    <div>state : <input class="update_state" name="state" /> </div>
+    <div>state :
+        <select class="update_state" name="state">
+            <option value="0"> 진행전 </option>
+            <option value="1"> 진행중 </option>
+            <option value="2"> 진행완료 </option>
+        </select>
+    </div>
     <div>price : <input class="update_price" name="price" /> </div>
 </form>
 

@@ -21,12 +21,38 @@ function printProjectDetail(){
             document.querySelector(".detaile_request").innerHTML=r.request;
             document.querySelector(".detaile_note").innerHTML=r.note;
             document.querySelector(".detaile_compannyname").innerHTML=r.compannyname;
-            document.querySelector(".detaile_state").innerHTML=r.state;
+            document.querySelector(".detaile_state").innerHTML=r.state==0 ? "진행전" : (r.state==1 ? "진행중" : "진행완료");
             document.querySelector(".detaile_price").innerHTML=r.price;
          }//success end
     })//ajax end
 }//f end
 
+//수정페이지로 이동
 function changeToUpdate(){
 location.href= `/projectPage/update?pjno=${pjno}`;
+}//f end
+
+//삭제
+function deleteDetail(){
+    console.log("deleteDetail()");
+    if(confirm("삭제하시겠습니까?")){
+        $.ajax({
+            url : "/projectPage/delete",
+            method : "Delete",
+            data : {"pjno" : pjno},
+            success : (r) => {
+                console.log(r);
+                if(r){
+                    alert("삭제 성공");
+                    location.href="/projectPage/"
+                }
+                else{
+                    alert("삭제 실패");
+                }
+            }//success end
+        })//ajax end
+    }//if end
+    else{
+        alert("삭제가 취소되었습니다.");
+    }
 }//f end
