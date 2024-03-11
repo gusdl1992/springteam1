@@ -15,7 +15,7 @@ public class J_projectPageDao extends SuperDao {
         System.out.println("J_projectPageDao.printProjectList");
         List<ProjectDto> projectDtos=new ArrayList<>();
         try{
-            String sql="select * from project order by start_date limit pageBoardSize;";
+            String sql="select * from project order by start_date;";
             ps=conn.prepareStatement(sql);
             rs=ps.executeQuery();
             while(rs.next()){
