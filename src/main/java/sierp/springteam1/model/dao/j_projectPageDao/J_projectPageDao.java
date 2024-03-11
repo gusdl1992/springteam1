@@ -11,12 +11,14 @@ import java.util.Map;
 @Component
 public class J_projectPageDao extends SuperDao {
     //프로젝트 전체 리스트 출력
-    public List<ProjectDto> printProjectList(int page, int pageBoardSize, int sortKey, String key, String keyword){
+    public List<ProjectDto> printProjectList(int startRow){
         System.out.println("J_projectPageDao.printProjectList");
         List<ProjectDto> projectDtos=new ArrayList<>();
         try{
-            String sql="select * from project order by start_date;";
+            String sql="select * from project order by start_date limit ? , ?";
             ps=conn.prepareStatement(sql);
+            ps.setInt(1,startRow);
+            ps.setInt(2,startRow+5);
             rs=ps.executeQuery();
             while(rs.next()){
                 ProjectDto projectDto=ProjectDto.builder()
@@ -33,13 +35,30 @@ public class J_projectPageDao extends SuperDao {
                         .build();
 
                 projectDtos.add(projectDto);
-            }
+            }//w end
             return projectDtos;
         }
         catch (Exception e){
             System.out.println("e = " + e);
         }
         return null;
+    }//m end
+
+    //전체 프로젝드 수 추출
+    public int projectCount(){
+        System.out.println("J_projectPageDao.projectCount");
+        try{
+            String sql="select count(*) from project";
+            ps=conn.prepareStatement(sql);
+            rs=ps.executeQuery();
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+        }
+        catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return 0;
     }//m end
 
     //프로젝트 세부 리스트 출력

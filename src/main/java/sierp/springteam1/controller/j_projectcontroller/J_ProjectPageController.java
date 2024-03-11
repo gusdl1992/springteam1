@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sierp.springteam1.model.dao.j_projectPageDao.J_projectPageDao;
 import sierp.springteam1.model.dto.ProjectDto;
+import sierp.springteam1.model.dto.ProjectPageDto;
 import sierp.springteam1.service.j_projectPage.J_projectPageService;
 
 import java.util.List;
@@ -31,10 +32,10 @@ public class J_ProjectPageController {
     //프로젝트 전체 리스트 출력
     @GetMapping("/list")
     @ResponseBody
-    public List<ProjectDto> printProjectList(int page, int pageBoardSize, int sortKey, String key, String keyword){
+    public ProjectPageDto printProjectList(int page, int pageBoardSize){
         System.out.println("J_ProjectPageController.printProjectList");
 
-        return j_projectPageService.printProjectList( page,  pageBoardSize,  sortKey,  key,  keyword);
+        return j_projectPageService.printProjectList(page, pageBoardSize);
     }//m end
     
     //프로젝트 세부리스트 출력
