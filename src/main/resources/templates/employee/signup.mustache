@@ -1,5 +1,12 @@
-<div >
-    <div>
+{{>headerfooter/header}}
+
+    <div id="k_container">
+        <div id="k_employeeSideWrap">
+            <ul id="k_employeeSide">
+                <li><a href="/employee" >사원보기</a></li>
+                <li><a href="/signup">사원등록</a></li>
+            </ul>
+        </div>
 
         <h3>사원등록</h3>
         <form class="employeeForm">
@@ -48,8 +55,11 @@
                 <option>석사</option>
                 <option>박사</option>
             </select>
+            <br/>
+            <button type="button" onclick="onSignup()">사원 등록</button>
+
         </form>
-        <form class="ecareerForm">
+        <!--<form class="ecareerForm">
             <div>경력사항</div>
             <table>
                 <thead>
@@ -57,34 +67,36 @@
                 <th>입사일</th>
                 <th>퇴사일</th>
                 <th>담당 업무</th>
+                <th>경력증명서</th>
                 </thead>
-                <tbody>
+                <tbody class="ecareer">
                 <tr>
-                    <td><input type="text"></td>
-                    <td><input onchange="" type="date"></td>
-                    <td><input onchange="" type="date"></td>
-                    <td><input type="text"></td>
-                    <td><button>추가</button></td>
+                    <td><input type="text" id="companyname" name="companyname"></td>
+                    <td><input onchange="" id="start_date" name="start_date"type="date"></td>
+                    <td><input onchange=" " id="end_date" name="end_date" type="date"></td>
+                    <td><input type="text" id="note" name="note"></td>
+                    <td><input type="file" id="cimg" name="cimg"></td>
+                    <td><button onclick="onPlusCareer()">추가</button></td>
                 </tr>
                 </tbody>
             </table>
-            <div>경력 합계 :</div>
-            <div>경력증명서 첨부</div>
-            <input type="file">
-            <!-- 1. 경력증명서 사진 받기 2.경력 입력칸(회사명, 입사날짜, 퇴사날짜) 늘리고 줄이기 3. 경력 합산 출력 4. 경력 로그 db-->
+            <div>경력 합계 : (합계 첨부는 추후)</div>
+            &lt;!&ndash;<div>경력증명서 첨부</div>
+            <input type="file">&ndash;&gt;
+            &lt;!&ndash; 1. 경력증명서 사진 받기 2.경력 입력칸(회사명, 입사날짜, 퇴사날짜) 늘리고 줄이기 3. 경력 합산 출력 4. 경력 로그 db&ndash;&gt;
         </form>
         <form class="licenseForm">
-            <div>자격증 :(일단 나중에 구현) </div>
+            <div>자격증 :(추후 추가) </div>
             <select class="licenseCategory">
-                <!-- 1.자격증 선택칸 db에서 받아와야함 -->
+                &lt;!&ndash; 1.자격증 선택칸 db에서 받아와야함 &ndash;&gt;
             </select>
-            <!-- 1.자격증 선택칸 db에서 받아와야함 3.선택하면 장바구니처럼 남아야할듯? 삭제도 가능해야할듯? 4. 자격증 로그 db  -->
-        </form>
-        <button type="button" onclick="onSignup()">사원 등록</button>
+            &lt;!&ndash; 1.자격증 선택칸 db에서 받아와야함 3.선택하면 장바구니처럼 남아야할듯? 삭제도 가능해야할듯? 4. 자격증 로그 db  &ndash;&gt;
+        </form>-->
 
     </div>
 
-</div>
+
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/js/employee.js"></script>
 
+{{>headerfooter/footer}}

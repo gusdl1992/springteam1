@@ -80,7 +80,7 @@ public class EmployeeDao extends SuperDao{
         }
         return list;
     }
-
+    // 자격증 전체 호출
     public List<LicenseDto> licenseList(){
         List<LicenseDto>llist=new ArrayList<>();
         LicenseDto licenseDto=null;
@@ -101,5 +101,54 @@ public class EmployeeDao extends SuperDao{
         }
         return llist;
     }
+    // 전체 사원 출력
+    public List<EmployeeDto> employeeList(){
+        System.out.println("EmployeeController.employeeList");
+        List<EmployeeDto>list=new ArrayList<>();
+        EmployeeDto employeeDto=null;
+        try {
+            String spl="select eno, ename, phone, edate, pno from employee;";
+            ps= conn.prepareStatement(spl);
+            rs=ps.executeQuery();
+            while (rs.next()){
+                employeeDto=EmployeeDto.builder()
+                        .eno(rs.getInt("eno"))
+                        .ename(rs.getString("ename"))
+                        .phone(rs.getString("phone"))
+                        .edate(rs.getString("edate"))
+                        .pno(rs.getInt("pno"))
+                        .build()
+                        /*rs.getInt("eno"),
+                    rs.getString("ename"),
+                    rs.getString("phone"),
+                    rs.getString("edate"),
+                        rs.getInt("pno")*/
+                ;
+                list.add(employeeDto);
+            }
+        }catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return list;
+    }
+    /*
+    create table employee( #사원테이블
+   eno int auto_increment,
+    eeducation varchar(10),
+    id varchar(30) not null unique,
+    pw varchar(15) not null,
+    ename varchar(20) not null,
+    email varchar(30) not null unique,
+    phone varchar(15) not null unique,
+    address varchar(15) not null,
+    sex bool not null,
+    img varchar(255) default 'default.jpg',
+    edate datetime default now(),
+    pno int not null,
+    constraint e_pk primary key(eno),
+    foreign key(pno) references part(pno)
+);
+
+    */
 
 }

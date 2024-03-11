@@ -40,11 +40,16 @@ public class EmployeeController {
     }
 
     //================= 페이지 요청
+    // 인사관리 페이지 요청
+    @GetMapping("/employee")
+    public String employeeView(){
+        return "/employee/employeeView";
+    }
     //사원등록 페이지 요청
     @GetMapping("/signup")
     public String viewSignup(){
         System.out.println("EmployeeController.viewSignup");
-        return "/signup";
+        return "/employee/signup";
     }
 
     //=========== 출력
@@ -64,4 +69,16 @@ public class EmployeeController {
         System.out.println("EmployeeController.licenseList");
         return employeeSrvice.licenseList();
     }
+
+    // 전체 사원 호출
+    @GetMapping("/employeeList")
+    @ResponseBody
+    public List<EmployeeDto> employeeList(){
+        System.out.println("EmployeeController.employeeList");
+        return employeeSrvice.employeeList();
+    }
+    // 개별 사원 호출
+   /* @GetMapping
+    @ResponseBody
+    public EmployeeDto*/
 }

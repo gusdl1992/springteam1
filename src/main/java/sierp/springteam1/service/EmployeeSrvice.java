@@ -55,6 +55,18 @@ public class EmployeeSrvice {
     // 경력로그 등록 요청
     public boolean cSignup(EmployeeCareerDto careerDto){
         System.out.println("EmployeeSrvice.cSignup");
+        //경력증명서 파일 처리
+        String fileName="";
+        System.out.println("employeeDto.getMfile() = " + careerDto.getCimg());
+        if(!careerDto.getCimg().isEmpty()) {
+            fileName = fileService.cFileUpload(careerDto.getCimg());
+            if (fileName == null) { // 업로드 성공했으면
+                return false;
+            }
+        }
+        //2. DB
+        //dto에 업로드 성공한 파일명을 대입한다
+        careerDto.setEimg(fileName);
         return employeeDao.cSignup(careerDto);
     }
 
@@ -72,6 +84,11 @@ public class EmployeeSrvice {
 
     public List<LicenseDto> licenseList(){
         return employeeDao.licenseList();
+    }
+
+    public List<EmployeeDto> employeeList(){
+        System.out.println("EmployeeController.employeeList");
+        return employeeDao.employeeList();
     }
 }
 
