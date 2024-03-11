@@ -152,6 +152,14 @@ values("2024-03-01","2024-03-10",2,2,1,"쇼핑몰 결제페이지 보수"," ","e
 insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
 values("2024-04-08","2024-10-10",2,2,1,"포커사이트 구축"," ","ezen게임스","5억");
 
+# 테스트용 더미데이터 하나 더 추가. 즐겨찾기용
+insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
+values("2024-03-01","2024-03-10",2,2,1,"카페 사이트 보수"," ","ezen카페","300만원");
+
+# 테스트용 더미데이터 하나 더 추가. 즐겨찾기용
+insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
+values("2024-03-01","2024-03-10",2,2,1,"햄버거 페이지 유지보수"," ","ezen햄버거","300만원");
+
 insert into report(settoeno,setfromeno,title,content) values(1,2,"이거사줘","붕어싸만코");
 insert into report(settoeno,setfromeno,title,content) values(1,3,"휴가","ㅇㅇ");
 
@@ -170,6 +178,8 @@ insert into projectlike(eno, pjno) values(1,2); # 테스트 위한 더미 데이
 insert into projectlike(eno, pjno) values(1,3); # 테스트 위한 더미 데이터 삽입.
 insert into projectlike(eno, pjno) values(1,4); # 테스트 위한 더미 데이터 삽입.
 insert into projectlike(eno, pjno) values(1,5); # 테스트 위한 더미 데이터 삽입.
+insert into projectlike(eno, pjno) values(1,6); # 테스트 위한 더미 데이터 삽입.
+insert into projectlike(eno, pjno) values(1,7); # 테스트 위한 더미 데이터 삽입.
 
 
 # 프로젝트 4, 5 테스트 용 state 종료로 변경
