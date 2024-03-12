@@ -10,10 +10,12 @@
   }
   table.calendar th,
   table.calendar td {
-    width : 100px;
+    width : 110px;
+    height : 75px;
     border: 1px solid #ddd;
-    padding: 20px;
-    text-align: center;
+    padding: 10px;
+    text-align: right;
+    vertical-align : top;
   }
   table.calendar td > div{
         font-size : 10px;
@@ -23,4 +25,20 @@
   }
   .today {
     background-color: #87ceeb;
+  }
+
+  /* 글자 포지션 부모 포지션 잡기  */
+  .today{
+    position: relative;
+  }
+  /* 이벤트 글자 포지션 */
+  .event-text{
+     position: absolute;
+     top: 40;
+     left: 0;
+     overflow: auto; /* 필요 시 스크롤 생성 */
+  }
+  /* 년 월 글자 센터 */
+  .calendarCenter > th{
+    text-align: center !important;
   }
