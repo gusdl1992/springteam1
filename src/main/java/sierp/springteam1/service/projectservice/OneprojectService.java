@@ -34,26 +34,30 @@ public class OneprojectService {
         return oneprojectDao.memberlist(start_date);
     }
 
-    public boolean createprojectlog(ProjectlogDto projectlogDto){
-        ArrayList<Integer>[] a = oneprojectDao.findlog(projectlogDto.getPjno());
-        System.out.println(a);
-        int[] b =oneprojectDao.findrankcount(projectlogDto.getPjno());
-        for (int i = 0 ; i<3; i++) {
-            if (a[i].size()+projectlogDto.getEnos()[i].size() > b[i]){
-                return false;
-            }
+    public boolean createprojectlog(ProjectlogDto projectlogDto) {
+        if (checkEmployeecount(projectlogDto)) {
+            return oneprojectDao.createprojectlog(projectlogDto);
         }
-        return oneprojectDao.createprojectlog(projectlogDto);
+        return false;
     }
-
+    public int[] autowired(int pjno){
+        ArrayList<Integer>[] a = oneprojectDao.findlog(pjno);
+        int[] b =oneprojectDao.findrankcount(pjno);
+        int[] result = new int[3];
+        for(int i = 0; i<3 ; i++){
+            result[i] = b[i] - a[i].size();
+        }
+        return result;
+    }
     public boolean updateprojectlog(ProjectlogDto projectlogDto) {
         boolean result = oneprojectDao.deleteprojectlog(projectlogDto);
         if (result) {
-
-            return oneprojectDao.createprojectlog(projectlogDto);
+            if (checkEmployeecount(projectlogDto)) {
+                return oneprojectDao.createprojectlog(projectlogDto);
+            }
 
         }
-        return result;
+        return false;
     }
 
 
@@ -69,4 +73,15 @@ public class OneprojectService {
         return oneprojectDao.findlog(pjno);
     }
 
+
+    public boolean checkEmployeecount(ProjectlogDto projectlogDto){
+        ArrayList<Integer>[] a = oneprojectDao.findlog(projectlogDto.getPjno());
+        int[] b =oneprojectDao.findrankcount(projectlogDto.getPjno());
+        for (int i = 0 ; i<3; i++) {
+            if (a[i].size()+projectlogDto.getEnos()[i].size() > b[i]){
+                return false;
+            }
+        }
+        return true;
+    }
 }

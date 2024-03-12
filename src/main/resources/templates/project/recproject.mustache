@@ -1,6 +1,8 @@
 {{>headerfooter/header}}
 <div id="index_form">
     <div class="container">
+        <button type="button" onclick="sortbyscore()">정렬기준: 스코어</button>
+        <button type="button" onclick="sortbyeno()">정렬기준: 사원번호</button>
         <div class="s_check1">
 
         </div>
@@ -14,6 +16,7 @@
             안녕
         </div>
         <button type="button" onclick="s_doPost()"> 전송 </button>
+        <button type="button" onclick="autowired()"> 추천 </button>
     </div>
 </div>
 <script src="/js/project/recproject.js"></script>

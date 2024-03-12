@@ -28,7 +28,7 @@ public class MypageDao extends SuperDao {
                         rs.getString(7) , rs.getString(8),
                         rs.getBoolean(9)//성별
                         , rs.getString(10) , rs.getString(11),
-                        rs.getInt(12), null
+                        rs.getInt(12), null , null
                 );
             }
         }catch (Exception e){

@@ -89,6 +89,11 @@ public class OneprojectController {
     public ArrayList<Integer>[] findlog(@RequestParam int pjno){
         return oneprojectService.findlog(pjno);
     }
+    @GetMapping("/view/auto")
+    @ResponseBody
+    public int[] autowired(@RequestParam int pjno){
+        return oneprojectService.autowired(pjno);
 
+    }
 
 }
