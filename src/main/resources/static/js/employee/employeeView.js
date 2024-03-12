@@ -82,6 +82,8 @@ function OnLicensePlus(){
                             </select>
                            </td>
                            <td><input type="date"></td>
+                           <td><button onclick="OnLicensePlus()" type="button">자격증 등록</button></td>
+
                         </tr>`
             licenseBox.innerHTML+=html;
 
