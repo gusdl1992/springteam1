@@ -105,4 +105,10 @@ public class J_ProjectPageController {
         return j_projectPageService.deleteProject(pjno);
     }
 
+    //평가 가능한 프로젝트 출력
+    @GetMapping("/perform")
+    public String pringPerform(){
+        System.out.println("J_ProjectPageController.pringPerform");
+        return "/j_projectPage/perform";
+    }
 }//c end
