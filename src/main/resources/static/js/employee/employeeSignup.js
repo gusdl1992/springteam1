@@ -29,7 +29,7 @@ function onSignup(){// 사원등록 함수
     console.log(employeeFormData); // new FormData
 
     $.ajax({
-           url : '/esignup',
+           url : '/signup',
            method : 'post',
            data : employeeFormData,
           contentType: false,

@@ -8,6 +8,20 @@ import java.util.List;
 
 @Component
 public class EmployeeDao extends SuperDao{
+    //로그인 요청
+    public boolean login(String id, String pw){
+        try {
+            String sql="select *from employee where id="+id+" and pw="+pw;
+            ps= conn.prepareStatement(sql);
+            rs= ps.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+        }catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return false;
+    }
 
     //사원등록 요청
     public boolean eSignup(EmployeeDto employeeDto){

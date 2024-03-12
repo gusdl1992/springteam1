@@ -5,7 +5,7 @@ $.ajax({
     url : '/employee/login/check' ,
     method : 'get' ,
     async : false,
-    success : (r)=>{
+success : (r)=>{
         console.log(r);
         // 1. 어디에
         let login_menu = document.querySelector('#login_menu');
@@ -28,14 +28,58 @@ $.ajax({
                 `;
             }
         });
-                }else{  // 로그인 안했을떄
-                    html = `
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">로그인</a>
-                        </li>
-                    `;
-                }
-                // 3. 대입
-                login_menu.innerHTML = html;
-            } // s end
-        }); // ajax end
+            }else{  // 로그인 안했을떄
+                html = `
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">로그인</a>
+                    </li>
+                `;
+            }
+            // 3. 대입
+            login_menu.innerHTML = html;
+    } // s end
+}); // ajax end
+
+//2. 로그인
+function login(){
+    console.log('login')
+    //1. HTML 입력값 호출 [document.querySelector()]
+    let id =document.querySelector('#id').value; console.log(id);
+    let pw=document.querySelector('#pw').value; console.log(pw);
+    //2. 객체화
+    let info={id : id , pw : pw};
+    console.log(info);
+    //3. 객체를 배열에 저장
+    $.ajax({
+        url : '/login',
+        method : 'POST',
+        data :  info  ,
+        success :( result )=>{
+            console.log(result)
+            if(result){
+            alert('로그인성공');
+            // js 페이지 전환
+            location.href="/"; // 로그인 성공하면 메인 페이지
+            }else{
+            alert('로그인 실패')
+            }
+        }
+    })
+    //4. 결과
+
+}
+
+// 3. 로그아웃
+function logout(){
+$.ajax({
+    url: `/logout`,
+    method: `get`,
+    success: (r)=>{
+        if(r){
+        alert('로그아웃 했습니다.');
+        location.href='/'
+        }else{
+        alert('로그아웃 실패 관리자에게 문의')
+        }
+    }
+})
