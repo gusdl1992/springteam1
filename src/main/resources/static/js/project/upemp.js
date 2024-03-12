@@ -107,7 +107,7 @@ function s_doPost(){
         success: (r) => {
             if(r){
             alert("전송 성공")
-            location.href="/project/view?pjno="+pjno
+            location.href="/projectPage/detail?pjno="+pjno
             }
             else{
             alert("인원수 초과")

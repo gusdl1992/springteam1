@@ -9,6 +9,8 @@ import sierp.springteam1.model.dto.EmployeeDto;
 import sierp.springteam1.model.dto.ProjectDto;
 import sierp.springteam1.model.dto.ProjectlogDto;
 import sierp.springteam1.model.dto.PsendEmployeeDto;
+import sierp.springteam1.service.mypageService.MyProjectService;
+import sierp.springteam1.service.mypageService.MypageService;
 import sierp.springteam1.service.projectservice.OneprojectService;
 
 import java.util.ArrayList;
@@ -23,7 +25,8 @@ public class OneprojectController {
 
     @Autowired
     OneprojectService oneprojectService;
-
+    @Autowired
+    MypageService mypageService;
     //세부게시물 페이지 출력
     @GetMapping("/view")
     public String oneProjectview(int pjno){
@@ -41,6 +44,10 @@ public class OneprojectController {
     }
 
 
+    @GetMapping("/view/eval")
+    public String evalProject(){
+        return "project/evalproject";
+    }
 //    @GetMapping("/view/rec.check")
 //    @ResponseBody
 //    public int findscore(int eno){
@@ -96,4 +103,15 @@ public class OneprojectController {
 
     }
 
+    @GetMapping("/view/eval.do")
+    @ResponseBody
+    public ArrayList<ProjectlogDto> findlog2( int pjno){
+        return oneprojectService.findlog2(pjno);
+    }
+
+    @GetMapping("/findname")
+    @ResponseBody
+    public String findname( String eno){
+        return mypageService.doGetLoginInfo(eno).getEname();
+    }
 }

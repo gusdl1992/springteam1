@@ -288,6 +288,32 @@ public class OneprojectDao extends SuperDao {
         }
         return result;
     }
+
+
+    public ArrayList<ProjectlogDto> findlog2( int pjno){
+        ArrayList<ProjectlogDto> result = new ArrayList<>();
+        try {
+            String sql = "select * from projectlog where pjno= ?;";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,pjno);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                result.add( ProjectlogDto.builder()
+                        .eno(rs.getInt("eno"))
+                        .state(rs.getInt("state"))
+                        .score(rs.getInt("score"))
+                        .note(rs.getString("note"))
+                        .build());
+            }
+        }
+        catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return result;
+    }
+
+
+
 //    public boolean createprojectlog(){
 //
 //    }

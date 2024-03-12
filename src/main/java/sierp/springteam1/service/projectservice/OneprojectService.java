@@ -84,4 +84,9 @@ public class OneprojectService {
         }
         return true;
     }
+
+    public ArrayList<ProjectlogDto> findlog2( int pjno){
+        return oneprojectDao.findlog2(pjno);
+    }
+
 }
