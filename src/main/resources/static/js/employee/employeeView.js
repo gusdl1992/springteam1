@@ -63,8 +63,6 @@ function CareerPrint(){
                 });
                  careerBox.innerHTML = html;
 
-
-
          }
     });
 }
