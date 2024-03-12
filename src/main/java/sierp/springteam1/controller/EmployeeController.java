@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import sierp.springteam1.model.dao.EmployeeDao;
 import sierp.springteam1.model.dto.*;
 import sierp.springteam1.service.employeeserive.EmployeeService;
+import sierp.springteam1.service.mypageService.MypageService;
 
 import java.util.List;
 
@@ -21,6 +22,8 @@ public class EmployeeController {
     private EmployeeDao employeeDao;
     @Autowired
     private HttpServletRequest request;
+    @Autowired
+    private MypageService mypageService;
     //================ 등록 요청
 
     //사원등록 요청
@@ -56,7 +59,7 @@ public class EmployeeController {
     }
     // 개별인사관리 페이지 요청
     @GetMapping("/employee/view.do")
-    public String employeeView(){
+    public String employeeView(int eno){
         return "/employee/employeeView";
     }
     //사원등록 페이지 요청
@@ -92,9 +95,12 @@ public class EmployeeController {
         return employeeService.employeeList();
     }
     // 개별 사원 호출
-   /* @GetMapping
+   @GetMapping
     @ResponseBody
-    public EmployeeDto*/
+    public EmployeeDto getEmployeeView(@RequestParam String eno){
+       mypageService.doGetLoginInfo(eno);
+        return null;
+   }
 
     //경력 내역 출력
     @GetMapping("/careerView")
