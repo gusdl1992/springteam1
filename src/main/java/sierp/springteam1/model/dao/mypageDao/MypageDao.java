@@ -21,15 +21,20 @@ public class MypageDao extends SuperDao {
             rs = ps.executeQuery();
             // 한명 이라서 if
             if (rs.next()){
-                employeeDto = new EmployeeDto(
-                        rs.getInt(1),rs.getString(2),
-                        rs.getString(3), null // 비밀번호
-                        , rs.getString(5), rs.getString(6),
-                        rs.getString(7) , rs.getString(8),
-                        rs.getBoolean(9)//성별
-                        , rs.getString(10) , rs.getString(11),
-                        rs.getInt(12), null , null
-                );
+                // 빌드 패턴 사용
+                employeeDto = EmployeeDto.builder()
+                        .eno(rs.getInt(1))
+                        .eeducation(rs.getString(2))
+                        .id(rs.getString(3))
+                        .ename(rs.getString(5))
+                        .email(rs.getString(6))
+                        .phone(rs.getString(7))
+                        .address(rs.getString(8))
+                        .sex(rs.getBoolean(9))//성별
+                        .img(rs.getString(10))
+                        .edate(rs.getString(11))
+                        .pno(rs.getInt(12))
+                        .build();
             }
         }catch (Exception e){
             System.out.println("EmployeeDto doGetLoginInfo e = " + e);

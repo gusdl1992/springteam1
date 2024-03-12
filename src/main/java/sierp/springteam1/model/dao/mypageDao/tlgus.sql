@@ -57,7 +57,7 @@ create table report( #보고서 보낸 로그
 );
 
 -- create table reportlog( 만약 1:n으로 보내게 되면
--- 	rno int, 
+-- 	rno int,
 --     eno int, #얘는 보고서 보낸사람 로그
 --     constraint foreign key(rno) references report(rno),
 --     foreign key(eno) references employee(eno)
@@ -106,7 +106,7 @@ create table employeecareer( #사원 경력
 );
 
 create table price(
-	pno int auto_increment,	#1이면 초급, 2이면 중급 3이면고급 
+	pno int auto_increment,	#1이면 초급, 2이면 중급 3이면고급
 	startyear int,
     endyear int, #3,5,7
     pprice int,		#연봉
@@ -134,32 +134,85 @@ insert into employee(id,ename,pw,email,phone,address,pno,sex) values("programmer
 insert into employee(id,ename,pw,email,phone,address,pno,sex) values("programmerc","programmerc","programmerc","iii@ii.ii","phonei","adressi",3,0);
 
 
-insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price) 
+insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
 values("2024-02-29","2024-03-09",3,5,1,"ezen site 차세대 프로젝트","일잘하는애들로","ezen","10억");
 
-insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price) 
+insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
 values("2024-03-08","2024-07-10",5,0,0,"쇼핑몰 구축"," ","ezen쇼핑몰","3억");
+
+# 테스트용 더미데이터 하나 더 추가.
+insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
+values("2024-03-01","2024-03-10",2,2,1,"쇼핑몰 상세페이지 보수"," ","ezen쇼핑몰","300만원");
+
+# 이전프로젝트 더미데이터 하나 더 추가.
+insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
+values("2024-03-01","2024-03-10",2,2,1,"쇼핑몰 결제페이지 보수"," ","ezen쇼핑몰","300만원");
+
+# 이전 프로젝트 더미데이터 하나 더 추가.
+insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
+values("2024-04-08","2024-10-10",2,2,1,"포커사이트 구축"," ","ezen게임스","5억");
+
+# 테스트용 더미데이터 하나 더 추가. 즐겨찾기용
+insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
+values("2024-03-01","2024-03-10",2,2,1,"카페 사이트 보수"," ","ezen카페","300만원");
+
+# 테스트용 더미데이터 하나 더 추가. 즐겨찾기용
+insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
+values("2024-03-01","2024-03-10",2,2,1,"햄버거 페이지 유지보수"," ","ezen햄버거","300만원");
 
 insert into report(settoeno,setfromeno,title,content) values(1,2,"이거사줘","붕어싸만코");
 insert into report(settoeno,setfromeno,title,content) values(1,3,"휴가","ㅇㅇ");
 
+insert into projectlog(eno, pjno) values(1,1);
 insert into projectlog(eno, pjno) values(2,1);
 insert into projectlog(eno, pjno) values(3,1);
 insert into projectlog(eno, pjno) values(2,2);
 insert into projectlog(eno, pjno) values(3,2);
+insert into projectlog(eno, pjno , state) values(1,4,2);
+insert into projectlog(eno, pjno , state) values(1,5,2);
+
 
 insert into projectlike(eno, pjno) values(2,1);
 insert into projectlike(eno, pjno) values(3,2);
+insert into projectlike(eno, pjno) values(1,2); # 테스트 위한 더미 데이터 삽입.
+insert into projectlike(eno, pjno) values(1,3); # 테스트 위한 더미 데이터 삽입.
+insert into projectlike(eno, pjno) values(1,4); # 테스트 위한 더미 데이터 삽입.
+insert into projectlike(eno, pjno) values(1,5); # 테스트 위한 더미 데이터 삽입.
+insert into projectlike(eno, pjno) values(1,6); # 테스트 위한 더미 데이터 삽입.
+insert into projectlike(eno, pjno) values(1,7); # 테스트 위한 더미 데이터 삽입.
+
+
+# 프로젝트 4, 5 테스트 용 state 종료로 변경
+UPDATE project SET state=2 WHERE pjno = 4;
+UPDATE project SET state=2 WHERE pjno = 5;
 
 select * from employee;
+# 특정 회원 회원번호로 검색
+select * from employee where eno = 1;
+# 특정 필드 값이 조건에 충족하는 레코드만 검색
+select id from employee where eno = 1;
+
+
 
 select * from projectlike;
+# 프로젝트 로그 검색
+select * from projectlog;
+select * from projectlog where eno = 1;
+# 프로젝트 검색
+select * from project;
+# 프로젝트와 프로젝트 로그에서 내 사원 번호 검색 후 값 검색하기
+select * from project p inner join projectlog l on p.pjno = l.pjno where eno = 1;
+SELECT DISTINCT * FROM project p INNER JOIN projectlog l ON p.pjno = l.pjno WHERE eno = 1;
 
+# 즐겨찾기한 프로젝트 조회
+# SELECT * FROM test1 INNER JOIN test2 ON test1.b = test2.b INNER JOIN test3 ON test2.b = test3.b
+select DISTINCT * from projectlike p inner join project p2 ON p.pjno = p2.pjno where eno = 1 and state = 0;
 
+# 이전프로젝트 조회
+select b.state , b.title , b.pjno, b.start_date , b.end_date from projectlog as a inner join project as b on a.pjno = b.pjno where eno = 1 and b.state = 2;
+# DAO 가져갈시 eno = ? 로 변경
 
-
-
-
+select * from projectlog;
 
 DELIMITER //
 
@@ -178,14 +231,3 @@ END//
 DELIMITER ;
 
 show events;
-
-
-
-
-
-
-
-
-
-
-
