@@ -18,18 +18,18 @@ function onView(){
         async: false,
         success : (r) => {
             console.log(r)
-            document.querySelector(".pjno").innerHTML = "제목 : "+r.pjno
-            document.querySelector(".start_date").innerHTML = "내용 : "+r.start_date
-            document.querySelector(".end_date").innerHTML = "카테고리 :"+r.end_date
-            document.querySelector(".rank1_count").innerHTML = "작성자 : "+r.rank1_count
-            document.querySelector(".rank2_count").innerHTML = "작성일 : "+r.rank2_count
-            document.querySelector(".rank3_count").innerHTML = "조회수 : "+r.rank3_count
-            document.querySelector(".title").innerHTML = "첨부파일 : "+r.title
-            document.querySelector(".request").innerHTML = "첨부파일 : "+r.request
-            document.querySelector(".note").innerHTML = "첨부파일 : "+r.note
-            document.querySelector(".compannyname").innerHTML = "첨부파일 : "+r.compannyname
-            document.querySelector(".state").innerHTML = "첨부파일 : "+r.state
-            document.querySelector(".price").innerHTML = "첨부파일 : "+r.price
+            document.querySelector(".pjno").innerHTML = "보고서 번호 : "+r.pjno
+            document.querySelector(".start_date").innerHTML = "시작일자 : "+r.start_date
+            document.querySelector(".end_date").innerHTML = "종료일자 :"+r.end_date
+            document.querySelector(".rank1_count").innerHTML = "요구 초급수 : "+r.rank1_count
+            document.querySelector(".rank2_count").innerHTML = "요구 중급수 : "+r.rank2_count
+            document.querySelector(".rank3_count").innerHTML = "요구 고급수 : "+r.rank3_count
+            document.querySelector(".title").innerHTML = "제목 : "+r.title
+            document.querySelector(".request").innerHTML = "요구사항 : "+r.request
+            document.querySelector(".note").innerHTML = "비고 : "+r.note
+            document.querySelector(".compannyname").innerHTML = "회사이름 : "+r.compannyname
+            document.querySelector(".state").innerHTML = "상태 : "+(r.state==0?"진행전":r.state==1?"진행중":"완료")
+            document.querySelector(".price").innerHTML = "가격 : "+r.price
             document.querySelector(".buttons").innerHTML = `<button type="button" onclick=location.href="/project/view/rec?pjno=${pjno}">프로젝트 인원 등록</button>
              <button type="button" onclick=location.href="/project/view/re?pjno=${pjno}">프로젝트 인원 수정</button>`
         }
