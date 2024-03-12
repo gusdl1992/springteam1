@@ -2,6 +2,7 @@
 <!--검색-->
 <!--검색기준-->
 <select class="searchCategory" onchange="searchProject()">
+    <option value="0">선택</option>
     <option value="1">프로젝트명</option>
     <option value="2">회사명</option>
     <option value="3">규모</option>
@@ -13,7 +14,7 @@
 <span class="searchInput">
     <input name="value" type="text" />
 </span>
-<button type="button" onclick="searchBtn()">검색</button>
+<button type="button" onclick="printProjet(1)">검색</button>
 
 <select onchange="sortProject()">
     <option value="1">시작날짜 빠른순</option>

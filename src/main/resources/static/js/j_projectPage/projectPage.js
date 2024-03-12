@@ -14,7 +14,8 @@ console.log("projectPage-js");
 //전체 프로젝트리스트 출력
 function printProjet(page){
     console.log("printProjet()");
-    pageObject.page=page;
+    pageObject.page=page;   //현재페이지 대입
+    pageObject.keyword=document.querySelector(".searchValue").value;    //현재 검색어 대입
 
     $.ajax({
         url : "/projectPage/list",
@@ -22,8 +23,9 @@ function printProjet(page){
         data : pageObject,
         success : (r)=>{
             console.log(r);
-            let html=``;
 
+            //전체 리스트 출력
+            let html=``;
             r.list.forEach((result)=>{
                 html+=`<tr>
                            <th>${result.pjno}</th>
@@ -54,8 +56,8 @@ function printProjet(page){
 function searchProject(){
     console.log("searchProject-js");
 
-    let searchCategory= document.querySelector(".searchCategory").value;
-    let searchInput=document.querySelector(".searchInput");
+    let searchCategory= document.querySelector(".searchCategory").value;    //검색 기준정보 가져오기
+    let searchInput=document.querySelector(".searchInput");     //검색 기준에 따른 input형태가 바뀜
     switch (searchCategory){
         case "1" :
             searchInput.innerHTML=`<input class="searchValue" type="text" />`;
@@ -87,12 +89,8 @@ function searchProject(){
             break;
         default :
             searchInput.innerHTML=`<input class="searchValue" type="text" />`;
+            pageObject.key=null;
     }//switch end
-}//f end
-
-//검색
-function searchBtn(){
-
 }//f end
 
 //정렬기준
