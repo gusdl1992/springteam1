@@ -10,13 +10,15 @@ import java.util.Map;
 
 @Component
 public class J_projectPageDao extends SuperDao {
-    //프로젝트 전체(진행전) 리스트 출력
-    public List<ProjectDto> printProjectList(){
+    //프로젝트 전체 리스트 출력
+    public List<ProjectDto> printProjectList(int startRow){
         System.out.println("J_projectPageDao.printProjectList");
         List<ProjectDto> projectDtos=new ArrayList<>();
         try{
-            String sql="select * from project ;";
+            String sql="select * from project order by start_date limit ? , ?";
             ps=conn.prepareStatement(sql);
+            ps.setInt(1,startRow);
+            ps.setInt(2,startRow+5);
             rs=ps.executeQuery();
             while(rs.next()){
                 ProjectDto projectDto=ProjectDto.builder()
@@ -33,13 +35,30 @@ public class J_projectPageDao extends SuperDao {
                         .build();
 
                 projectDtos.add(projectDto);
-            }
+            }//w end
             return projectDtos;
         }
         catch (Exception e){
             System.out.println("e = " + e);
         }
         return null;
+    }//m end
+
+    //전체 프로젝드 수 추출
+    public int projectCount(){
+        System.out.println("J_projectPageDao.projectCount");
+        try{
+            String sql="select count(*) from project";
+            ps=conn.prepareStatement(sql);
+            rs=ps.executeQuery();
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+        }
+        catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return 0;
     }//m end
 
     //프로젝트 세부 리스트 출력
@@ -88,6 +107,7 @@ public class J_projectPageDao extends SuperDao {
                     "\trequest=? ,\n" +
                     "\tnote=? ,\n" +
                     "\tcompannyname=? ,\n" +
+                    "\tstate=? ,\n" +
                     "\tprice=?\n" +
                     "where pjno=?;";
             ps=conn.prepareStatement(sql);
@@ -100,8 +120,9 @@ public class J_projectPageDao extends SuperDao {
             ps.setString(7,projectDto.getRequest());
             ps.setString(8,projectDto.getNote());
             ps.setString(9,projectDto.getCompannyname());
-            ps.setString(10,projectDto.getPrice());
-            ps.setInt(11,projectDto.getPjno());
+            ps.setInt(10,projectDto.getState());
+            ps.setString(11,projectDto.getPrice());
+            ps.setInt(12,projectDto.getPjno());
 
             int count= ps.executeUpdate();
             System.out.println("count = " + count);
@@ -119,25 +140,25 @@ public class J_projectPageDao extends SuperDao {
     //프로젝트 내역 삭제
 
     //프로젝트 등록
-    public int insertProject(Map<String, String> insertArray){
+    public int insertProject(ProjectDto projectDto){
         System.out.println("J_projectPageDao.insertProject");
-        System.out.println("insertArray = " + insertArray);
+        System.out.println("projectDto = " + projectDto);
         try{
             String[] key={"pjno"};
             String sql="insert into project(start_date, end_date, rank1_count, rank2_count, rank3_count, title, request, note, compannyname, state, price) " +
                     "values(?,?,?,?,?,?,?,?,?,?,?)";
             ps=conn.prepareStatement(sql, key);
-            ps.setString(1,insertArray.get("start_date"));
-            ps.setString(2,insertArray.get("end_date"));
-            ps.setString(3,insertArray.get("rank1_count"));
-            ps.setString(4,insertArray.get("rank2_count"));
-            ps.setString(5,insertArray.get("rank3_count"));
-            ps.setString(6,insertArray.get("title"));
-            ps.setString(7,insertArray.get("request"));
-            ps.setString(8,insertArray.get("note"));
-            ps.setString(9,insertArray.get("compannyname"));
-            ps.setString(10,insertArray.get("state"));
-            ps.setString(11,insertArray.get("price"));
+            ps.setString(1,projectDto.getStart_date());
+            ps.setString(2,projectDto.getEnd_date());
+            ps.setInt(3,projectDto.getRank1_count());
+            ps.setInt(4,projectDto.getRank2_count());
+            ps.setInt(5,projectDto.getRank3_count());
+            ps.setString(6,projectDto.getTitle());
+            ps.setString(7,projectDto.getRequest());
+            ps.setString(8,projectDto.getNote());
+            ps.setString(9,projectDto.getCompannyname());
+            ps.setInt(10,projectDto.getState());
+            ps.setString(11,projectDto.getPrice());
 
             ps.executeUpdate();
             rs=ps.getGeneratedKeys();
@@ -150,6 +171,25 @@ public class J_projectPageDao extends SuperDao {
             System.out.println("e = " + e);
         }
         return 0;
+    }//m end
+
+    //프로젝트 삭제
+    public boolean deleteProject(int pjno){
+        System.out.println("J_projectPageDao.deleteProject");
+        System.out.println("pjno = " + pjno);
+        try{
+            String sql="delete from project where pjno="+pjno;
+            ps=conn.prepareStatement(sql);
+            int count= ps.executeUpdate();
+
+            if(count==1){
+                return true;
+            }
+        }
+        catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return false;
     }//m end
 
 }//c end

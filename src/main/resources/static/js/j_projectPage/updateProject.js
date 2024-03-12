@@ -4,7 +4,7 @@ inputData();
 //수정페이지 input에 기존데이터 입력
 function inputData(){
     console.log("updateDetail()");
-
+    //기존 데이터 가져와서 intput에 입력
     $.ajax({
         url : "/projectPage/detail.do",
         method : "Get",

@@ -2,12 +2,10 @@ package sierp.springteam1.service.j_projectPage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import sierp.springteam1.model.dao.j_projectPageDao.J_projectPageDao;
 import sierp.springteam1.model.dto.ProjectDto;
+import sierp.springteam1.model.dto.ProjectPageDto;
 
 import java.util.List;
 import java.util.Map;
@@ -18,10 +16,24 @@ public class J_projectPageService {
     J_projectPageDao j_projectPageDao;
 
     //프로젝트 전체 리스트 출력
-    public List<ProjectDto> printProjectList(){
+    public ProjectPageDto printProjectList(int page, int pageBoardSize){
         System.out.println("J_projectPageService.printProjectList");
 
-        return j_projectPageDao.printProjectList();
+        ProjectPageDto projectPageDto=new ProjectPageDto();
+        //시작row
+        int startRow=(page-1)*5;
+        System.out.println("startRow = " + startRow);
+        projectPageDto.setPage(page);
+
+        //총 페이지 수
+        int totalRecode=j_projectPageDao.projectCount();
+        int totalPage=totalRecode%5>0 ? totalRecode/5+1 : totalRecode/5;
+        projectPageDto.setTotalPage(totalPage);
+
+        //한페이지당 List
+        projectPageDto.setList(j_projectPageDao.printProjectList(startRow));
+
+        return projectPageDto;
     }//m end
 
     //프로젝트 세부 리스트 출력
@@ -42,10 +54,18 @@ public class J_projectPageService {
     //프로젝트 내역 삭제
 
     //프로젝트 등록
-    public int insertProject(Map<String, String> insertArray){
+    public int insertProject(ProjectDto projectDto){
         System.out.println("J_projectPageService.insertProject");
-        System.out.println("insertArray = " + insertArray);
+        System.out.println("projectDto = " + projectDto);
 
-        return j_projectPageDao.insertProject(insertArray);
+        return j_projectPageDao.insertProject(projectDto);
     }//m end
+
+    //프로젝트 삭제
+    public boolean deleteProject(int pjno){
+        System.out.println("J_projectPageService.deleteProject");
+        System.out.println("pjno = " + pjno);
+
+        return j_projectPageDao.deleteProject(pjno);
+    }
 }//c end
