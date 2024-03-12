@@ -25,7 +25,8 @@ function printProjectDetail(){
             document.querySelector(".detaile_state").innerHTML=r.state==0 ? "진행전" : (r.state==1 ? "진행중" : "진행완료");
             document.querySelector(".detaile_price").innerHTML=r.price;
             document.querySelector(".buttons").innerHTML += `<button type="button" onclick="goToRec( ${r.state} ,${pjno})">프로젝트 인원 등록</button>
-            <button type="button" onclick="goToRe( ${r.state} ,${pjno})">프로젝트 인원 수정</button>`
+            <button type="button" onclick="goToRe( ${r.state} ,${pjno})">프로젝트 인원 수정</button>
+            <button type="button" onclick="goToEval( ${r.state} ,${pjno})">프로젝트 평가</button>`
          }//success end
     })//ajax end
         $.ajax({
@@ -75,18 +76,17 @@ function deleteDetail(){
     }
 }//f end
 
-function checkstate(state){
-    if(state <= 1){
-        return true;
+function goToEval(state,pjno){
+    if (state >= 1){
+         location.href = "/project/view/eval?pjno="+pjno
     }
     else{
-    return false;
+        alert("아직 종료되지 않은 프로젝트입니다")
     }
 }
 
-
 function goToRec(state, pjno){
-    if(checkstate(state)){
+    if(state <= 1){
         location.href="/project/view/rec?pjno="+pjno
     }
     else{
@@ -95,8 +95,8 @@ function goToRec(state, pjno){
 }
 
 function goToRe(state, pjno){
-    if(checkstate(state)){
-        location.href="/project/view/re?pjno="+pjno
+    if(state <= 1){
+        location.href="/project/view/re?pjno="+pjno;
     }
     else{
         alert("이미 종료된 프로젝트입니다.")
