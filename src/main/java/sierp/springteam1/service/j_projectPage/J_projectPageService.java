@@ -16,7 +16,10 @@ public class J_projectPageService {
     J_projectPageDao j_projectPageDao;
 
     //프로젝트 전체 리스트 출력
-    public ProjectPageDto printProjectList(int page, int pageBoardSize, String key, String keyword){
+    public ProjectPageDto printProjectList(int page, int pageBoardSize,
+                                           int sortKey,
+                                           String key, String keyword,
+                                           int startPrice, int endPrice){
         System.out.println("J_projectPageService.printProjectList");
 
         ProjectPageDto projectPageDto=new ProjectPageDto();
@@ -30,11 +33,8 @@ public class J_projectPageService {
         int totalPage=totalRecode%5>0 ? totalRecode/5+1 : totalRecode/5;
         projectPageDto.setTotalPage(totalPage);
 
-        //검색
-
-
         //한페이지당 List
-        projectPageDto.setList(j_projectPageDao.printProjectList(startRow));
+        projectPageDto.setList(j_projectPageDao.printProjectList(startRow, sortKey, key, keyword, startPrice, endPrice));
 
         return projectPageDto;
     }//m end

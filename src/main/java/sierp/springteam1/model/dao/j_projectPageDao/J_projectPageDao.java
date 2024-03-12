@@ -11,11 +11,40 @@ import java.util.Map;
 @Component
 public class J_projectPageDao extends SuperDao {
     //프로젝트 전체 리스트 출력
-    public List<ProjectDto> printProjectList(int startRow){
+    public List<ProjectDto> printProjectList(int startRow,
+                                             int sortkey,
+                                             String key, String keyword,
+                                             int startPrice, int endPrice){
         System.out.println("J_projectPageDao.printProjectList");
         List<ProjectDto> projectDtos=new ArrayList<>();
         try{
-            String sql="select * from project order by start_date limit ? , ?";
+            String sql="select * from project ";
+
+            //------------- 검색기준을 선택한 경우 -------------------
+            if(!key.equals("")){
+                if(key.equals("price")){ //검색기준이 규모인 경우
+                    sql+=" where price between "+startPrice*10000 +" and "+endPrice*10000;
+                }
+                else {
+                    sql += " where " + key + " like '%" + keyword + "%' ";
+                }
+            }//if end
+            //------------------------------------------------------
+
+
+
+            //----------------------- 정렬기준 -------------------------
+            if(sortkey==1) {
+                sql += " order by price limit ? , ? ";
+            }
+            else if(sortkey==2){
+                sql+=" order by rank1_count+rank2_count+rank3_count limit ? , ? ";
+            }
+            else{
+                sql+=" order by start_date limit ? , ?";
+            }
+            //----------------------------------------------------------
+
             ps=conn.prepareStatement(sql);
             ps.setInt(1,startRow);
             ps.setInt(2,startRow+5);

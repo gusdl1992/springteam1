@@ -3,20 +3,22 @@ let pageObject={
     page : 1,           //현재페이지
     pageBoardSize : 5,  //페이지당 표시 할 개수
     sortKey : 0,            //정렬 기준
-    key : 'b.btitle',   //현재검색 key
-    keyword : ''        //현재검색 keyword
+    key : null,   //현재검색 key
+    keyword : '',       //현재검색 keyword
+    startPrice : 0,     //규모로 검색하는 경우 시작금액
+    endPrice : 0        //규모로 검색하는 경우 끝 금액
 }
 //================================================================
 
+searchProject();    //검색 페이지 띄우기
 printProjet(1);
 console.log("projectPage-js");
 
 //전체 프로젝트리스트 출력
 function printProjet(page){
     console.log("printProjet()");
-    searchProject();    //검색 페이지 띄우기
     pageObject.page=page;   //현재페이지 대입
-    pageObject.keyword=document.querySelector(".searchValue").value;    //현재 검색어
+
 
     $.ajax({
         url : "/projectPage/list",
@@ -24,6 +26,8 @@ function printProjet(page){
         data : pageObject,
         success : (r)=>{
             console.log(r);
+            console.log("pageObject.keyword : ");
+            console.log(document.querySelector(".searchValue").value);
 
             //전체 리스트 출력
             let html=``;
@@ -69,7 +73,7 @@ function searchProject(){
             pageObject.key="compannyname";
             break;
         case "3" :
-            searchInput.innerHTML=`<input class="searchValue" type="text" />`;
+            searchInput.innerHTML=`<input class="searchValue1 searchPrice" type="number" />만원 ~ <input class="searchValue2 searchPrice" type="number" />만원`;
             pageObject.key="price";
             break;
         case "4" :
@@ -94,8 +98,36 @@ function searchProject(){
     }//switch end
 }//f end
 
+//검색기능
+function onSearch(){
+    if(pageObject.key!=null){   //검색 기준을 규모로 선택한 경우
+        if(document.querySelector(".searchCategory").value=="3"){   //규모를 기준으로 검색하는 경우
+            pageObject.startPrice=document.querySelector(".searchValue1").value =="" ? 0 : document.querySelector(".searchValue1").value;    //시작금액
+            pageObject.endPrice=document.querySelector(".searchValue2").value =="" ? 0 : document.querySelector(".searchValue2").value;    //끝 금액
+
+        }
+        else{
+            pageObject.keyword=document.querySelector(".searchValue").value;    //현재 검색어
+            console.log("pageObject.keyword : "+document.querySelector(".searchValue").value);
+        }
+    }//if end
+    printProjet(1);
+}//f end
+
 //정렬기준
 function sortProject(){
-
+let sortStandard = document.querySelector(".sortStandard").value;
+    switch (sortStandard) {
+        case "1" :  //규모 적은순
+            pageObject.sortKey=1;
+            break;
+        case "2" :  //전체인원 적은순
+            pageObject.sortKey=2;
+            break;
+        default :   //기본정렬 : 시작날짜 빠른순
+            pageObject.sortKey=0;
+    }//switch end
+    onSearch();
 }//f end
+
 

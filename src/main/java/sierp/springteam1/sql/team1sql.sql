@@ -37,7 +37,7 @@ create table project( #프로젝트 전체 테이블
     note varchar(255) default "",
     compannyname varchar(20) not null,
     state int default 0,
-    price text not null,
+    price int not null,
     constraint primary key(pjno)
 );
 
@@ -135,10 +135,10 @@ insert into employee(id,ename,pw,email,phone,address,pno,sex) values("programmer
 
 
 insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price) 
-values("2024-02-29","2024-03-09",3,5,1,"ezen site 차세대 프로젝트","일잘하는애들로","ezen","10억");
+values("2024-02-29","2024-03-09",3,5,1,"ezen site 차세대 프로젝트","일잘하는애들로","ezen",1000000);
 
 insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price) 
-values("2024-03-08","2024-07-10",5,0,0,"쇼핑몰 구축"," ","ezen쇼핑몰","3억");
+values("2024-03-08","2024-07-10",5,0,0,"쇼핑몰 구축"," ","ezen쇼핑몰",300000000);
 
 insert into report(settoeno,setfromeno,title,content) values(1,2,"이거사줘","붕어싸만코");
 insert into report(settoeno,setfromeno,title,content) values(1,3,"휴가","ㅇㅇ");
