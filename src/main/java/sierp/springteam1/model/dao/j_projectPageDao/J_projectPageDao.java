@@ -11,7 +11,7 @@ import java.util.Map;
 @Component
 public class J_projectPageDao extends SuperDao {
     //프로젝트 전체 리스트 출력
-    public List<ProjectDto> printProjectList(int startRow){
+    public List<ProjectDto> printProjectList(int startRow, String key, String keyword){
         System.out.println("J_projectPageDao.printProjectList");
         List<ProjectDto> projectDtos=new ArrayList<>();
         try{
