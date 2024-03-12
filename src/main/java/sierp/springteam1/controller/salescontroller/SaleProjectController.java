@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import sierp.springteam1.model.dto.ProjectDto2;
 import sierp.springteam1.service.salesService.SalesService;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/sales")
 public class SaleProjectController {
@@ -25,7 +27,12 @@ public class SaleProjectController {
         return salesService.salesPost(projectDto2);
     }
     //2.리스트
-
+    @GetMapping("/list.do")
+    @ResponseBody
+    public List<ProjectDto2> saleslist(){
+        System.out.println("SaleProjectController.salesPost");
+        return salesService.saleslist();
+    }
     //1.등록
 
     //2.리스트
