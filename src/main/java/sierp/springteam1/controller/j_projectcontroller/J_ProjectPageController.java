@@ -32,10 +32,10 @@ public class J_ProjectPageController {
     //프로젝트 전체 리스트 출력
     @GetMapping("/list")
     @ResponseBody
-    public ProjectPageDto printProjectList(int page, int pageBoardSize){
+    public ProjectPageDto printProjectList(int page, int pageBoardSize, String key, String keyword){
         System.out.println("J_ProjectPageController.printProjectList");
 
-        return j_projectPageService.printProjectList(page, pageBoardSize);
+        return j_projectPageService.printProjectList(page, pageBoardSize, key, keyword);
     }//m end
     
     //프로젝트 세부리스트 출력
