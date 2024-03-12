@@ -30,8 +30,8 @@ function onView(){
             document.querySelector(".compannyname").innerHTML = "회사이름 : "+r.compannyname
             document.querySelector(".state").innerHTML = "상태 : "+(r.state==0?"진행전":r.state==1?"진행중":"완료")
             document.querySelector(".price").innerHTML = "가격 : "+r.price
-            document.querySelector(".buttons").innerHTML = `<button type="button" onclick=location.href="/project/view/rec?pjno=${pjno}">프로젝트 인원 등록</button>
-             <button type="button" onclick=location.href="/project/view/re?pjno=${pjno}">프로젝트 인원 수정</button>`
+            document.querySelector(".buttons").innerHTML = `<button type="button" onclick="goToRec( ${r.state} ,${pjno})">프로젝트 인원 등록</button>
+             <button type="button" onclick="goToRe( ${r.state} ,${pjno})">프로젝트 인원 수정</button>`
         }
     })
 
@@ -52,3 +52,31 @@ function onView(){
     })
 }
 
+
+function checkstate(state){
+    if(state <= 1){
+        return true;
+    }
+    else{
+    return false;
+    }
+}
+
+
+function goToRec(state, pjno){
+    if(checkstate(state)){
+        location.href="/project/view/rec?pjno="+pjno
+    }
+    else{
+        alert("이미 종료된 프로젝트입니다.")
+    }
+}
+
+function goToRe(state, pjno){
+    if(checkstate(state)){
+        location.href="/project/view/re?pjno="+pjno
+    }
+    else{
+        alert("이미 종료된 프로젝트입니다.")
+    }
+}

@@ -7,6 +7,7 @@ function printProjectDetail(){
     $.ajax({
          url : "/projectPage/detail.do",
          method : "get",
+         async: false,
          data : {"pjno" : pjno},
          success : (r)=>{
             console.log("결과출력");
@@ -23,8 +24,25 @@ function printProjectDetail(){
             document.querySelector(".detaile_compannyname").innerHTML=r.compannyname;
             document.querySelector(".detaile_state").innerHTML=r.state==0 ? "진행전" : (r.state==1 ? "진행중" : "진행완료");
             document.querySelector(".detaile_price").innerHTML=r.price;
+            document.querySelector(".buttons").innerHTML += `<button type="button" onclick="goToRec( ${r.state} ,${pjno})">프로젝트 인원 등록</button>
+            <button type="button" onclick="goToRe( ${r.state} ,${pjno})">프로젝트 인원 수정</button>`
          }//success end
     })//ajax end
+        $.ajax({
+            url: "/project/view/list?pjno="+pjno,
+            method:"get",
+            success : (r) =>{
+                console.log(r.length)
+                let html = "프로젝트에 참여중인 인원: ";
+                console.log(r[1])
+                console.log(r[0])
+                for(let i = 0; i < r.length; i++){
+                    html += `${r[i]} `
+                }
+                console.log(html)
+                document.querySelector(".logs").innerHTML= html;
+            }
+        })
 }//f end
 
 //수정페이지로 이동
@@ -56,3 +74,31 @@ function deleteDetail(){
         alert("삭제가 취소되었습니다.");
     }
 }//f end
+
+function checkstate(state){
+    if(state <= 1){
+        return true;
+    }
+    else{
+    return false;
+    }
+}
+
+
+function goToRec(state, pjno){
+    if(checkstate(state)){
+        location.href="/project/view/rec?pjno="+pjno
+    }
+    else{
+        alert("이미 종료된 프로젝트입니다.")
+    }
+}
+
+function goToRe(state, pjno){
+    if(checkstate(state)){
+        location.href="/project/view/re?pjno="+pjno
+    }
+    else{
+        alert("이미 종료된 프로젝트입니다.")
+    }
+}

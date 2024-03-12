@@ -14,6 +14,7 @@ console.log("projectPage-js");
 //전체 프로젝트리스트 출력
 function printProjet(page){
     console.log("printProjet()");
+    searchProject();
     pageObject.page=page;   //현재페이지 대입
     pageObject.keyword=document.querySelector(".searchValue").value;    //현재 검색어 대입
 
