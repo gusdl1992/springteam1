@@ -15,6 +15,6 @@ public class ProjectPageDto {
     private int totalPage;  //총 페이지
     private int page;   //현재 페이지
 
-    private List<Object> list;
+    private List<ProjectDto> list;
     private List<ProjectDto3> list3;
 }

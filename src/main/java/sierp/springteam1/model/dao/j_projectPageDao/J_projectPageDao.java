@@ -13,9 +13,8 @@ import java.util.Objects;
 
 @Component
 public class J_projectPageDao extends SuperDao {
-
     //프로젝트 전체 리스트 출력
-    public List<Object> printProjectList(int startRow, int pageBoardSize,
+    public List<ProjectDto> printProjectList(int startRow, int pageBoardSize,
                                           int sortkey,
                                           String key, String keyword,
                                           int startPrice, int endPrice){
