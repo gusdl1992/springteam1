@@ -185,6 +185,44 @@ DELIMITER ;
 show events;
 
 
+#프로젝트 insert
+insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
+values("2024-02-10","2024-04-09",3,5,1,"test1","ㅎㅎ","ezen1",10000000);
+
+insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
+values("2024-02-20","2024-07-09",3,5,1,"test2","ㅇㅇ","ezen1",100000000);
+
+insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
+values("2024-02-08","2024-05-09",3,5,1,"test3","ㄴㄴ","ezen2",200000);
+
+insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
+values("2024-02-03","2024-09-09",3,5,1,"test4","ㅁㅁ","ezen3",30000);
+
+insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
+values("2024-03-04","2024-04-09",3,5,1,"test5","ㅎㅎ","ezen4",12000000);
+
+insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
+values("2024-03-07","2024-05-09",3,5,1,"test6","ㅇㅇ","ezen4",15000000);
+
+insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
+values("2024-03-16","2024-05-09",3,5,1,"test7","ㅁㅁ","ezen5",300000000);
+
+insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
+values("2024-03-20","2024-04-09",3,5,1,"test8","ㄴㄴ","ezen5",8000000);
+
+insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
+values("2024-04-25","2024-08-09",3,5,1,"test9","ㄷㄷ","ezen6",3000000);
+
+insert into project(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
+values("2024-04-16","2024-06-09",3,5,1,"test10","ㄱㄱ","ezen6",111000000);
+
+#성과 진행여부 식별
+select pjno as a, case
+			when ((select min(score) from (select * from projectlog where pjno=a) as b)!=0) then '평가완료'
+            when ((select max(score) from (select * from projectlog where pjno=a) as b)>0) then '평가중'
+			else '평가전'
+		end as result from projectlog where state=1 group by pjno;
+
 
 
 
