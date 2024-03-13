@@ -57,7 +57,7 @@ public class MyProjectDao extends SuperDao {
             rs = ps.executeQuery();
             while (rs.next()){
                 projectDto = ProjectDto.builder()
-                        .pjno(rs.getInt(2))
+                        .spjno(rs.getInt(2))
                         .title(rs.getString(9))
                         .compannyname(rs.getString(12))
                         .price(rs.getString(14))
@@ -85,7 +85,7 @@ public class MyProjectDao extends SuperDao {
             rs = ps.executeQuery();
             while (rs.next()){
                 projectDto = ProjectDto.builder()
-                        .pjno(rs.getInt("pjno"))
+                        .spjno(rs.getInt("pjno"))
                         .title(rs.getString("title"))
                         .start_date(rs.getString("start_date"))
                         .end_date(rs.getString("end_date"))

@@ -19,13 +19,13 @@ public class OneprojectDao extends SuperDao {
     public ProjectDto oneProject(int pjno){
         ProjectDto projectDto = null;
         try {
-            String sql = "select * from project where pjno=?";
+            String sql = "select * from salesproject where spjno=?";
             ps = conn.prepareStatement(sql);
             ps.setInt(1,pjno);
             rs = ps.executeQuery();
             if(rs.next()){
                 projectDto= ProjectDto.builder()
-                        .pjno(rs.getInt("pjno"))
+                        .spjno(rs.getInt("spjno"))
                         .start_date(rs.getString("start_date"))
                         .end_date(rs.getString("end_date"))
                         .rank1_count(rs.getInt("rank1_count"))
@@ -55,22 +55,22 @@ public class OneprojectDao extends SuperDao {
         }
         try {
            String sql = "select a.ename as ename , a.img as img, a.eno as eno, a.평가점수 as score, (sum(coalesce(datediff(b.end_date,b.start_date),0))+datediff(now(),a.edate)) as alltime \n" +
-                   "from (select e.* , sum(coalesce(score,0)) as 평가점수  \n" +
-                   "\tfrom employee as e left outer join projectlog p on e.eno = p.eno\n" +
-                   "    group by e.eno\n" +
-                   " )as a left outer join  employeecareer as b on a.eno = b.eno \n" +
-                   "where a.eno in(\n" +
-                   "\t\tselect d.eno\n" +
-                   "\t\tfrom \n" +
-                   "\t\t(select b.pjno , end_date, a.eno  from project b  \n" +
-                   "\t\tright outer join projectlog a\n" +
-                   "\t\t on a.pjno = b.pjno) as c \n" +
-                   "\t\tright outer join\n" +
-                   "\t\t employee d \n" +
-                   "\t\t on c.eno = d.eno\n" +
-                   "\t\t group by d.eno\n" +
-                   "\t\t having ( coalesce(datediff(?,max(end_date)),1) > 0)\n" +
-                   ")\n" +
+                   "from (select e.* , sum(coalesce(score,0)) as 평가점수 \n" +
+                   "       from employee as e left outer join projectlog p on e.eno = p.eno \n" +
+                   "       group by e.eno \n" +
+                   " ) as a left outer join  employeecareer as b on a.eno = b.eno \n" +
+                   "where a.eno in( \n" +
+                   "       select d.eno \n" +
+                   "       from \n" +
+                   "       (select b.pjno , end_date, a.eno  from uploadproject b join salesproject d on b.spjno = d.spjno \n" +
+                   "       right outer join projectlog a \n" +
+                   "       on a.pjno = b.pjno) as c \n" +
+                   "       right outer join \n" +
+                   "       employee d \n" +
+                   "       on c.eno = d.eno \n" +
+                   "       group by d.eno \n" +
+                   "       having ( coalesce(datediff(?,max(end_date)),1) > 0) \n" +
+                   ") \n" +
                    "group by a.eno;";
 
            ps=conn.prepareStatement(sql);
@@ -91,7 +91,6 @@ public class OneprojectDao extends SuperDao {
                System.out.println(allday);
 
                if(allday < 1459 ){
-
                    result[0].add(employeeDto);
                }
                else if (allday > 3650) {
@@ -125,7 +124,7 @@ public class OneprojectDao extends SuperDao {
                     "where a.eno in(\n" +
                     "\t\tselect d.eno\n" +
                     "\t\tfrom \n" +
-                    "\t\t(select b.pjno , end_date, a.eno  from project b  \n" +
+                    "\t\t(select b.pjno , end_date, a.eno  from uploadproject b  \n" +
                     "\t\tright outer join projectlog a\n" +
                     "\t\t on a.pjno = b.pjno) as c \n" +
                     "\t\tright outer join\n" +
@@ -273,7 +272,7 @@ public class OneprojectDao extends SuperDao {
     public int[] findrankcount(int pjno){
         int[] result = new int[3];
         try {
-            String sql = "select rank1_count,rank2_count,rank3_count from project where pjno =?;";
+            String sql = "select rank1_count,rank2_count,rank3_count from uploadproject as a inner join salesproject as b on a.spjno = b.spjno where pjno =?;";
             ps = conn.prepareStatement(sql);
             ps.setInt(1,pjno);
             rs= ps.executeQuery();

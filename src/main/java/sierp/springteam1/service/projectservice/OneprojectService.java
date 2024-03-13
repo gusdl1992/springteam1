@@ -30,7 +30,7 @@ public class OneprojectService {
         System.out.println("안뇽.memberlist");
         System.out.println(pjno);
         String start_date = oneprojectDao.oneProject(pjno).getStart_date();
-
+        System.out.println("등록"+start_date);
         return oneprojectDao.memberlist(start_date);
     }
 

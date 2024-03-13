@@ -1,18 +1,29 @@
 let spjno=new URL(location.href).searchParams.get('spjno');
+let pjno = -1;
+$.ajax({
+    method:"get",
+    url : "/sales/findpjno",
+    async : false,
+    data : {spjno : spjno},
+    success: (r) => {
+        pjno = r
+    }
+})
+console.log(pjno)
 printProjectDetail();
 //개별 프로젝트리스트 출력
 function printProjectDetail(){
     console.log("printProjectDetail()");
 
     $.ajax({
-         url : "/projectPage/detail.do",
+         url : "/sales/view.do",
          method : "get",
          async: false,
-         data : {"spjno" : spjno},
+         data : {spjno : spjno},
          success : (r)=>{
             console.log("결과출력");
             console.log(r);
-            document.querySelector(".detaile_spjno").innerHTML=r.spjno;
+            document.querySelector(".detaile_pjno").innerHTML=pjno;
             document.querySelector(".detaile_start_date").innerHTML=r.start_date;
             document.querySelector(".detaile_end_date").innerHTML=r.end_date;
             document.querySelector(".detaile_rank1_count").innerHTML=r.rank1_count;
@@ -24,18 +35,13 @@ function printProjectDetail(){
             document.querySelector(".detaile_compannyname").innerHTML=r.compannyname;
             document.querySelector(".detaile_state").innerHTML=r.state==0 ? "진행전" : (r.state==1 ? "진행중" : "진행완료");
             document.querySelector(".detaile_price").innerHTML=r.price;
-            document.querySelector(".buttons").innerHTML += `<button type="button" onclick="goToRec( ${r.state} ,${spjno})">프로젝트 인원 등록</button>
-            <button type="button" onclick="goToRe( ${r.state} ,${spjno})">프로젝트 인원 수정</button>
-            <button type="button" onclick="goToEval( ${r.state} ,${spjno})">프로젝트 평가</button>
-            <button type="button" onclick="doPostuploadProject(${spjno})">프로젝트 등록</button>`
-            //버튼 수정 등록 평가버튼 추후 삭제 -> 프로젝트 따온 영업이고 실제 등록 안하게 설계 바뀌었으므로
+            document.querySelector(".buttons").innerHTML += `<button type="button" onclick="goToRec( ${r.state} ,${pjno})">프로젝트 인원 등록</button>
+            <button type="button" onclick="goToRe( ${r.state} ,${pjno})">프로젝트 인원 수정</button>
+            <button type="button" onclick="goToEval( ${r.state} ,${pjno})">프로젝트 평가</button>`
          }//success end
     })//ajax end
-//                document.querySelector(".buttons").innerHTML += `<button type="button" onclick="goToRec( ${r.state} ,${spjno})">프로젝트 인원 등록</button>
-//                <button type="button" onclick="goToRe( ${r.state} ,${spjno})">프로젝트 인원 수정</button>
-//                <button type="button" onclick="goToEval( ${r.state} ,${spjno})">프로젝트 평가</button>` 이전 버튼들
         $.ajax({
-            url: "/project/view/list?spjno="+spjno,
+            url: "/project/view/list?pjno="+pjno,
             method:"get",
             success : (r) =>{
                 console.log(r.length)
@@ -53,7 +59,7 @@ function printProjectDetail(){
 
 //수정페이지로 이동
 function changeToUpdate(){
-location.href= `/projectPage/update?spjno=${spjno}`;
+location.href= `/projectPage/update?pjno=${pjno}`;
 }//f end
 
 //삭제
@@ -61,14 +67,14 @@ function deleteDetail(){
     console.log("deleteDetail()");
     if(confirm("삭제하시겠습니까?")){
         $.ajax({
-            url : "/projectPage/delete",
-            method : "Delete",
-            data : {"spjno" : spjno},
+            url : "/sales/del.do",
+            method : "get",
+            data : {"pjno" : pjno},
             success : (r) => {
                 console.log(r);
                 if(r){
                     alert("삭제 성공");
-                    location.href="/projectPage/"
+                    location.href="/sales/list"
                 }
                 else{
                     alert("삭제 실패");
@@ -81,20 +87,20 @@ function deleteDetail(){
     }
 }//f end
 
-function goToEval(state,spjno){
+function goToEval(state,pjno){
     if (state >= 1){
-         location.href = "/project/view/eval?spjno="+spjno
+         location.href = "/project/view/eval?pjno="+pjno
     }
     else{
         alert("아직 종료되지 않은 프로젝트입니다")
     }
 }
 
-function doPostuploadProject(spjno){
+function doPostuploadProject(pjno){
     $.ajax({
         url:"/sales/Post.do",
         method:"post",
-        data:{spjno:spjno},
+        data:{pjno:pjno},
         success: (r) => {
             if(r){
                 alert("등록성공")
@@ -103,18 +109,18 @@ function doPostuploadProject(spjno){
         }
     })
 }
-function goToRec(state, spjno){
+function goToRec(state, pjno){
     if(state <= 1){
-        location.href="/project/view/rec?spjno="+spjno
+        location.href="/project/view/rec?pjno="+pjno
     }
     else{
         alert("이미 종료된 프로젝트입니다.")
     }
 }
 
-function goToRe(state, spjno){
+function goToRe(state, pjno){
     if(state <= 1){
-        location.href="/project/view/re?spjno="+spjno;
+        location.href="/project/view/re?pjno="+pjno;
     }
     else{
         alert("이미 종료된 프로젝트입니다.")

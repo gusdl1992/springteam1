@@ -18,7 +18,7 @@ public class J_projectPageDao extends SuperDao {
         System.out.println("J_projectPageDao.printProjectList");
         List<ProjectDto> projectDtos=new ArrayList<>();
         try{
-            String sql="select * from project ";
+            String sql="select * from salesproject ";
 
             //------------- 검색기준을 선택한 경우 -------------------
             if(!key.equals("")){
@@ -51,7 +51,7 @@ public class J_projectPageDao extends SuperDao {
             rs=ps.executeQuery();
             while(rs.next()){
                 ProjectDto projectDto=ProjectDto.builder()
-                        .pjno(rs.getInt("pjno"))
+                        .spjno(rs.getInt("spjno"))
                         .start_date(rs.getString("start_date"))
                         .end_date(rs.getString("end_date"))
                         .rank1_count(rs.getInt("rank1_count"))
@@ -77,7 +77,7 @@ public class J_projectPageDao extends SuperDao {
     public int projectCount(){
         System.out.println("J_projectPageDao.projectCount");
         try{
-            String sql="select count(*) from project";
+            String sql="select count(*) from salesproject";
             ps=conn.prepareStatement(sql);
             rs=ps.executeQuery();
             if(rs.next()){
@@ -94,7 +94,7 @@ public class J_projectPageDao extends SuperDao {
     public ProjectDto getProjectDetail(int pjno){
         System.out.println("J_projectPageDao.getProjectDetail");
         try{
-            String sql="select * from project where pjno=?;";
+            String sql="select * from salesproject where spjno=?;";
             ps=conn.prepareStatement(sql);
             ps.setInt(1, pjno);
             rs=ps.executeQuery();
@@ -126,7 +126,7 @@ public class J_projectPageDao extends SuperDao {
         System.out.println("J_projectPageDao.updateProjectDetail");
         System.out.println("projectDto = " + projectDto);
         try{
-            String sql="update project set \n" +
+            String sql="update salesproject set \n" +
                     "\tstart_date=?, \n" +
                     "\tend_date=? ,\n" +
                     "\trank1_count=? ,\n" +
@@ -151,7 +151,7 @@ public class J_projectPageDao extends SuperDao {
             ps.setString(9,projectDto.getCompannyname());
             ps.setInt(10,projectDto.getState());
             ps.setString(11,projectDto.getPrice());
-            ps.setInt(12,projectDto.getPjno());
+            ps.setInt(12,projectDto.getSpjno());
 
             int count= ps.executeUpdate();
             System.out.println("count = " + count);
