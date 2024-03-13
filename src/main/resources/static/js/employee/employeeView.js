@@ -1,5 +1,28 @@
-
+let eno=new URL(location.href).searchParams.get('eno');
 let index = 1;
+let index1 = 1;
+employeeView()
+//사원 인적사항 출력
+function employeeView(){
+    $.ajax({
+         url : '/employee/view.do',
+         method : 'post',
+         data : postFormData,
+         contentType: false,
+         processData : false,
+         success : (r)=>{
+             console.log(r);
+             //4. 결과
+             if(r){
+                 alert('경력등록 성공');
+                 let html='';
+                 document.querySelector('.careerBox').innerHTML=html;
+             }else {
+                 alert('경력등록 실패');
+             }
+         }
+    });//ajax 끝*/
+}
 // 경력 입력창 보여주는 함수
 function OnCareerPlus(){
     let careerBox = document.querySelector('.careerBox');
@@ -23,6 +46,7 @@ function OnCareerPlus(){
     button.innerHTML=btn
     careerBox.innerHTML+=html;
 }
+
 // 경력 등록 함수
 function OnCareer(){
     let careerFormList = document.querySelectorAll('.postForm');
@@ -90,47 +114,27 @@ function OnLicensePlus(){
             let html='';
                 html=` <div class="tr">
                          <div class="td">
-                            <select class="licenseCategory">
+                            <select class="licenseCategory${index1}">
 
                             </select>
                            </div>
                            <div class="td"><input type="date"></div>
-                           <div class="td"><button onclick="OnLicensePlus()" type="button">자격증 등록</button></div>
 
                         </tr>`
             licenseBox.innerHTML+=html;
 
-            let licenseCategory = document.querySelector(".licenseCategory");
+            let licenseCategory = document.querySelector(".licenseCategory"+index1);
             let option='';
             r.forEach( license => {
                  option+=`<option value="${license.lno}">${license.lname}</option>`;
             });
+            index1++;
+            let button=document.querySelector('.lBtn');
+                btn=`<button onclick="" type="button">자격증 등록</button>`
+                button.innerHTML=btn
             licenseCategory.innerHTML += option;
         }
     })
 
 }
-//=============== 경력 form=============================
-  /* let ecareerForm = document.querySelector('.ecareerForm');
-       console.log(ecareerForm)
-
-   let ecareerFormData= new FormData(ecareerForm);
-   console.log(ecareerFormData); // new FormData
-
-   $.ajax({
-          url : '/csignup',
-          method : 'post',
-          data : ecareerFormData,
-          contentType: false,
-          processData : false,
-          success : (r)=>{
-              console.log(r);
-              //4. 결과
-              if(r){
-                  alert('경력등록 성공');
-              }else {
-                  alert('경력등록 실패');
-              }
-          }
-  });//ajax 끝*/
 

@@ -15,7 +15,7 @@ function onEmployeeAllView(){
                         let html='';
                         re.forEach( employee => {
                              html+=`<tr>
-                                        <a href=`employee/view.do${employee.eno}`>
+                                        <a href="employee/view.do?eno=${employee.eno}">
                                           <th>${employee.eno}</th>
                                           <th>${employee.ename}</th>
                                           <th>${employee.pname}</th>

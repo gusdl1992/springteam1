@@ -58,7 +58,7 @@ public class EmployeeController {
         return "/employee/employee";
     }
     // 개별인사관리 페이지 요청
-    @GetMapping("/employee/view.do")
+    @GetMapping("/employee/view")
     public String employeeView(int eno){
         return "/employee/employeeView";
     }
@@ -95,9 +95,10 @@ public class EmployeeController {
         return employeeService.employeeList();
     }
     // 개별 사원 호출
-   @GetMapping
+    @GetMapping("/employee/view.do")
     @ResponseBody
-    public EmployeeDto getEmployeeView(@RequestParam String eno){
+    public EmployeeDto getEmployeeView(String eno){
+        //String eno=(String)eno1;
        mypageService.doGetLoginInfo(eno);
         return null;
    }
