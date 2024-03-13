@@ -26,14 +26,27 @@ public class AttendanceController {
         return "/mypages/attendance";
     }
 
-    // 출근 체크
-    @GetMapping("/attendance/write")
+    // 출근 요청
+    @GetMapping("/attendance/goToWork")
     @ResponseBody
     public boolean attendanceWrite(){
         System.out.println("AttendanceController.attendanceWrite");
         String eno = mypageService.sessionEno();
+        if (eno == null){return false;}
         System.out.println("AttendanceController : eno = " + eno);
         return attendanceService.attendanceWrite(eno);
+    }
+
+
+    // 퇴근 요청
+    @GetMapping("/attendance/leaveWork")
+    @ResponseBody
+    public boolean attendanceLeaveWork(){
+        System.out.println("AttendanceController.attendanceLeaveWork");
+        String eno = mypageService.sessionEno();
+        if (eno == null){return false;}
+        System.out.println("eno = " + eno);
+        return attendanceService.attendanceLeaveWork(eno);
     }
 
     // 출근 체크 값 가져오기

@@ -6,12 +6,24 @@ calendar()
 function goToWork(){
     console.log('goToWork()');
     $.ajax({
-        url: '/mypage/attendance/write',
+        url: '/mypage/attendance/goToWork',
         method: 'get',
         success: (r) => {
             console.log(r);
         }
     });
+}
+
+function leaveWork(){
+    console.log('leaveWork()');
+    $.ajax({
+        url: '/mypage/attendance/leaveWork',
+        method: 'get',
+        success: (r) => {
+            console.log(r);
+        }
+    });
+
 }
 
 
