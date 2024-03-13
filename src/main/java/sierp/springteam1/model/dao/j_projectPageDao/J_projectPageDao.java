@@ -101,20 +101,21 @@ public class J_projectPageDao extends SuperDao {
             ps.setInt(1, pjno);
             rs=ps.executeQuery();
             if(rs.next()){
-                ProjectDto projectDto=new ProjectDto( rs.getInt("pjno")
-                        ,rs.getString("start_date")
-                        ,rs.getString("end_date")
-                        ,rs.getInt("rank1_count")
-                        ,rs.getInt("rank2_count")
-                        ,rs.getInt("rank3_count")
-                        ,rs.getString("title")
-                        ,rs.getString("request")
-                        ,rs.getString("note")
-                        ,rs.getString("compannyname")
-                        ,rs.getInt("state")
-                        ,rs.getString("price")
-                        );
-                return projectDto;
+                // 은경 수정 예정 2024-03-13
+//                ProjectDto projectDto=new ProjectDto( rs.getInt("pjno")
+//                        ,rs.getString("start_date")
+//                        ,rs.getString("end_date")
+//                        ,rs.getInt("rank1_count")
+//                        ,rs.getInt("rank2_count")
+//                        ,rs.getInt("rank3_count")
+//                        ,rs.getString("title")
+//                        ,rs.getString("request")
+//                        ,rs.getString("note")
+//                        ,rs.getString("compannyname")
+//                        ,rs.getInt("state")
+//                        ,rs.getString("price")
+//                        );
+                return null;
             }
         }
         catch (Exception e){

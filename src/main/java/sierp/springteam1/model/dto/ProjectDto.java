@@ -11,7 +11,8 @@ import lombok.*;
 public class ProjectDto {
     // 프로젝트 Dto
 
-    int spjno;               // 프로젝트 번호
+    int spjno;              // 프로젝트 번호
+    int pjno;               // 프로젝트 번호 ( 실제 진행 되는 프로젝트 번호 )
     String start_date;      // 시작 날짜
     String end_date;        // 끝나는 날짜
     int rank1_count;        // 초급 요청 수
