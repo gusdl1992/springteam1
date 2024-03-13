@@ -14,7 +14,7 @@ function insertProject(){
             console.log(r);
             if(r){
                 alert("등록 성공");
-                location.href=`/projectPage/detail?pjno=${r}`;
+                location.href=`/projectPage/detail?spjno=${r}`;
             }
             else{
                 alert("등록 실패");

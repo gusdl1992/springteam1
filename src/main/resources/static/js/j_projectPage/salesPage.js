@@ -1,3 +1,4 @@
+console.log("salesDetail()-js")
 //============ 페이지 정보 관련 객체 = 여러개의 변수를 묶음 =============
 let pageObject={
     page : 1,           //현재페이지
@@ -33,7 +34,7 @@ function printProjet(page){
             r.list.forEach((result)=>{
                 html+=`<tr>
                            <th>${result.spjno}</th>
-                           <td><a href="/projectPage/detail?pjno=${result.pjno}">${result.title}</a></td>
+                           <td><a href="/projectPage/detail?spjno=${result.spjno}">${result.title}</a></td>
                            <td>${result.compannyname}</td>
                            <td>${result.price}</td>
                            <td>${result.rank1_count + result.rank2_count + result.rank3_count}</td>

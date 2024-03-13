@@ -27,10 +27,10 @@ public class J_ProjectPageController {
     @GetMapping("/")
     public String test(){
         System.out.println("Jcontroller1.test");
-        return "/j_projectPage/projectPage";
+        return "/j_projectPage/salesPage";
     }//m end
     
-    //프로젝트 전체 리스트 출력
+    //수주 전체 리스트 출력
     @GetMapping("/list")
     @ResponseBody
     public ProjectPageDto printProjectList(int page, int pageBoardSize,
@@ -43,24 +43,24 @@ public class J_ProjectPageController {
         return j_projectPageService.printProjectList(page, pageBoardSize,sortKey, key, keyword, startPrice, endPrice);
     }//m end
     
-    //프로젝트 세부리스트 출력
+    //수주 세부리스트 출력
     @GetMapping("/detail")
-    public String printProjectDetail(int pjno){
+    public String printProjectDetail(int spjno){
         System.out.println("J_ProjectPageController.printProjectDetail");
 
-        return "/j_projectPage/projectDetail";
+        return "/j_projectPage/salesDetail";
     }//m end
 
-    //프로젝트 세부 리스트 정보 가져오기
+    //수주 세부 리스트 정보 가져오기
     @GetMapping("/detail.do")
     @ResponseBody
-    public ProjectDto getProjectDetail(int pjno){
+    public ProjectDto getProjectDetail(int spjno){
         System.out.println("J_ProjectPageController.printProjectDetail");
 
-        return j_projectPageService.getProjectDetail(pjno);
+        return j_projectPageService.getProjectDetail(spjno);
     }//m end
 
-    //프로젝트 내역 수정페이지 호출
+    //수주 내역 수정페이지 호출
     @GetMapping("/update")
     public String updateProjectDetailPage(){
         System.out.println("J_ProjectPageController.updateProjectDetail");
@@ -68,7 +68,7 @@ public class J_ProjectPageController {
         return "/j_projectPage/updateProject";
     }//m end
 
-    //프로젝트 내역 수정
+    //수주 내역 수정
     @PutMapping("/update.do")
     @ResponseBody
     public boolean updateProjectDetail(ProjectDto projectDto){
@@ -80,13 +80,13 @@ public class J_ProjectPageController {
 
     //프로젝트 내역 삭제
 
-    //프로젝트 등록 페이지 출력
+    //수주 등록 페이지 출력
     @GetMapping("/insert")
     public String insertProjectPage(){
         return "/j_projectPage/insertProject";
     }//m end
 
-    //프로젝트 등록
+    //수주 등록
     @PostMapping("/insert.do")
     @ResponseBody
     public int insertProject(ProjectDto projectDto){
@@ -96,14 +96,14 @@ public class J_ProjectPageController {
         return j_projectPageService.insertProject(projectDto);
     }//m end
 
-    //프로젝트 삭제
+    //수주 삭제
     @DeleteMapping("/delete")
     @ResponseBody
-    public boolean deleteProject(int pjno){
+    public boolean deleteProject(int spjno){
         System.out.println("J_ProjectPageController.deleteProject");
-        System.out.println("pjno = " + pjno);
+        System.out.println("spjno = " + spjno);
 
-        return j_projectPageService.deleteProject(pjno);
+        return j_projectPageService.deleteProject(spjno);
     }//m end
 
     //평가 가능한 프로젝트 페이지 출력

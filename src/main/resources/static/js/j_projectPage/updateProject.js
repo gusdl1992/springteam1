@@ -1,4 +1,4 @@
-let pjno=new URL(location.href).searchParams.get('pjno');
+let spjno=new URL(location.href).searchParams.get('spjno');
 inputData();
 
 //수정페이지 input에 기존데이터 입력
@@ -8,10 +8,10 @@ function inputData(){
     $.ajax({
         url : "/projectPage/detail.do",
         method : "Get",
-        data : {"pjno" : pjno},
+        data : {"spjno" : spjno},
         success : (r) => {
             console.log(r);
-            document.querySelector(".update_pjno").value=r.pjno;
+            document.querySelector(".update_spjno").value=r.spjno;
             document.querySelector(".update_start_date").value=r.start_date;
             document.querySelector(".update_end_date").value=r.end_date;
             document.querySelector(".update_rank1_count").value=r.rank1_count;
@@ -42,7 +42,7 @@ function updateDetail(){
             console.log("updateDetail-r="+r);
             if(r){
                 alert("수정 성공");
-                location.href=`/projectPage/detail?pjno=${pjno}`;
+                location.href=`/projectPage/detail?spjno=${spjno}`;
             }
             else{
                 alert("수정 실패");
@@ -54,5 +54,5 @@ function updateDetail(){
 //취소 클릭 시 세부리스트페이지로 이동
 function backDetailpage(){
 console.log("backDetailpage()");
-    location.href= `/projectPage/detail?pjno=${pjno}`;
+    location.href= `/projectPage/detail?spjno=${spjno}`;
 }//f end
