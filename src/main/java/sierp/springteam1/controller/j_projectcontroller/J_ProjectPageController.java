@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sierp.springteam1.model.dao.j_projectPageDao.J_projectPageDao;
 import sierp.springteam1.model.dto.ProjectDto;
+import sierp.springteam1.model.dto.ProjectDto3;
 import sierp.springteam1.model.dto.ProjectPageDto;
 import sierp.springteam1.service.j_projectPage.J_projectPageService;
 
@@ -103,12 +104,22 @@ public class J_ProjectPageController {
         System.out.println("pjno = " + pjno);
 
         return j_projectPageService.deleteProject(pjno);
-    }
+    }//m end
 
-    //평가 가능한 프로젝트 출력
+    //평가 가능한 프로젝트 페이지 출력
     @GetMapping("/perform")
     public String pringPerform(){
         System.out.println("J_ProjectPageController.pringPerform");
+
         return "/j_projectPage/perform";
-    }
+    }//m end
+
+    //평가 가능한 프로젝트 리스트 출력
+    @GetMapping("/perform.do")
+    @ResponseBody
+    public List<ProjectDto3> doPrintPerform(){
+        System.out.println("J_ProjectPageController.doPrintPerform");
+
+        return j_projectPageService.doPrintPerform();
+    }//m end
 }//c end

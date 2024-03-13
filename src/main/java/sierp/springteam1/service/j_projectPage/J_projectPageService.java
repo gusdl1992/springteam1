@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import sierp.springteam1.model.dao.j_projectPageDao.J_projectPageDao;
 import sierp.springteam1.model.dto.ProjectDto;
+import sierp.springteam1.model.dto.ProjectDto3;
 import sierp.springteam1.model.dto.ProjectPageDto;
 
 import java.util.List;
@@ -88,4 +89,11 @@ public class J_projectPageService {
 
         return j_projectPageDao.deleteProject(pjno);
     }
+
+    //평가 가능한 프로젝트 리스트 출력
+    public List<ProjectDto3> doPrintPerform(){
+        System.out.println("J_projectPageService.doPrintPerform");
+
+        return j_projectPageDao.doPrintPerform();
+    }//m end
 }//c end

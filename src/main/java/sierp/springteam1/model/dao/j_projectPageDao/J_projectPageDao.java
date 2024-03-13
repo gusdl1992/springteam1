@@ -3,6 +3,7 @@ package sierp.springteam1.model.dao.j_projectPageDao;
 import org.springframework.stereotype.Component;
 import sierp.springteam1.model.dao.SuperDao;
 import sierp.springteam1.model.dto.ProjectDto;
+import sierp.springteam1.model.dto.ProjectDto3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class J_projectPageDao extends SuperDao {
         System.out.println("J_projectPageDao.printProjectList");
         List<ProjectDto> projectDtos=new ArrayList<>();
         try{
-            String sql="select * from project ";
+            String sql="select * from (select * from uploadproject as a join salesproject as b using(spjno))as pj ";
 
             //------------- 검색기준을 선택한 경우 -------------------
             if(!key.equals("")){
@@ -77,10 +78,11 @@ public class J_projectPageDao extends SuperDao {
     public int projectCount(){
         System.out.println("J_projectPageDao.projectCount");
         try{
-            String sql="select count(*) from project";
+            String sql="select count(*) from (select * from uploadproject as a join salesproject as b using(spjno)) as pj";
             ps=conn.prepareStatement(sql);
             rs=ps.executeQuery();
             if(rs.next()){
+                System.out.println("rs.getInt(1) = " + rs.getInt(1));
                 return rs.getInt(1);
             }
         }
@@ -94,7 +96,7 @@ public class J_projectPageDao extends SuperDao {
     public ProjectDto getProjectDetail(int pjno){
         System.out.println("J_projectPageDao.getProjectDetail");
         try{
-            String sql="select * from project where pjno=?;";
+            String sql="select * from (select * from uploadproject as a join salesproject as b using(spjno)) as pj where pjno=?;";
             ps=conn.prepareStatement(sql);
             ps.setInt(1, pjno);
             rs=ps.executeQuery();
@@ -126,7 +128,7 @@ public class J_projectPageDao extends SuperDao {
         System.out.println("J_projectPageDao.updateProjectDetail");
         System.out.println("projectDto = " + projectDto);
         try{
-            String sql="update project set \n" +
+            String sql="update (select * from uploadproject as a join salesproject as b using(spjno)) as pj set \n" +
                     "\tstart_date=?, \n" +
                     "\tend_date=? ,\n" +
                     "\trank1_count=? ,\n" +
@@ -168,7 +170,7 @@ public class J_projectPageDao extends SuperDao {
 
     //프로젝트 내역 삭제
 
-    //프로젝트 등록
+    //=================== 프로젝트 등록 ** 영업에서 넘어올 예정 ** =============================
     public int insertProject(ProjectDto projectDto){
         System.out.println("J_projectPageDao.insertProject");
         System.out.println("projectDto = " + projectDto);
@@ -201,6 +203,7 @@ public class J_projectPageDao extends SuperDao {
         }
         return 0;
     }//m end
+    //========================== ** 영업에서 넘어올 예정 ** ==================================
 
     //프로젝트 삭제
     public boolean deleteProject(int pjno){
@@ -219,6 +222,47 @@ public class J_projectPageDao extends SuperDao {
             System.out.println("e = " + e);
         }
         return false;
+    }//m end
+
+    //평가 가능한 프로젝트 리스트 출력
+    public List<ProjectDto3> doPrintPerform(){
+        System.out.println("J_projectPageDao.doPrintPerform");
+        List<ProjectDto3> list = new ArrayList<>();
+
+        try{
+            String sql="select * from (select * from uploadproject as a join salesproject as b using(spjno)) as pj inner join \n" +
+                    "(select pjno as pno, case\n" +
+                    "\t\t\t\t\t\twhen ((select min(score) from (select * from projectlog where pjno=pno) as b)!=0) then '평가완료'\n" +
+                    "\t\t\t\t\t\twhen ((select max(score) from (select * from projectlog where pjno=pno) as b)>0) then '평가중'\n" +
+                    "\t\t\t\t\t\telse '평가전'\n" +
+                    "\t\t\t\t\tend as result from projectlog where state=1 group by pjno) \n" +
+                    "as pp on pj.pjno=pp.pno;";
+            ps=conn.prepareStatement(sql);
+            rs=ps.executeQuery();
+
+            while(rs.next()){
+                ProjectDto3 projectDto3=new ProjectDto3();  //평가 row 1개저장
+                projectDto3.builder()
+                        .pjno(rs.getInt("pjno"))
+                        .start_date(rs.getString("start_date"))
+                        .end_date(rs.getString("end_date"))
+                        .title(rs.getString("title"))
+                        .request(rs.getString("request"))
+                        .note(rs.getString("note"))
+                        .compannyname(rs.getString("compannyname"))
+                        .price(rs.getInt("price"))
+                        .perFormState(rs.getString("result"))
+                        .build();
+
+                list.add(projectDto3);
+            }//w end
+            return list;
+        }//t end
+        catch (Exception e){
+            System.out.println("e = " + e);
+        }
+
+        return null;
     }//m end
 
 }//c end
