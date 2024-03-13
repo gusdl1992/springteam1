@@ -16,9 +16,9 @@ public class SalesService {
     SalesDao salesDao;
 
 
-    public boolean salesPost(ProjectDto2 projectDto2){
+    public boolean salesPost(int spjno){
         System.out.println("SalesService.salesPost");
-        return salesDao.salesPost( projectDto2);
+        return salesDao.salesPost( spjno);
     }
 
     public List<ProjectDto2> saleslist(){

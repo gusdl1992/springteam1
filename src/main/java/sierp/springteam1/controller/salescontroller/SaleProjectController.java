@@ -22,9 +22,9 @@ public class SaleProjectController {
     //1.등록
     @PostMapping("/Post.do")
     @ResponseBody
-    public boolean salesPost(ProjectDto2 projectDto2){
+    public boolean salesPost(int spjno){
         System.out.println("SaleProjectController.salesPost");
-        return salesService.salesPost(projectDto2);
+        return salesService.salesPost(spjno);
     }
     //2.리스트
     @GetMapping("/list.do")
