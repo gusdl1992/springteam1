@@ -11,8 +11,10 @@ public class EmployeeDao extends SuperDao{
     //로그인 요청
     public int login(String id, String pw){
         try {
-            String sql="select eno from employee where id="+id+" and pw="+pw;
+            String sql="select eno from employee where id=? and pw=?";
             ps= conn.prepareStatement(sql);
+            ps.setString(1,id);
+            ps.setString(2,pw);
             rs= ps.executeQuery();
             if(rs.next()){
                 int eno=rs.getInt("eno");

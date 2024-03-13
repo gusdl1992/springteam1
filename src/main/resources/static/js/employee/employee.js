@@ -15,13 +15,13 @@ function onEmployeeAllView(){
                         let html='';
                         re.forEach( employee => {
                              html+=`<tr>
-                                        <a href="employee/view.do?eno=${employee.eno}">
+
                                           <th>${employee.eno}</th>
-                                          <th>${employee.ename}</th>
+                                          <th><a href="employee/view?eno=${employee.eno}">${employee.ename}</a></th>
                                           <th>${employee.pname}</th>
                                           <th>${employee.phone}</th>
                                           <th>${employee.edate}</th>
-                                          </a>
+
                                       </tr>`;
                         });
                          k_eList.innerHTML = html;
