@@ -106,6 +106,10 @@ public class EmployeeService {
         System.out.println("EmployeeService.careerList");
         return employeeDao.careerList(eno);
     }
+    public List<EmployeeLicenseDto> licenseViewList(int eno){
+        System.out.println("eno = " + eno);
+        return employeeDao.licenseViewList(eno);
+    }
 }
 
 

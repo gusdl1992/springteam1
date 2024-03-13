@@ -13,4 +13,7 @@ public class EmployeeLicenseDto {
     int eno;            // 사원 번호
     int lno;            // 자격증 테이블 번호
     String ldate;       // 등록 날짜.
+
+    // 추가 필드
+    String lname;   // 자격증 이름
 }

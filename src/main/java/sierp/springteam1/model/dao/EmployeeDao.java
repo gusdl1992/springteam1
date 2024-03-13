@@ -79,7 +79,15 @@ public class EmployeeDao extends SuperDao{
     public boolean lSignup(EmployeeLicenseDto licenseDto){
         System.out.println("EmployeeDao.lSignup");
         try {
-            String sql="";
+            String sql="insert into employeelicense values(?,?,?); ";
+            ps= conn.prepareStatement(sql);
+            ps.setInt(1,licenseDto.getEno());
+            ps.setInt(2,licenseDto.getLno());
+            ps.setString(3,licenseDto.getLdate());
+            int count= ps.executeUpdate();
+            if(count==1){
+                return true;
+            }
         }catch (Exception e){
             System.out.println("e = " + e);
         }
@@ -198,6 +206,29 @@ public class EmployeeDao extends SuperDao{
         }
         System.out.println(clist);
         return clist;
+    }
+    public List<EmployeeLicenseDto> licenseViewList(int eno){
+        System.out.println("eno = " + eno);
+        List<EmployeeLicenseDto>llist=new ArrayList<>();
+        EmployeeLicenseDto licenseDto;
+        try {
+            String sql="select * from  license l ,employeelicense el where l.lno = el.lno  and eno=?";
+            ps= conn.prepareStatement(sql);
+            ps.setInt(1,eno);
+            rs= ps.executeQuery();
+            if(rs.next()){
+                licenseDto=EmployeeLicenseDto.builder()
+                        .eno(rs.getInt("eno"))
+                        .lno(rs.getInt("lno"))
+                        .ldate(rs.getString("ldate"))
+                        .lname(rs.getString("lname"))
+                        .build();
+                llist.add(licenseDto);
+            }
+        }catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return llist;
     }
     /*
     create table employee( #사원테이블

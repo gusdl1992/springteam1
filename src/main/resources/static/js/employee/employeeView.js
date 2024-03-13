@@ -3,6 +3,7 @@ let index = 1;
 let index1 = 1;
 employeeView();
 CareerPrint();
+licensePrint();
 //등록======================================
 // 경력 등록 함수
 function OnCareer(){
@@ -35,7 +36,30 @@ function OnCareer(){
 function OnLicense(){
     let licenseList=document.querySelectorAll('.licenseB');
     console.log(licenseList)
-
+     let licenseFormList = document.querySelectorAll('.postForm1');
+        for( let i = 0 ; i< licenseFormList.length ; i++  ){
+            let postFormData = new FormData(  licenseFormList[i] );
+            postFormData.append('eno', eno);
+            console.log(postFormData);
+            $.ajax({
+                 url : '/licensePost',
+                 method : 'post',
+                 data : postFormData,
+                 contentType: false,
+                 processData : false,
+                 success : (r)=>{
+                     console.log(r);
+                     //4. 결과
+                     if(r){
+                         alert('자격증 등록 성공');
+                         document.querySelector('.licenseBox').innerHTML='';
+                         licensePrint();
+                     }else {
+                         alert('자격증 등록 실패');
+                     }
+                 }
+            });//ajax 끝*/
+        }
 }
 
 //사원 삭제 함수
@@ -106,7 +130,30 @@ function CareerPrint(){
          }
     });
 }
+//자격증 출력
+function licensePrint(){
+    $.ajax({
+            url: `/licenseView`,
+            method: `get`,
+            data:  {eno:eno} ,
+            success: (r)=>{
+            console.log(r)
 
+                let licenseBox = document.querySelector(".licenseBox");
+                    let html='';
+                    r.forEach( license => {
+                         html+=`
+                                <div class="tr">
+                                   <div class="td ">${license.lname}</div>
+                                   <div class="td ">${license.ldate}</div>
+                                 </div>`;
+                    });
+                     licenseBox.innerHTML = html;
+
+             }
+        });
+
+}
 
 // 경력 입력칸 함수
 function OnCareerPlus(){
@@ -129,7 +176,7 @@ function OnCareerPlus(){
     let button=document.querySelector('.cBtn');
     btn=`
     <button onclick="OnCareer()" type="button">경력 등록</button>
-    <button onclick="close(1)" type="button">닫기</button>
+    <button onclick="close()" type="button">닫기</button>
 
     `
     button.innerHTML=btn
@@ -138,19 +185,22 @@ function OnCareerPlus(){
 // 자격증 입력칸
 function OnLicensePlus(){
     $.ajax({// 자격증명
-        url: `/license`,
+        url: `/licenseSelect`,
         method: `get`,
         success: (r)=>{
             console.log(r)
             let licenseBox = document.querySelector('.licenseBox');
             let html='';
-                html=` <div class="tr licenseB">
-                         <div class="td">
-                            <select class="licenseCategory${index1}" name="lno">
-                            </select>
-                         </div>
-                         <div class="td"><input type="date" name="ldate"></div>
-                        </div>`
+                html=`
+                    <form class="licenseForm${index} postForm1">
+                        <div class="tr licenseB">
+                             <div class="td">
+                                <select class="licenseCategory${index1}" name="lno">
+                                </select>
+                             </div>
+                             <div class="td"><input type="date" name="ldate"></div>
+                        </div>
+                    </form>`
             licenseBox.innerHTML+=html;
 
             let licenseCategory = document.querySelector(".licenseCategory"+index1);
@@ -162,7 +212,7 @@ function OnLicensePlus(){
             let button=document.querySelector('.lBtn');
                 btn=`
                 <button onclick="OnLicense()" type="button">자격증 등록</button>
-                <button onclick="close(2)" type="button">닫기</button>
+                <button onclick="close()" type="button">닫기</button>
                 `
                 button.innerHTML=btn
             licenseCategory.innerHTML += option;
@@ -171,14 +221,14 @@ function OnLicensePlus(){
 
 }
 //입력창 닫기 버튼
-function close(num){
-    if(num==1){
+function close(){
+    console.log('close')
+    /*if(num==1){
     console.log('1')
     document.querySelector('.careerBox').innerHTML='';
     CareerPrint();
     }
-    else if(num==2){
+    else if(num==2){*/
     document.querySelector('.licenseBox').innerHTML='';
     licensePrint();
-    }
 }
