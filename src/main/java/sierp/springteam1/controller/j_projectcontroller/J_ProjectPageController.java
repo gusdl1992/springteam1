@@ -117,7 +117,7 @@ public class J_ProjectPageController {
     //평가 가능한 프로젝트 리스트 출력
     @GetMapping("/perform.do")
     @ResponseBody
-    public List<ProjectDto3> doPrintPerform(){
+    public ProjectPageDto doPrintPerform(){
         System.out.println("J_ProjectPageController.doPrintPerform");
 
         return j_projectPageService.doPrintPerform();

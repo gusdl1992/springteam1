@@ -4,18 +4,21 @@ import org.springframework.stereotype.Component;
 import sierp.springteam1.model.dao.SuperDao;
 import sierp.springteam1.model.dto.ProjectDto;
 import sierp.springteam1.model.dto.ProjectDto3;
+import sierp.springteam1.model.dto.ProjectPageDto;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Component
 public class J_projectPageDao extends SuperDao {
+
     //프로젝트 전체 리스트 출력
-    public List<ProjectDto> printProjectList(int startRow, int pageBoardSize,
-                                             int sortkey,
-                                             String key, String keyword,
-                                             int startPrice, int endPrice){
+    public List<Object> printProjectList(int startRow, int pageBoardSize,
+                                          int sortkey,
+                                          String key, String keyword,
+                                          int startPrice, int endPrice){
         System.out.println("J_projectPageDao.printProjectList");
         List<ProjectDto> projectDtos=new ArrayList<>();
         try{
@@ -253,8 +256,9 @@ public class J_projectPageDao extends SuperDao {
             rs=ps.executeQuery();
 
             while(rs.next()){
-                ProjectDto3 projectDto3=new ProjectDto3();  //평가 row 1개저장
-                projectDto3.builder()
+                System.out.println("rs = "+rs.getString("result"));
+                //평가 row 1개저장
+                ProjectDto3 projectDto3=ProjectDto3.builder()
                         .pjno(rs.getInt("pjno"))
                         .start_date(rs.getString("start_date"))
                         .end_date(rs.getString("end_date"))
@@ -265,7 +269,7 @@ public class J_projectPageDao extends SuperDao {
                         .price(rs.getInt("price"))
                         .perFormState(rs.getString("result"))
                         .build();
-
+                System.out.println("projectDto3 result = " + projectDto3.getPerFormState());
                 list.add(projectDto3);
             }//w end
             return list;
