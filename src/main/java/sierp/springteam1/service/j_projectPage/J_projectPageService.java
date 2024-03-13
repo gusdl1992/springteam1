@@ -23,18 +23,35 @@ public class J_projectPageService {
         System.out.println("J_projectPageService.printProjectList");
 
         ProjectPageDto projectPageDto=new ProjectPageDto();
-        //시작row
-        int startRow=(page-1)*5;
+        //start row
+        int startRow=(page-1)*pageBoardSize;
+        //end row
+        int endRow=startRow+pageBoardSize;
+
         System.out.println("startRow = " + startRow);
         projectPageDto.setPage(page);
 
         //총 페이지 수
         int totalRecode=j_projectPageDao.projectCount();
-        int totalPage=totalRecode%5>0 ? totalRecode/5+1 : totalRecode/5;
+        int totalPage=totalRecode%pageBoardSize>0 ? totalRecode/pageBoardSize+1 : totalRecode/pageBoardSize;
         projectPageDto.setTotalPage(totalPage);
 
+        //제한할 페이지수
+        int pageLimit=5;
+
+        //시작페이지
+        int startPage=((page-1)/pageLimit)*pageLimit+1;
+        System.out.println("startPage = " + startPage);
+        projectPageDto.setStartPage(startPage);
+
+        //마지막 페이지
+        int endPage=((page-1)/pageLimit)*pageLimit+pageLimit;
+        endPage=endPage>totalPage ? totalPage : endPage;
+        System.out.println("endPage = " + endPage);
+        projectPageDto.setEndPage(endPage);
+
         //한페이지당 List
-        projectPageDto.setList(j_projectPageDao.printProjectList(startRow, sortKey, key, keyword, startPrice, endPrice));
+        projectPageDto.setList(j_projectPageDao.printProjectList(startRow, pageBoardSize, sortKey, key, keyword, startPrice, endPrice));
 
         return projectPageDto;
     }//m end

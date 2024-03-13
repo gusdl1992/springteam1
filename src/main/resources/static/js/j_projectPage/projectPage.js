@@ -27,7 +27,6 @@ function printProjet(page){
         success : (r)=>{
             console.log(r);
             console.log("pageObject.keyword : ");
-            console.log(document.querySelector(".searchValue").value);
 
             //전체 리스트 출력
             let html=``;
@@ -47,7 +46,7 @@ function printProjet(page){
 
             //===== 페이지네이션 =====
             html=`<li class="page-item"><a class="page-link" onclick="printProjet(${page-1<1 ? page : page-1})">Previous</a></li>`;
-            for(let i=1; i<=r.totalPage; i++){
+            for(let i=r.startPage; i<=r.endPage; i++){
                 html+=`<li class="page-item"><a class="page-link" onclick="printProjet(${i})">${i}</a></li>`;
             }
             html+=`<li class="page-item"><a class="page-link" onclick="printProjet(${page+1>r.totalPage ? r.totalPage : page+1})">Next</a></li>`;

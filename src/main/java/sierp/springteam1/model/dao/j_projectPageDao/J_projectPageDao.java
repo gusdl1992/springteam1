@@ -11,7 +11,7 @@ import java.util.Map;
 @Component
 public class J_projectPageDao extends SuperDao {
     //프로젝트 전체 리스트 출력
-    public List<ProjectDto> printProjectList(int startRow,
+    public List<ProjectDto> printProjectList(int startRow, int pageBoardSize,
                                              int sortkey,
                                              String key, String keyword,
                                              int startPrice, int endPrice){
@@ -47,7 +47,7 @@ public class J_projectPageDao extends SuperDao {
 
             ps=conn.prepareStatement(sql);
             ps.setInt(1,startRow);
-            ps.setInt(2,startRow+5);
+            ps.setInt(2,pageBoardSize);
             rs=ps.executeQuery();
             while(rs.next()){
                 ProjectDto projectDto=ProjectDto.builder()
