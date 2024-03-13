@@ -57,14 +57,15 @@ public class EmployeeDao extends SuperDao{
     public boolean careerPost(EmployeeCareerDto careerDto){
         System.out.println("EmployeeDao.cSignup");
         try {
-            String sql="insert into employeecareer( companyname, note, eimg ,start_date,  end_date)" +
-                    "values(?,?,?,?,?)";
+            String sql="insert into employeecareer( companyname, note, eimg ,start_date,  end_date, eno)" +
+                    "values(?,?,?,?,?,?)";
             ps=conn.prepareStatement(sql);
             ps.setString(1,careerDto.getCompanyname());
             ps.setString(2,careerDto.getNote());
             ps.setString(3,careerDto.getEimg());
             ps.setString(4,careerDto.getStart_date());
             ps.setString(5,careerDto.getEnd_date());
+            ps.setInt(6,careerDto.getEno());
             System.out.println(careerDto);
             int count= ps.executeUpdate();
             if(count==1){return true;}
@@ -84,8 +85,22 @@ public class EmployeeDao extends SuperDao{
         }
         return false;
     }
+    //================== 삭제
+    //사원 삭제
+    public boolean employeeDelete(int eno){
+        try {
+            String sql="delete from employee where eno ="+eno;
+            ps= conn.prepareStatement(sql);
+            int count=ps.executeUpdate();
+            if(count==1){
+                return true;
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return false;
+    }
     //====================== 호출
-
     //부서명 전체 출력
     public List<PartDto> partList(){
         System.out.println("EmployeeDao.partDtoList");
@@ -164,8 +179,9 @@ public class EmployeeDao extends SuperDao{
         List<EmployeeCareerDto>clist=new ArrayList<>();
         EmployeeCareerDto careerDto;
         try {
-            String sql="select * from employeecareer where eno="+eno;
+            String sql="select * from employeecareer where eno=?";
             ps= conn.prepareStatement(sql);
+            ps.setInt(1,eno);
             rs= ps.executeQuery();
             while (rs.next()){
                 careerDto=EmployeeCareerDto.builder()
@@ -180,6 +196,7 @@ public class EmployeeDao extends SuperDao{
         }catch (Exception e){
             System.out.println("e = " + e);
         }
+        System.out.println(clist);
         return clist;
     }
     /*

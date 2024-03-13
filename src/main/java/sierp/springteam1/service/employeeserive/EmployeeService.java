@@ -3,7 +3,9 @@ package sierp.springteam1.service.employeeserive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sierp.springteam1.model.dao.EmployeeDao;
+import sierp.springteam1.model.dao.mypageDao.MypageDao;
 import sierp.springteam1.model.dto.*;
+import sierp.springteam1.service.mypageService.MypageService;
 
 import java.util.List;
 import java.util.Random;
@@ -14,7 +16,8 @@ public class EmployeeService {
     private EmployeeDao employeeDao;
     @Autowired
     private FileService fileService;
-
+    @Autowired
+    private MypageDao mypageDao;
 
     //사원등록 요청
     public boolean eSignup(EmployeeDto employeeDto){
@@ -75,21 +78,30 @@ public class EmployeeService {
         System.out.println("EmployeeService.lSignup");
         return employeeDao.lSignup(licenseDto);
     }
+    //=================== 삭제
+    //사원 삭제
+    public boolean employeeDelete(int eno){
+        return employeeDao.employeeDelete(eno);
+    }
 
     //===================호출
+    // 부서 전체 호출
     public List<PartDto> partList (){
         System.out.println("EmployeeService.partDtoList");
         return employeeDao.partList();
     }
-
+    //자격증 전체 호출
     public List<LicenseDto> licenseList(){
         return employeeDao.licenseList();
     }
 
+    // 사원 전체 호출
     public List<EmployeeDto> employeeList(){
         System.out.println("EmployeeService.employeeList");
         return employeeDao.employeeList();
     }
+
+    //경력 전체 호출
     public List<EmployeeCareerDto> careerList(int eno){
         System.out.println("EmployeeService.careerList");
         return employeeDao.careerList(eno);

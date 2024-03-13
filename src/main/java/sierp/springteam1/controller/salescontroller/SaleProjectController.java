@@ -36,7 +36,7 @@ public class SaleProjectController {
     //1.등록
     @GetMapping("/post")
     public String postview(){
-       return "/sales.onesales"
+       return "/sales.onesales";
     }
     //2.리스트
 

@@ -68,14 +68,14 @@ create table projectlog( #프로젝트-멤버 1:1로그
     pjno int,
     state int default 0,
     score int default 0,
-    constraint foreign key(eno) references employee(eno),
+    constraint foreign key(eno) references employee(eno) on delete cascade,
     foreign key(pjno) references project(pjno)
 );
 
 create table projectlike( #좋아요 누른 프로젝트로그
 	eno int,
     pjno int,
-    foreign key(eno) references employee(eno),
+    foreign key(eno) references employee(eno) on delete cascade,
     foreign key(pjno) references project(pjno)
 );
 
@@ -90,7 +90,7 @@ create table employeelicense( #사원 자격증 로그
 	eno int,
     lno int,
 	ldate datetime default now(),
-    constraint license_eno_fk foreign key(eno) references employee(eno),
+    constraint license_eno_fk foreign key(eno) references employee(eno) on delete cascade,
     constraint license_lno_fk2 foreign key(lno) references license(lno)
 );
 
@@ -102,7 +102,7 @@ create table employeecareer( #사원 경력
     eimg longtext,	#경력 증명서
     start_date date,
     end_date date,
-    constraint employeecareer_eno_fk foreign key(eno) references employee(eno)
+    constraint employeecareer_eno_fk foreign key(eno) references employee(eno) on delete cascade
 );
 
 create table price(
@@ -150,6 +150,11 @@ insert into projectlog(eno, pjno) values(3,2);
 
 insert into projectlike(eno, pjno) values(2,1);
 insert into projectlike(eno, pjno) values(3,2);
+
+insert into license values(1,  "정보처리기사",50000 );
+insert into license values(2,  "정보보안기사",10000000 );
+insert into license values(3, "전자계산기조직응용기사",3000000) ;
+insert into license values(4,  "전자계산기기사",20000 );
 
 select * from employee;
 
