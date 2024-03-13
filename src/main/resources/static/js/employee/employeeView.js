@@ -1,44 +1,79 @@
-
-
+let eno=new URL(location.href).searchParams.get('eno');
+let index = 1;
+let index1 = 1;
+employeeView()
+//사원 인적사항 출력
+function employeeView(){
+    $.ajax({
+         url : '/employee/view.do',
+         method : 'post',
+         data : postFormData,
+         contentType: false,
+         processData : false,
+         success : (r)=>{
+             console.log(r);
+             //4. 결과
+             if(r){
+                 alert('경력등록 성공');
+                 let html='';
+                 document.querySelector('.careerBox').innerHTML=html;
+             }else {
+                 alert('경력등록 실패');
+             }
+         }
+    });//ajax 끝*/
+}
 // 경력 입력창 보여주는 함수
 function OnCareerPlus(){
     let careerBox = document.querySelector('.careerBox');
     let html='';
 
-    html=` <tr>
-              <td><input type="text" id="companyname" name="companyname"></td>
-              <td><input onchange="" id="start_date" name="start_date"type="date"></td>
-              <td><input onchange=" " id="end_date" name="end_date" type="date"></td>
-              <td><input type="text" id="note" name="note"></td>
-              <td><input type="file" id="cimg" name="cimg"></td>
-              <button onclick="OnCareer()" type="button">경력 등록</button>
-          </tr>`
-    careerBox.innerHTML=html;
+    html=`
+         <form class="careerForm${index} postForm">
+            <div class="tr">
+              <div class="td"><input type="text" id="companyname" name="companyname"></div>
+              <div class="td"><input onchange="" id="start_date" name="start_date"type="date"></div>
+              <div class="td"><input onchange=" " id="end_date" name="end_date" type="date"></div>
+              <div class="td"><input type="text" id="note" name="note"></div>
+              <div class="td"><input type="file" id="cimg" name="cimg"></div>
+              <div class="td"><button onclick="" type="button">삭제</button></div>
+            </div>
+        </form>
+        `
+        index++;
+    let button=document.querySelector('.cBtn');
+    btn=`<button onclick="OnCareer()" type="button">경력 등록</button>`
+    button.innerHTML=btn
+    careerBox.innerHTML+=html;
 }
+
 // 경력 등록 함수
 function OnCareer(){
-    let careerForm = document.querySelector('.careerForm');
-           console.log(careerForm)
+    let careerFormList = document.querySelectorAll('.postForm');
+    for( let i = 0 ; i< careerFormList.length ; i++  ){
 
-       let careerFormData= new FormData(careerForm);
-       console.log(careerFormData); // new FormData
+        let postFormData = new FormData(  careerFormList[i] );
 
-       $.ajax({
-                 url : '/careerPost',
-                 method : 'post',
-                 data : careerFormData,
-                 contentType: false,
-                 processData : false,
-                 success : (r)=>{
-                     console.log(r);
-                     //4. 결과
-                     if(r){
-                         alert('경력등록 성공');
-                     }else {
-                         alert('경력등록 실패');
-                     }
+        $.ajax({
+             url : '/careerPost',
+             method : 'post',
+             data : postFormData,
+             contentType: false,
+             processData : false,
+             success : (r)=>{
+                 console.log(r);
+                 //4. 결과
+                 if(r){
+                     alert('경력등록 성공');
+                     let html='';
+                     document.querySelector('.careerBox').innerHTML=html;
+                 }else {
+                     alert('경력등록 실패');
                  }
-         });//ajax 끝*/
+             }
+        });//ajax 끝*/
+    }
+
 }
 
 //경력 내역 출력
@@ -53,13 +88,15 @@ function CareerPrint(){
             let careerBox = document.querySelector(".careerBox");
                 let html='';
                 re.forEach( career => {
-                     html+=`<tr>
+                     html+=`
+                            <tr>
                                   <th>${career.companyname}</th>
                                   <th>${career.start_date}</th>
                                   <th>${career.end_date}</th>
                                   <th>${career.note}</th>
                                   <th>${career.eimg}</th>
-                              </tr>`;
+                              </tr>
+                              `;
                 });
                  careerBox.innerHTML = html;
 
@@ -75,47 +112,29 @@ function OnLicensePlus(){
             console.log(r)
             let licenseBox = document.querySelector('.licenseBox');
             let html='';
-                html=` <tr>
-                         <td>
-                            <select class="licenseCategory">
+                html=` <div class="tr">
+                         <div class="td">
+                            <select class="licenseCategory${index1}">
 
                             </select>
-                           </td>
-                           <td><input type="date"></td>
+                           </div>
+                           <div class="td"><input type="date"></div>
+
                         </tr>`
             licenseBox.innerHTML+=html;
 
-            let licenseCategory = document.querySelector(".licenseCategory");
-            html='';
+            let licenseCategory = document.querySelector(".licenseCategory"+index1);
+            let option='';
             r.forEach( license => {
-                 html+=`<option value="${license.lno}">${license.lname}</option>`;
+                 option+=`<option value="${license.lno}">${license.lname}</option>`;
             });
-            licenseCategory.innerHTML = html;
+            index1++;
+            let button=document.querySelector('.lBtn');
+                btn=`<button onclick="" type="button">자격증 등록</button>`
+                button.innerHTML=btn
+            licenseCategory.innerHTML += option;
         }
     })
 
 }
-//=============== 경력 form=============================
-  /* let ecareerForm = document.querySelector('.ecareerForm');
-       console.log(ecareerForm)
-
-   let ecareerFormData= new FormData(ecareerForm);
-   console.log(ecareerFormData); // new FormData
-
-   $.ajax({
-          url : '/csignup',
-          method : 'post',
-          data : ecareerFormData,
-          contentType: false,
-          processData : false,
-          success : (r)=>{
-              console.log(r);
-              //4. 결과
-              if(r){
-                  alert('경력등록 성공');
-              }else {
-                  alert('경력등록 실패');
-              }
-          }
-  });//ajax 끝*/
 

@@ -28,6 +28,7 @@ public class FileService {
 
     public String cFileUpload(MultipartFile multipartFile){
         String cUpload="C:\\Users\\504\\Desktop\\springteam1\\build\\resources\\main\\static\\img\\cimg";
+//        String cUpload= "C:\\Users\\USER P\\IntelliJ IDEA Community Edition 2023.3.2\\modules\\springteam1\\build\\resources\\main\\static\\img\\cimg";
         String uuid= UUID.randomUUID().toString();
         String filename = "career_"+uuid+"_"+multipartFile.getOriginalFilename().replace("_","-");
         File file1= new File(cUpload+filename);

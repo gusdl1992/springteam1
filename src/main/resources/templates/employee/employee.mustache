@@ -8,9 +8,19 @@
         </ul>
     </div>
     <div id="k_employee">
+        <select>
+            <option value="0">전체</option>
+            <option value="1">인사과</option>
+            <option value="2">영업부</option>
+            <option value="3">프로그래머</option>
+        </select>
+
+        <div><input type="text" name="keyword"></div>
+        <button type="button" onclick="onEmployeeAllView()">검색</button>
         <table>
             <thead>
                 <tr>
+                        <a href=""></a>
                     <th>사원번호</th>
                     <th>이름</th>
                     <th>부서</th>
