@@ -3,13 +3,20 @@
 <div id="k_container">
     <div id="k_employeeSideWrap">
         <ul id="k_employeeSide">
-            <li><a href="#">사원보기</a></li>
+            <li><a href="/employee">사원보기</a></li>
             <li><a href="/signup">사원등록</a></li>
         </ul>
     </div>
     <div id="k_employee">
-        개별 사원 정보
-        <div></div>
+        <button type="button" onclick="onEmployeeDelete()">퇴사처리</button>
+        <div class="img"></div>
+        부서명:<div class="pname"></div>
+        이름:<div class="ename"></div>
+        성별 :<div class="sex"></div>
+        입사일:<div class="edate"></div>
+        전화번호:<div class="phone"></div>
+        이메일:<div class="email"></div>
+        주소:<div class="address"></div>
         <div>
             경력사항
             <!--<button onclick="OnCareerPlus()" type="button">경력 편집</button>
@@ -26,6 +33,9 @@
                     </div>
                 </div>
                 <div class="tbody careerBox">
+                    <div>
+                        경력사항 목록
+                    </div>
                     <!-- <tr>
                          <td><input type="text"></td>
                          <td><input type="date"></td>
@@ -40,7 +50,7 @@
             </div>
 
         </div>
-
+        자격증
         <button onclick="OnLicensePlus()" type="button">자격증 추가</button>
         <div class="table">
             <div class="thead">

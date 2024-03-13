@@ -3,10 +3,7 @@ package sierp.springteam1.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import sierp.springteam1.model.dao.EmployeeDao;
 import sierp.springteam1.model.dto.*;
 import sierp.springteam1.service.employeeserive.EmployeeService;
@@ -50,6 +47,16 @@ public class EmployeeController {
         System.out.println("EmployeeController.lSignup");
         return employeeService.lSignup(licenseDto);
     }
+    //================ 삭제 요청
+    // 사원 삭제 요청
+    @DeleteMapping("/employee/delete")
+    @ResponseBody
+    public boolean employeeDelete(int eno){
+        return employeeService.employeeDelete(eno);
+    }
+
+
+
 
     //================= 페이지 요청
     // 인사관리 페이지 요청
@@ -99,14 +106,13 @@ public class EmployeeController {
     @ResponseBody
     public EmployeeDto getEmployeeView(String eno){
         //String eno=(String)eno1;
-       mypageService.doGetLoginInfo(eno);
-        return null;
+        return mypageService.doGetLoginInfo(eno);
    }
 
     //경력 내역 출력
     @GetMapping("/careerView")
     @ResponseBody
-    public List<EmployeeCareerDto> careerList(@RequestParam int eno){
+    public List<EmployeeCareerDto> careerList(int eno){
         System.out.println("EmployeeController.careerList");
         return employeeService.careerList(eno);
     }

@@ -15,7 +15,7 @@ public class MypageDao extends SuperDao {
 
         EmployeeDto employeeDto = null;
         try {
-            String sql = "select * from employee where eno = ?";
+            String sql = "select * from employee em , part p where em.pno = p.pno and em.eno=?";
             ps = conn.prepareCall(sql);
             ps.setString(1, eno);
             rs = ps.executeQuery();
@@ -34,6 +34,7 @@ public class MypageDao extends SuperDao {
                         .img(rs.getString(10))
                         .edate(rs.getString(11))
                         .pno(rs.getInt(12))
+                        .pname(rs.getString(13))
                         .build();
             }
         }catch (Exception e){
