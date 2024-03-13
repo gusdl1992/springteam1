@@ -1,6 +1,20 @@
 var arr = new Array(); // 빈 배열 생성 출근체크 값 가져오기
 
 calendar()
+
+
+function goToWork(){
+    console.log('goToWork()');
+    $.ajax({
+        url: '/mypage/attendance/write',
+        method: 'get',
+        success: (r) => {
+            console.log(r);
+        }
+    });
+}
+
+
 function calendar(){
 
     // 데이터를 JAVA 통신
