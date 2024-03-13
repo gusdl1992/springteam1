@@ -34,7 +34,10 @@ public class SaleProjectController {
         return salesService.saleslist();
     }
     //1.등록
-
+    @GetMapping("/post")
+    public String postview(){
+       return "/sales.onesales"
+    }
     //2.리스트
 
 }
