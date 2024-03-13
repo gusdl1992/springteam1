@@ -18,7 +18,12 @@ public class MyProjectDao extends SuperDao {
         System.out.println("MyProjectDao.myProjectList");
         MyProjectDto myProjectDto = null;
         try {
-            String sql = "select * from project p inner join projectlog l on p.pjno = l.pjno where eno = ?";
+            String sql =
+                    "SELECT p.pjno, p.eno , p.state , s.state , s.start_date , s.end_date , s.title , s.compannyname\n" +
+                    "FROM projectlog p\n" +
+                    "INNER JOIN salesproject s ON p.pjno = s.spjno\n" +
+                    "INNER JOIN employee e ON p.eno = e.eno\n" +
+                    "WHERE p.eno = ? AND s.state = 1;";
             ps = conn.prepareStatement(sql);
             ps.setString(1,eno);
             rs = ps.executeQuery();
@@ -51,16 +56,21 @@ public class MyProjectDao extends SuperDao {
         ProjectDto projectDto = null;
 
         try {
-            String sql = "select DISTINCT * from projectlike p inner join project p2 ON p.pjno = p2.pjno where eno = ? and state = 0;";
+            String sql =
+                    "SELECT DISTINCT  p.pjno , s.title , s.compannyname , s.price\n" +
+                            "FROM projectlike p\n" +
+                            "INNER JOIN salesproject s ON p.pjno = s.spjno\n" +
+                            "INNER JOIN employee e ON p.eno = e.eno\n" +
+                            "WHERE p.eno = ? and s.state != 2;";
             ps = conn.prepareStatement(sql);
             ps.setString(1,eno);
             rs = ps.executeQuery();
             while (rs.next()){
                 projectDto = ProjectDto.builder()
-                        .pjno(rs.getInt(2))
-                        .title(rs.getString(9))
-                        .compannyname(rs.getString(12))
-                        .price(rs.getString(14))
+                        .pjno(rs.getInt("pjno"))
+                        .title(rs.getString("title"))
+                        .compannyname(rs.getString("compannyname"))
+                        .price(rs.getString("price"))
                         .build();
                 list.add(projectDto);
             }
@@ -79,7 +89,11 @@ public class MyProjectDao extends SuperDao {
         List<ProjectDto> list = new ArrayList<>();
         ProjectDto projectDto = null;
         try {
-            String sql = "select b.state , b.title , b.pjno, b.start_date , b.end_date from projectlog as a inner join project as b on a.pjno = b.pjno where eno = ? and b.state = 2";
+            String sql = "SELECT DISTINCT b.state, b.title, a.pjno, b.start_date, b.end_date \n" +
+                    "FROM uploadproject a \n" +
+                    "JOIN salesproject b ON a.spjno = b.spjno \n" +
+                    "JOIN projectlog j ON a.pjno = j.pjno \n" +
+                    "WHERE j.eno = ? AND j.state = 2;";
             ps = conn.prepareStatement(sql);
             ps.setString(1,eno);
             rs = ps.executeQuery();
