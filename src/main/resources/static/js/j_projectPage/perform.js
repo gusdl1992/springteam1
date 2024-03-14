@@ -71,9 +71,9 @@ function searchProject(){
             break;
         case "4" :
             searchInput.innerHTML=`<select class="searchValue">
-                                        <option value="0"> 진행전 </option>
-                                        <option value="1"> 진행중 </option>
-                                        <option value="2"> 진행완료 </option>
+                                        <option value="0"> 평가전 </option>
+                                        <option value="1"> 평가중 </option>
+                                        <option value="2"> 평가완료 </option>
                                     </select>`;
             pageObject.key="state";
             break;
