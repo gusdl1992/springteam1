@@ -39,7 +39,7 @@ function onSignup(){// 사원등록 함수
                //4. 결과
                if(r){
                    alert('사원정보 등록');
-                   location.href='/employee/view?eno=${r}';
+                   location.href=`/employee`;
                    //location.href=`/projectPage/detail?pjno=${r}`;
                }else {
                    alert('사원정보 실패');

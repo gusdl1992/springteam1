@@ -1,0 +1,74 @@
+{{>headerfooter/header}}
+
+<div id="k_container">
+    <div id="k_employeeSideWrap">
+        <ul id="k_employeeSide">
+            <li><a href="/employee">사원보기</a></li>
+            <li><a href="/signup">사원등록</a></li>
+        </ul>
+    </div>
+    <div id="k_employee">
+        <button type="button" onclick="onUpdate()">수정완료</button>
+        <form class="employeeForm">
+            <!-- <div class="label"> 아이디 </div>
+             <input onkeyup="idCheck()" type="text" id="id" name="id" />
+             <div class="idcheckbox checkbox">유효성검사결과</div>
+ -->        증명사진<div id="img" name="img"></div>
+            <div >사진 수정</div>
+            <input onchange="" type="file" id="mfile" name="mfile" /><br/>
+            <!--<div class="preimgbox"> &lt;!&ndash; 첨부파일 미리보기&ndash;&gt;
+                <img id="preimg" src="/img/default.jpg"/>
+            </div>-->
+            <div >아이디</div>
+            <input type="text" id="id" name="id"><br/>
+            <div >비밀번호</div>
+            <input type="text" id="pw" name="pw"><br/>
+            <div>부서 배정</div>
+            <select class="pnoCategory" id="pno" name="pno">
+            </select>
+            <div >이름</div>
+            <input type="text" id="ename" name="ename"><br/>
+
+            <div >전화번호</div>
+            <input type="text" id="phone" name="phone"><br/>
+
+            <div >주소</div>
+            <input type="text" id="address" name="address"><br/>
+
+            <div >성별</div>
+            <input type="radio" id="sex" name="sex" value="false" checked> 남성
+            <input type="radio" id="sex" name="sex" value="true"> 여성 <br/>
+
+            <div >입사 날짜</div>
+            <div id="start_date"></div>
+            수정:<input type="date" id="edate" name="edate"><br/>
+
+            <div>이메일</div>
+            <div >
+                <input type="text" id="email" name="email"><br/>
+            </div>
+            <div>학력</div>
+            <select id="eeducation" name="eeducation">
+                <option>고졸</option>
+                <option>초대졸</option>
+                <option>대졸</option>
+                <option>석사</option>
+                <option>박사</option>
+            </select>
+            <br/>
+        </form>
+
+            경력사항
+            <!--<button onclick="OnCareerPlus()" type="button">경력 편집</button>
+            <button onclick="OnCareer()" type="button">경력 등록</button>
+-->
+
+        자격증
+
+
+    </div>
+
+</div>
+<script src="/js/employee/employeeUpdate.js"></script>
+
+{{>headerfooter/footer}}

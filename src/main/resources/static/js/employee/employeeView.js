@@ -2,8 +2,8 @@ let eno=new URL(location.href).searchParams.get('eno');
 let index = 1;
 let index1 = 1;
 employeeView();
-CareerPrint();
-licensePrint();
+CareerPrint(1);
+licensePrint(1);
 //등록======================================
 // 경력 등록 함수
 function OnCareer(){
@@ -24,7 +24,7 @@ function OnCareer(){
                  if(r){
                      alert('경력등록 성공');
                      document.querySelector('.careerBox').innerHTML='';
-                     CareerPrint();
+                     CareerPrint(1);
                  }else {
                      alert('경력등록 실패');
                  }
@@ -53,7 +53,7 @@ function OnLicense(){
                      if(r){
                          alert('자격증 등록 성공');
                          document.querySelector('.licenseBox').innerHTML='';
-                         licensePrint();
+                         licensePrint(1);
                      }else {
                          alert('자격증 등록 실패');
                      }
@@ -74,7 +74,7 @@ alert('퇴사처리 하시겠습니까?')
              //4. 결과
              if(r){
                  alert('삭제 성공');
-
+                 location.href='/employee';
              }else {
                  alert('삭제 실패');
              }
@@ -90,9 +90,9 @@ function employeeView(){
          method : 'get',
          data : {'eno':eno},
          success : (r)=>{
-             console.log(r);
-//             <img src="/img/${r2.uuidFile}">${r} 님
-             document.querySelector('.img').innerHTML=`<img src="/img/${r.img}" alt="프로필사진">`
+             console.log(r.img);
+//             <img src="/img/${r2.uuidFile}">${r} 님 "../../img/cimg/${r.img}"
+             document.querySelector('.img').innerHTML=`<img src="/img/eimg/${r.img}">`
              document.querySelector('.pname').innerHTML=r.pname
              document.querySelector('.ename').innerHTML=r.ename
              document.querySelector('.sex').innerHTML=r.sex? '여성' : '남성';
@@ -100,38 +100,62 @@ function employeeView(){
              document.querySelector('.phone').innerHTML=r.phone
              document.querySelector('.email').innerHTML=r.email
              document.querySelector('.address').innerHTML=r.address
+
+
+
          }
     });//ajax 끝*/
 }
 
 //경력 내역 출력
-function CareerPrint(){
+function CareerPrint(num){
     $.ajax({
         url: `/careerView`,
         method: `get`,
         data:  {eno:eno} ,
+        async : false,
         success: (r)=>{
         console.log(r)
-
+            if(num==1){
+            console.log('if1')
             let careerBox = document.querySelector(".careerBox");
+            let html='';
+            r.forEach( career => {
+                html+=`
+                       <div class="tr">
+                          <div class="td ">${career.companyname}</div>
+                          <div class="td ">${career.start_date}</div>
+                          <div class="td ">${career.end_date}</div>
+                          <div class="td ">${career.note}</div>
+                          <div class="td ">${career.eimg}</div>
+                        </div>`;
+                 careerBox.innerHTML = html;
+
+            });}else if(num==2){
+                console.log('if2')
+                let careerBox = document.querySelector(".careerBox");
                 let html='';
+                careerBox.innerHTML = html;
                 r.forEach( career => {
                      html+=`
-                            <div class="tr">
-                               <div class="td ">${career.companyname}</div>
-                               <div class="td ">${career.start_date}</div>
-                               <div class="td ">${career.end_date}</div>
-                               <div class="td ">${career.note}</div>
-                               <div class="td ">${career.eimg}</div>
-                             </div>`;
-                });
+                          <div class="tr">
+                             <div class="td ">${career.companyname}</div>
+                             <div class="td ">${career.start_date}</div>
+                             <div class="td ">${career.end_date}</div>
+                             <div class="td ">${career.note}</div>
+                             <div class="td ">${career.eimg}</div>
+                             <div class="td cinput"><button onclick="" type="button">삭제</button></div>
+                           </div>`;
                  careerBox.innerHTML = html;
+
+           });}
+
 
          }
     });
 }
 //자격증 출력
-function licensePrint(){
+function licensePrint(num){
     $.ajax({
             url: `/licenseView`,
             method: `get`,
@@ -139,16 +163,35 @@ function licensePrint(){
             success: (r)=>{
             console.log(r)
 
-                let licenseBox = document.querySelector(".licenseBox");
-                    let html='';
-                    r.forEach( license => {
-                         html+=`
-                                <div class="tr">
-                                   <div class="td ">${license.lname}</div>
-                                   <div class="td ">${license.ldate}</div>
-                                 </div>`;
-                    });
-                     licenseBox.innerHTML = html;
+            if(num==1){
+            console.log('license 1')
+            console.log(r)
+            let licenseBox = document.querySelector(".licenseBox");
+            let html='';
+                r.forEach( license => {
+                     html+=`
+                            <div class="tr">
+                               <div class="td ">${license.lname}</div>
+                               <div class="td ">${license.ldate}</div>
+                             </div>`;
+                });
+                licenseBox.innerHTML = html;
+            }else if(num==2){
+            console.log('license 2')
+            let licenseBox = document.querySelector(".licenseBox");
+                        let html='';
+            licenseBox.innerHTML = html;
+            r.forEach( license => {
+                 html+=`
+                        <div class="tr">
+                           <div class="td ">${license.lname}</div>
+                           <div class="td ">${license.ldate}</div>
+                           <div class="td linput"><button onclick="" type="button">삭제</button></div>
+                         </div>`;
+            });
+             licenseBox.innerHTML = html;
+            }
+
 
              }
         });
@@ -157,6 +200,7 @@ function licensePrint(){
 
 // 경력 입력칸 함수
 function OnCareerPlus(){
+    //CareerPrint(2);
     let careerBox = document.querySelector('.careerBox');
     let html='';
 
@@ -176,7 +220,7 @@ function OnCareerPlus(){
     let button=document.querySelector('.cBtn');
     btn=`
     <button onclick="OnCareer()" type="button">경력 등록</button>
-    <button onclick="close()" type="button">닫기</button>
+    <button onclick="onClose(${1})" type="button">닫기</button>
 
     `
     button.innerHTML=btn
@@ -189,6 +233,7 @@ function OnLicensePlus(){
         method: `get`,
         success: (r)=>{
             console.log(r)
+            //licensePrint(2);
             let licenseBox = document.querySelector('.licenseBox');
             let html='';
                 html=`
@@ -199,6 +244,7 @@ function OnLicensePlus(){
                                 </select>
                              </div>
                              <div class="td"><input type="date" name="ldate"></div>
+                             <div class="td linput"><button onclick="" type="button">삭제</button></div>
                         </div>
                     </form>`
             licenseBox.innerHTML+=html;
@@ -212,7 +258,7 @@ function OnLicensePlus(){
             let button=document.querySelector('.lBtn');
                 btn=`
                 <button onclick="OnLicense()" type="button">자격증 등록</button>
-                <button onclick="close()" type="button">닫기</button>
+                <button onclick="onClose(${2})" type="button">닫기</button>
                 `
                 button.innerHTML=btn
             licenseCategory.innerHTML += option;
@@ -221,14 +267,21 @@ function OnLicensePlus(){
 
 }
 //입력창 닫기 버튼
-function close(){
+function onClose(num){
     console.log('close')
-    /*if(num==1){
-    console.log('1')
-    document.querySelector('.careerBox').innerHTML='';
-    CareerPrint();
+    if(num==1){
+        console.log('1')
+        document.querySelector('.careerBox').innerHTML='';
+        CareerPrint(1);
     }
-    else if(num==2){*/
-    document.querySelector('.licenseBox').innerHTML='';
-    licensePrint();
+    else if(num==2){
+        console.log('2')
+        document.querySelector('.licenseBox').innerHTML='';
+        licensePrint(1);
+    }
+
 }
+//수정페이지로 이동
+function employeeUpdate(){
+location.href= `/employee/update?eno=${eno}`;
+}//f end

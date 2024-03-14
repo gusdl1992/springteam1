@@ -54,8 +54,12 @@ public class EmployeeController {
     public boolean employeeDelete(int eno){
         return employeeService.employeeDelete(eno);
     }
-
-
+    //================== 수정
+    @PutMapping("/employee/update.do")
+    @ResponseBody
+    public boolean employeeUpdate (EmployeeDto employeeDto){
+        return employeeService.employeeUpdate(employeeDto);
+    }
 
 
     //================= 페이지 요청
@@ -74,6 +78,12 @@ public class EmployeeController {
     public String viewSignup(){
         System.out.println("EmployeeController.viewSignup");
         return "/employee/signup";
+    }
+    //사원정보 수정 페이지 요청
+    @GetMapping("/employee/update")
+    public String employeeUpdateView(){
+        System.out.println("EmployeeController.viewSignup");
+        return "/employee/employeeUpdate";
     }
 
     //=========== 출력
