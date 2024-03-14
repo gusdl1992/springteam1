@@ -13,7 +13,7 @@ public class Salarycontroller {
     @Autowired
     SalaryService salaryService;
 //
-//    @Scheduled(cron = "0 0 0 1 * *")
+//
     @GetMapping("/test")
     @ResponseBody
     public void insertsal(){

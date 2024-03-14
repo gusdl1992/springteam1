@@ -1,6 +1,7 @@
 package sierp.springteam1.service.salaryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -39,7 +40,7 @@ public class SalaryService {
     @Autowired
     SalaryDAO salaryDAO;
 
-
+    @Scheduled(cron = "0 0 0 1 * *")
     public void insertsel(){
         //이번달 얼마 출근했는지
         //총 출근일

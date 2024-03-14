@@ -26,13 +26,6 @@ public class SalaryDAO extends SuperDao {
             ps = conn.prepareStatement(sql2);
             int count = ps.executeUpdate();
             System.out.println("count = " + count);
-//            for (SalaryDto i : result) {
-//                String sql = "insert into salary(eno,price) values(?,?)";
-//                ps= conn.prepareStatement(sql);
-//                ps.setInt(1,i.getEmployeeDto().getEno());
-//                ps.setString(2,i.getPrice()+"");
-//                ps.executeUpdate();
-//            }
         }
         catch (Exception e){
             System.out.println("임금 삽입중 발생한 오류 = " + e);
