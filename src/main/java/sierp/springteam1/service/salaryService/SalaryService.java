@@ -9,7 +9,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import sierp.springteam1.model.dao.EmployeeDao;
+import sierp.springteam1.model.dao.boardcount.BoardDAO;
 import sierp.springteam1.model.dao.salaryDao.SalaryDAO;
+import sierp.springteam1.model.dto.BoardPageDTO;
 import sierp.springteam1.model.dto.EmployeeDto;
 import sierp.springteam1.model.dto.SalaryDto;
 
@@ -39,7 +41,36 @@ public class SalaryService {
 
     @Autowired
     SalaryDAO salaryDAO;
+    @Autowired
+    BoardDAO boardDAO;
 
+    public BoardPageDTO findSalayloglist(int page , int pageBoardSize , int state, String key, String keyword){
+        System.out.println("서비스 시작");
+        int startRow = (page-1)*pageBoardSize;
+        String table = " salarylog join employee using (eno) ";
+        System.out.println("카운트 전");
+        int totalBoardSize = boardDAO.getBoardSize(table , state, key , keyword);
+        int totalpage = (totalBoardSize+pageBoardSize-1)/pageBoardSize;
+        System.out.println("리스트 호출 전");
+        List<Object> list = boardDAO.doGetBoardViewList( table,startRow , pageBoardSize , state ,key , keyword );
+        int btnsize = 5;
+        //2.페이지 버튼 시작 번호
+        int startbtn = (page-1)/btnsize*btnsize+1;
+        //3 페이지 버튼 끝번호
+        int endbtn = startbtn+btnsize-1;
+        //만약 페이지 버튼의 끝 번호가 총 페이지 수보다는 커질수 없다
+        if(endbtn >= totalpage){ endbtn = totalpage; }
+        BoardPageDTO boardPageDTO = BoardPageDTO.builder()
+                .page(page)
+                .totalBoardSize(totalBoardSize)
+                .totalpage(totalpage)
+                .list(list)
+                .startbtn(startbtn)
+                .endbtn(endbtn)
+                .build();
+        return boardPageDTO;
+
+    }
     public boolean salaryloginput(List<SalaryDto> result){
         if(salaryDAO.insertSalarylog(result)){
             if(salaryDAO.deleteSalary(result)){

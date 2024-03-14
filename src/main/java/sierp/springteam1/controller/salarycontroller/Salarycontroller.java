@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import sierp.springteam1.model.dto.BoardPageDTO;
 import sierp.springteam1.model.dto.EmployeeDto;
 import sierp.springteam1.model.dto.SalaryDto;
 import sierp.springteam1.service.salaryService.SalaryService;
@@ -22,6 +23,13 @@ public class Salarycontroller {
     SalaryService salaryService;
 //
 //
+    @GetMapping("/findlist")
+    @ResponseBody
+    public BoardPageDTO findSalayloglist(int page , int pageBoardSize , int state, String key, String keyword){
+        System.out.println("컨트롤러");
+        return salaryService.findSalayloglist(page,pageBoardSize,state,key,keyword);
+
+    }
     @GetMapping("/test")
     @ResponseBody
     public void insertsal(){

@@ -1,5 +1,6 @@
 package sierp.springteam1.model.dao.boardcount;
 
+import org.springframework.stereotype.Component;
 import sierp.springteam1.model.dao.SuperDao;
 import sierp.springteam1.model.dto.EmployeeDto;
 import sierp.springteam1.model.dto.SalaryDto;
@@ -8,22 +9,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+
+@Component
 public class BoardDAO extends SuperDao {
 
-    public int getBoardSize( String tablename ,int bcno ,String key , String keyWord){
+    public int getBoardSize( String tablename ,int state ,String key , String keyWord){
         try{
             String sql = "select count(*) from "+tablename;
             // ==================== 1.만약에 카테고리 조건이 있으면 where 추가.
-            if( bcno > 0 ){ sql += " where bcno = "+bcno ; }
-            if( !keyWord.isEmpty()){System.out.println("검색 키워드가 존재");
-                if(bcno > 0){ sql += " and ";}
-                else{sql += " where ";}
-                sql +=  key+" like '%"+keyWord+"%' ";
-            }
+//            if( state > -2 ){ sql += " where state = "+state ; }
+//            if( !keyWord.isEmpty()){System.out.println("검색 키워드가 존재");
+//                if(state > -2){ sql += " and ";}
+//                else{sql += " where ";}
+//                sql +=  key+" like '%"+keyWord+"%' ";
+//            }
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             if( rs.next() ){ return rs.getInt(1); }
-        }catch (Exception e ){  System.out.println("e = " + e);}
+        }catch (Exception e ){  System.out.println("카운트중 발생한 오류 = " + e);}
         return -1;
     }
 
@@ -32,14 +35,14 @@ public class BoardDAO extends SuperDao {
         System.out.println("startRow = " + startRow + ", pageBoardSize = " + pageBoardSize + ", state = " + state + ", key = " + key + ", keyword = " + keyWord);
         try{  // String sql = "select * from board";
             // SQL 앞부분
-            String sql = "select * from ;"+tablename;
+            String sql = "select * from "+tablename;
             // SQL 가운데부분 [ 조건에 따라 where 절 추가 ]
-            if( state > -2 ){ sql += " where state = "+state ; }
-            if( !keyWord.isEmpty()){System.out.println("검색 키워드가 존재");
-                if(state > -2){ sql += " and ";}
-                else{sql += " where ";}
-                sql +=  key+" like '%"+keyWord+"%' ";
-            }
+//            if( state > -2 ){ sql += " where state = "+state ; }
+//            if( !keyWord.isEmpty()){System.out.println("검색 키워드가 존재");
+//                if(state > -2){ sql += " and ";}
+//                else{sql += " where ";}
+//                sql +=  key+" like '%"+keyWord+"%' ";
+//            }
             // SQL 뒷부분
             sql += " limit ? , ?";
 

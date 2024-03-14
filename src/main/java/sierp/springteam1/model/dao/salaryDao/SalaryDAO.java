@@ -1,7 +1,9 @@
 package sierp.springteam1.model.dao.salaryDao;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import sierp.springteam1.model.dao.SuperDao;
+import sierp.springteam1.model.dao.boardcount.BoardDAO;
 import sierp.springteam1.model.dto.EmployeeDto;
 import sierp.springteam1.model.dto.SalaryDto;
 
@@ -31,7 +33,6 @@ public class SalaryDAO extends SuperDao {
         }
         return false;
     }
-
 
 
     public boolean deleteSalary(List<SalaryDto> result){
