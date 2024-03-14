@@ -87,7 +87,7 @@ public class EmployeeController {
     }
 
     // 자격증 종류 출력
-    @GetMapping("/license")
+    @GetMapping("/licenseSelect")
     @ResponseBody
     public List<LicenseDto> licenseList(){
         System.out.println("EmployeeController.licenseList");
@@ -109,11 +109,19 @@ public class EmployeeController {
         return mypageService.doGetLoginInfo(eno);
    }
 
-    //경력 내역 출력
+    //사원 경력 로그 출력
     @GetMapping("/careerView")
     @ResponseBody
     public List<EmployeeCareerDto> careerList(int eno){
         System.out.println("EmployeeController.careerList");
         return employeeService.careerList(eno);
+    }
+
+    // 사원 자격증 로그 출력
+    @GetMapping("/licenseView")
+    @ResponseBody
+    public List<EmployeeLicenseDto> licenseViewList(int eno){
+        System.out.println("eno = " + eno);
+        return employeeService.licenseViewList(eno);
     }
 }
