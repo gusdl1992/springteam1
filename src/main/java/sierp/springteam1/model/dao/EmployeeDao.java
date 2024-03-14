@@ -209,13 +209,19 @@ public class EmployeeDao extends SuperDao{
         return llist;
     }
     // 전체 사원 출력
-    public List<EmployeeDto> employeeList(){
+    public List<EmployeeDto> employeeList(int key, String keyword){
         System.out.println("EmployeeDao.employeeList");
         List<EmployeeDto>list=new ArrayList<>();
         EmployeeDto employeeDto=null;
         try {
-            String spl=" select * from employee em , part p where em.pno = p.pno;";
-            ps= conn.prepareStatement(spl);
+            String sql=" select * from employee em , part p where em.pno = p.pno;";
+            //=======  부서 번호로 검색
+            if(key>0){sql+=" and em.pno="+key;}
+            //======= 이름 검색
+            if(keyword!=null){
+                sql += " and em.ename like '%" + keyword + "%' ";
+            }
+            ps= conn.prepareStatement(sql);
             rs=ps.executeQuery();
             while (rs.next()){
                 employeeDto=EmployeeDto.builder()

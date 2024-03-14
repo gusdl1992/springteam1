@@ -107,9 +107,9 @@ public class EmployeeController {
     // 전체 사원 호출
     @GetMapping("/employeeList")
     @ResponseBody
-    public List<EmployeeDto> employeeList(){
+    public List<EmployeeDto> employeeList(@RequestParam int key,@RequestParam String keyword){
         System.out.println("EmployeeController.employeeList");
-        return employeeService.employeeList();
+        return employeeService.employeeList(key,keyword);
     }
     // 개별 사원 호출
     @GetMapping("/employee/view.do")

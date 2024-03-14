@@ -2,6 +2,7 @@ package sierp.springteam1.service.employeeserive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import sierp.springteam1.model.dao.EmployeeDao;
 import sierp.springteam1.model.dao.mypageDao.MypageDao;
 import sierp.springteam1.model.dto.*;
@@ -113,15 +114,15 @@ public class EmployeeService {
         System.out.println("EmployeeService.partDtoList");
         return employeeDao.partList();
     }
-    //자격증 전체 호출
+    //자격증 선택 호출
     public List<LicenseDto> licenseList(){
         return employeeDao.licenseList();
     }
 
     // 사원 전체 호출
-    public List<EmployeeDto> employeeList(){
+    public List<EmployeeDto> employeeList( int key,  String keyword){
         System.out.println("EmployeeService.employeeList");
-        return employeeDao.employeeList();
+        return employeeDao.employeeList(key, keyword);
     }
 
     //경력 전체 호출
@@ -129,6 +130,7 @@ public class EmployeeService {
         System.out.println("EmployeeService.careerList");
         return employeeDao.careerList(eno);
     }
+    //자격증 호출
     public List<EmployeeLicenseDto> licenseViewList(int eno){
         System.out.println("eno = " + eno);
         return employeeDao.licenseViewList(eno);

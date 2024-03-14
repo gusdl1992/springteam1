@@ -1,22 +1,15 @@
-{{>headerfooter/header}}
+{{>employee/employeeTop}}
 
-<div id="k_container">
-    <div id="k_employeeSideWrap">
-        <ul id="k_employeeSide">
-            <li><a href="/employee">사원보기</a></li>
-            <li><a href="/signup">사원등록</a></li>
-        </ul>
-    </div>
     <div id="k_employee">
-        <select onchange="on">
+        <select onchange="onPartPrint" class="k_key">
             <option value="0">전체</option>
             <option value="1">인사과</option>
             <option value="2">영업부</option>
             <option value="3">프로그래머</option>
         </select>
 
-        <div><input type="text" name="keyword"></div>
-        <button type="button" onclick="onEmployeeAllView()">검색</button>
+        <div><input type="text" class="k_keyword" name="k_keyword"></div>
+        <button type="button" onclick="onPartPrint()">검색</button>
         <table>
             <thead>
                 <tr>
