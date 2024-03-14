@@ -20,6 +20,5 @@ public class ProjectPageDto {
 
 
     private List<Object> objectList; // 출퇴근 조회 리스트
-    private List<ProjectDto3> list3;
 
 }

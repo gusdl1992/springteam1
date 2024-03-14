@@ -31,7 +31,7 @@ function printProjet(page){
 
             //전체 리스트 출력
             let html=``;
-            r.list.forEach((result)=>{
+            r.objectList.forEach((result)=>{
                 html+=`<tr>
                            <th>${result.spjno}</th>
                            <td><a href="/projectPage/detail?spjno=${result.spjno}">${result.title}</a></td>
