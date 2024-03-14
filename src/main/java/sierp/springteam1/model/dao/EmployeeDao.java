@@ -102,7 +102,7 @@ public class EmployeeDao extends SuperDao{
             int count= ps.executeUpdate();
             if(count==1){return true;}
         }catch (Exception e){
-            System.out.println("e = " + e);
+            System.out.println("careerPost : e = " + e);
         }
         return false;
     }
@@ -111,7 +111,15 @@ public class EmployeeDao extends SuperDao{
     public boolean lSignup(EmployeeLicenseDto licenseDto){
         System.out.println("EmployeeDao.lSignup");
         try {
-            String sql="";
+            String sql="insert into employeelicense values(?,?,?); ";
+            ps= conn.prepareStatement(sql);
+            ps.setInt(1,licenseDto.getEno());
+            ps.setInt(2,licenseDto.getLno());
+            ps.setString(3,licenseDto.getLdate());
+            int count= ps.executeUpdate();
+            if(count==1){
+                return true;
+            }
         }catch (Exception e){
             System.out.println("e = " + e);
         }
@@ -129,6 +137,31 @@ public class EmployeeDao extends SuperDao{
             }
         }catch (Exception e){
             System.out.println(e);
+        }
+        return false;
+    }
+    //======================수정
+    public boolean employeeUpdate (EmployeeDto employeeDto){
+        try{
+            String sql= "update employee set id=?, pw=?, ename=?,email=?,  phone=?, address=?,sex=?,img=?,pno=?,eeducation=? where eno=?";
+            ps=conn.prepareStatement(sql);
+            ps.setString(1,employeeDto.getId());
+            ps.setString(2,employeeDto.getPw());
+            ps.setString(3,employeeDto.getEname());
+            ps.setString(4,employeeDto.getEmail());
+            ps.setString(5,employeeDto.getPhone());
+            ps.setString(6,employeeDto.getAddress());
+            ps.setBoolean(7,employeeDto.isSex());
+            ps.setString(8,employeeDto.getImg());
+            ps.setInt(9,employeeDto.getPno());
+            ps.setString(10,employeeDto.getEeducation());
+            ps.setInt(11,employeeDto.getEno());
+
+            System.out.println(employeeDto);
+            int count= ps.executeUpdate();
+            if(count==1){return true;}
+        }catch (Exception e){
+            System.out.println("employeeUpdate : e = " + e);
         }
         return false;
     }
@@ -201,7 +234,7 @@ public class EmployeeDao extends SuperDao{
                 list.add(employeeDto);
             }
         }catch (Exception e){
-            System.out.println("e = " + e);
+            System.out.println("employeeList : e = " + e);
         }
         return list;
     }
@@ -226,10 +259,33 @@ public class EmployeeDao extends SuperDao{
                 clist.add(careerDto);
             }
         }catch (Exception e){
-            System.out.println("e = " + e);
+            System.out.println("careerList e = " + e);
         }
         System.out.println(clist);
         return clist;
+    }
+    public List<EmployeeLicenseDto> licenseViewList(int eno){
+        System.out.println("eno = " + eno);
+        List<EmployeeLicenseDto>llist=new ArrayList<>();
+        EmployeeLicenseDto licenseDto;
+        try {
+            String sql="select * from  license l ,employeelicense el where l.lno = el.lno  and eno=?";
+            ps= conn.prepareStatement(sql);
+            ps.setInt(1,eno);
+            rs= ps.executeQuery();
+            while (rs.next()){
+                licenseDto=EmployeeLicenseDto.builder()
+                        .eno(rs.getInt("eno"))
+                        .lno(rs.getInt("lno"))
+                        .ldate(rs.getString("ldate"))
+                        .lname(rs.getString("lname"))
+                        .build();
+                llist.add(licenseDto);
+            }
+        }catch (Exception e){
+            System.out.println("licenseViewList : e = " + e);
+        }
+        return llist;
     }
     /*
     create table employee( #사원테이블

@@ -84,6 +84,29 @@ public class EmployeeService {
         return employeeDao.employeeDelete(eno);
     }
 
+    //=================== 수정
+    // 사원정보 수정
+    public boolean employeeUpdate (EmployeeDto employeeDto){
+            //1. 기존 첨부파일명 구하고
+        String bfile = mypageDao.doGetLoginInfo((employeeDto.getEno()+"")).getImg();
+        // - 새로운 첨부파일이 있다. 없다.
+        if(!employeeDto.getMfile().isEmpty()){// 수정시 새로운 첨부파일이 있으면
+            //새로운  첨부파일을 업로드하고 기존 첨부파일 삭제
+            String fileName =fileService.eFileUpload(employeeDto.getMfile());
+            if(fileName !=null){
+                employeeDto.setImg(fileName); // 새로운첨부파일의 이름 Dto 대입
+                // 기존 첨부파일 삭제
+                //2. 기존 첨부파일 삭제
+                fileService.fileDelete(bfile);
+            }else {
+                return false; // 업로드 실패
+            }
+        }else {
+            employeeDto.setImg(bfile); // 새로운 첨부파일이 없으면 기존 첨부파일명 그대로 대입
+        }
+        return employeeDao.employeeUpdate(employeeDto);
+    }
+
     //===================호출
     // 부서 전체 호출
     public List<PartDto> partList (){
@@ -105,6 +128,10 @@ public class EmployeeService {
     public List<EmployeeCareerDto> careerList(int eno){
         System.out.println("EmployeeService.careerList");
         return employeeDao.careerList(eno);
+    }
+    public List<EmployeeLicenseDto> licenseViewList(int eno){
+        System.out.println("eno = " + eno);
+        return employeeDao.licenseViewList(eno);
     }
 }
 

@@ -34,7 +34,8 @@ public class MypageDao extends SuperDao {
                         .img(rs.getString(10))
                         .edate(rs.getString(11))
                         .pno(rs.getInt(12))
-                        .pname(rs.getString(13))
+                        .pname(rs.getString("pname"))
+                        .pw(rs.getString("pw"))
                         .build();
             }
         }catch (Exception e){

@@ -54,8 +54,12 @@ public class EmployeeController {
     public boolean employeeDelete(int eno){
         return employeeService.employeeDelete(eno);
     }
-
-
+    //================== 수정
+    @PutMapping("/employee/update.do")
+    @ResponseBody
+    public boolean employeeUpdate (EmployeeDto employeeDto){
+        return employeeService.employeeUpdate(employeeDto);
+    }
 
 
     //================= 페이지 요청
@@ -75,6 +79,12 @@ public class EmployeeController {
         System.out.println("EmployeeController.viewSignup");
         return "/employee/signup";
     }
+    //사원정보 수정 페이지 요청
+    @GetMapping("/employee/update")
+    public String employeeUpdateView(){
+        System.out.println("EmployeeController.viewSignup");
+        return "/employee/employeeUpdate";
+    }
 
     //=========== 출력
 
@@ -87,7 +97,7 @@ public class EmployeeController {
     }
 
     // 자격증 종류 출력
-    @GetMapping("/license")
+    @GetMapping("/licenseSelect")
     @ResponseBody
     public List<LicenseDto> licenseList(){
         System.out.println("EmployeeController.licenseList");
@@ -109,11 +119,19 @@ public class EmployeeController {
         return mypageService.doGetLoginInfo(eno);
    }
 
-    //경력 내역 출력
+    //사원 경력 로그 출력
     @GetMapping("/careerView")
     @ResponseBody
     public List<EmployeeCareerDto> careerList(int eno){
         System.out.println("EmployeeController.careerList");
         return employeeService.careerList(eno);
+    }
+
+    // 사원 자격증 로그 출력
+    @GetMapping("/licenseView")
+    @ResponseBody
+    public List<EmployeeLicenseDto> licenseViewList(int eno){
+        System.out.println("eno = " + eno);
+        return employeeService.licenseViewList(eno);
     }
 }
