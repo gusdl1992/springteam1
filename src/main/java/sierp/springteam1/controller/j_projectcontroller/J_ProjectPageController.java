@@ -153,7 +153,10 @@ public class J_ProjectPageController {
     //프로젝트 참여 사원 평가등록
     @PostMapping("/insertPerform.do")
     @ResponseBody
-    public ProjectlogDto doInsertPerform(int pjno){
-        return null;
-    }
+    public boolean doInsertPerform(int pjno, int eno, String note, String score){
+        System.out.println("J_ProjectPageController.doInsertPerform");
+        System.out.println("pjno = " + pjno + ", eno = " + eno + ", note = " + note + ", score = " + score);
+
+        return j_projectPageService.doInsertPerform(pjno, eno, note, score);
+    }//m end
 }//c end

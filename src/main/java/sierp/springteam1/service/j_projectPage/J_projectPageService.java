@@ -110,5 +110,12 @@ public class J_projectPageService {
         System.out.println("pjno = " + pjno);
 
         return j_projectPageDao.getperformEmployee(pjno);
-    }
+    }//m end
+
+    //프로젝트 참여 사원 평가등록
+    public boolean doInsertPerform(int pjno, int eno, String note, String score){
+        System.out.println("J_projectPageService.doInsertPerform");
+        System.out.println("pjno = " + pjno + ", eno = " + eno + ", note = " + note + ", score = " + score);
+        return j_projectPageDao.doInsertPerform(pjno, eno, note, score);
+    }//m end
 }//c end

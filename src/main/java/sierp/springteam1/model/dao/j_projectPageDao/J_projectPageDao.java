@@ -321,7 +321,7 @@ public class J_projectPageDao extends SuperDao {
         List<Map<String,String >> list = new ArrayList<>();
         try{
             String sql="select c.eno, c.ename, p.pname, pj.pjno, pj.score,  pj.note, (coalesce(datediff(c.end_date,c.start_date),0))+coalesce(datediff(now(),c.edate),0) as alltime \n" +
-                    "from (select * from employee as a join  employeecareer as b using(eno))as c join part as p using(pno) \n" +
+                    "from (select * from employee as a left outer join  employeecareer as b using(eno))as c join part as p using(pno) \n" +
                     "inner join projectlog as pj on c.eno=pj.eno where pj.state=1 and pjno=?;";
             ps=conn.prepareStatement(sql);
             ps.setInt(1, pjno);
@@ -341,10 +341,10 @@ public class J_projectPageDao extends SuperDao {
                     map.put("rank" , "초급");
                 }
                 else if (allday > 3650) {
-                    map.put("rank" , "중급");
+                    map.put("rank" , "고급");
                 }
                 else {
-                    map.put("rank" , "고급");
+                    map.put("rank" , "중급");
                 }
 
                 //사원 개별 평가여부 판별
@@ -360,6 +360,29 @@ public class J_projectPageDao extends SuperDao {
             System.out.println("e = " + e);
         }
         return null;
+    }//m end
+
+    //프로젝트 참여 사원 평가등록
+    public boolean doInsertPerform(int pjno, int eno, String note, String score){
+        System.out.println("J_projectPageDao.doInsertPerform");
+        System.out.println("pjno = " + pjno + ", eno = " + eno + ", note = " + note + ", score = " + score);
+        try {
+            String sql = "update projectlog set note=?, score=? where pjno=? and eno=?;";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,note);
+            ps.setString(2,score);
+            ps.setInt(3,pjno);
+            ps.setInt(4,eno);
+            int count=ps.executeUpdate();
+            if(count==1){
+                return true;
+            }
+        }
+        catch (Exception e){
+            System.out.println("e = " + e);
+        }
+
+        return false;
     }//m end
 
 }//c end

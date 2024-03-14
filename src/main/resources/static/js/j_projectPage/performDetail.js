@@ -57,8 +57,8 @@ function getPjEmployeeInfo(){
                           <td> ${result.pname} </td>
                           <td> ${result.rank} </td>
                           <td> ${result.performState} </td>
-                          <td class="insertPfNote"><input class="eno" type="number" value="${result.eno}" style="display:none"/>${result.note} </td>
-                          <td class="insertPfScore"><input class="eno" type="number" value="${result.eno}" style="display:none"/>${result.score} </td>
+                          <td class="insertPfNote note:${result.eno}"><input class="eno" type="number" value="${result.eno}" style="display:none"/><span>${result.note}</span> </td>
+                          <td class="insertPfScore score:${result.eno}"><input class="eno" type="number" value="${result.eno}" style="display:none"/><span>${result.score}</span> </td>
                       </tr>`;
             })//forEach end
             document.querySelector(".performEmployeeList").innerHTML=html;
@@ -94,12 +94,16 @@ function deleteDetail(){
 //평가등록클릭
 function insertPerform(){
     // insertPfNote 클래스를 가진 모든 요소에 대해 반복하며 내부 HTML을 변경
-    document.querySelectorAll(".insertPfNote").forEach(element => {
-        element.innerHTML += `<input type="text" class="pfNote" name="note" />`;
+    document.querySelectorAll(".insertPfNote span").forEach(element => {
+        let inputNote=element.innerHTML;
+        console.log("inputNote="+inputNote);
+        element.innerHTML = `<input type="text" value="${inputNote}" class="pfNote" name="note" />`;
     });
-    // insertPfScore 클래스를 가진 모든 요소에 대해 반복하며 내부 HTML을 변경
-    document.querySelectorAll(".insertPfScore").forEach(element => {
-        element.innerHTML += `<input type="number" class="pfScore" name="score" />`;
+    //insertPfScore 클래스를 가진 모든 요소에 대해 반복하며 내부 HTML을 변경
+    document.querySelectorAll(".insertPfScore span").forEach(element => {
+        let inputScore=element.innerHTML;
+        console.log("inputScore="+inputScore);
+        element.innerHTML = `<input type="number" value="${inputScore}" class="pfScore" name="score" />`;
     });
 
     document.querySelector(".buttons").innerHTML=`<button type="button" onclick="onInsertPerform()"> 등록 </button>`;
@@ -108,13 +112,44 @@ function insertPerform(){
 
 //평가등록
 function onInsertPerform(){
+    console.log("onInsertPerform");
+
+    //알람용 변수
+    let al=``;
+
+    //참여하는 인원만큼 반복
     document.querySelectorAll(".insertPfScore .eno").forEach(element =>{
-    let eno=element.value;
-    console.log(eno);
-        /*$.ajax({
+        let eno=element.value;
+        console.log(eno);
+
+        let note=document.querySelector(`.note\\:${eno} .pfNote`).value;
+        let score=document.querySelector(`.score\\:${eno} .pfScore`).value;
+        console.log("note : "+note);
+        console.log("score : "+score);
+
+        $.ajax({
             url : "/projectPage/insertPerform.do",
             method : "Post",
-            data :
-        })*/
-    })
+            data : {"pjno" : pjno,
+                    "eno" : eno,
+                    "note" : note,
+                    "score" : score},
+            async : false,
+            success : (r) => {
+                console.log(r);
+                if(r){
+                    al+=eno+"  ";
+                }
+            }//success end
+        })//ajax end
+    })//element foEach end
+    console.log(al);
+
+        if(al==""){
+            alert("평가등록 실패");
+        }
+        else{
+            alert("사원번호 : "+al+"평가등록 성공");
+            location.href=`/projectPage/performDetail?pjno=${pjno}`;
+        }
 }//f end
