@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import sierp.springteam1.controller.salarycontroller.Salarycontroller;
 import sierp.springteam1.model.dto.EmployeeDto;
 import sierp.springteam1.model.dto.ProjectDto;
 import sierp.springteam1.model.dto.ProjectlogDto;
@@ -27,6 +28,9 @@ public class OneprojectController {
     OneprojectService oneprojectService;
     @Autowired
     MypageService mypageService;
+
+    @Autowired
+    Salarycontroller salarycontroller;
     //세부게시물 페이지 출력
     @GetMapping("/view")
     public String oneProjectview(int pjno){

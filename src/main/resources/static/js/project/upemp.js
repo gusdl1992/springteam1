@@ -285,3 +285,14 @@ function sortbyeno(){
         }
     });
 }
+
+function test(){
+    $.ajax({
+        method:"get",
+        url:"/test",
+        success:(r)=>{
+            console.log("안녕")
+        }
+    })
+
+}

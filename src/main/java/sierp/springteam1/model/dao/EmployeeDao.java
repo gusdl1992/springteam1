@@ -53,6 +53,38 @@ public class EmployeeDao extends SuperDao{
         return  false;
     }
 
+    //전체 사원 리스트 요청
+    public List<EmployeeDto> findAllEmployee(){
+        List<EmployeeDto> result = new ArrayList<>();
+        try {
+            String sql = "select * from employee";
+            ps =conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                result.add(
+                        EmployeeDto.builder()
+                                .eno(rs.getInt("eno"))
+                                .eeducation(rs.getString("eeducation"))
+                                .id(rs.getString("id"))
+                                .pw(rs.getString("pw"))
+                                .ename(rs.getString("ename"))
+                                .email(rs.getString("email"))
+                                .phone(rs.getString("phone"))
+                                .address(rs.getString("address"))
+                                .sex(rs.getBoolean("sex"))
+                                .img(rs.getString("img"))
+                                .edate(rs.getString("edate"))
+                                .pno(rs.getInt("pno"))
+                                .build());
+            }
+
+        }
+        catch (Exception e){
+            System.out.println("edd = " + e);
+        }
+        return result;
+    }
+
     // 경력로그 등록 요청
     public boolean careerPost(EmployeeCareerDto careerDto){
         System.out.println("EmployeeDao.cSignup");
