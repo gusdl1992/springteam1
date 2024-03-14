@@ -32,7 +32,7 @@ function printProjet(page){
             let html=``;
             r.list.forEach((result)=>{
                 html+=`<tr>
-                           <th>${result.pjno}</th>
+                           <th>${result.spjno}</th>
                            <td><a href="/projectPage/detail?pjno=${result.pjno}">${result.title}</a></td>
                            <td>${result.compannyname}</td>
                            <td>${result.price}</td>

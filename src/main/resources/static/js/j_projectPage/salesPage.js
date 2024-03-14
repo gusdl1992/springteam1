@@ -1,5 +1,3 @@
-
-
 console.log("salesDetail()-js")
 //============ 페이지 정보 관련 객체 = 여러개의 변수를 묶음 =============
 let pageObject={
@@ -12,40 +10,49 @@ let pageObject={
     endPrice : 0        //규모로 검색하는 경우 끝 금액
 }
 //================================================================
-searchProject();
-printFinishProject();
 
-//searchProject();    //검색 페이지 띄우기
+searchProject();    //검색 페이지 띄우기
+printProjet(1);
 console.log("projectPage-js");
 
 //전체 프로젝트리스트 출력
-function printFinishProject(){
-    console.log("printFinishProject()")
-    //pageObject.page=page;   //현재페이지 대입
+function printProjet(page){
+    console.log("printProjet()");
+    pageObject.page=page;   //현재페이지 대입
+
 
     $.ajax({
-        url : "/projectPage/perform.do",
+        url : "/projectPage/list",
         method : "get",
+        data : pageObject,
         success : (r)=>{
             console.log(r);
             console.log("pageObject.keyword : ");
 
             //전체 리스트 출력
             let html=``;
-            r.list3.forEach((result)=>{
+            r.list.forEach((result)=>{
                 html+=`<tr>
-                           <th>${result.pjno}</th>
-                           <td><a href="/projectPage/performDetail?pjno=${result.pjno}">${result.title}</a></td>
+                           <th>${result.spjno}</th>
+                           <td><a href="/projectPage/detail?spjno=${result.spjno}">${result.title}</a></td>
                            <td>${result.compannyname}</td>
                            <td>${result.price}</td>
+                           <td>${result.rank1_count + result.rank2_count + result.rank3_count}</td>
+                           <td>${result.state==0 ? "진행전" : (result.state==1 ? "진행중" : "진행완료")}</td>
                            <td>${result.start_date}</td>
                            <td>${result.end_date}</td>
-                           <td>${result.perFormState==0 ? '평가전' : result.perFormState==1 ? '평가중' : '평가완료'}</td>
                        </tr>`;
             })//for end
             document.querySelector("#projectList").innerHTML=html;
 
+            //===== 페이지네이션 =====
+            html=`<li class="page-item"><a class="page-link" onclick="printProjet(${page-1<1 ? page : page-1})">Previous</a></li>`;
+            for(let i=r.startPage; i<=r.endPage; i++){
+                html+=`<li class="page-item"><a class="page-link" onclick="printProjet(${i})">${i}</a></li>`;
+            }
+            html+=`<li class="page-item"><a class="page-link" onclick="printProjet(${page+1>r.totalPage ? r.totalPage : page+1})">Next</a></li>`;
 
+            document.querySelector(".pagination").innerHTML=html;
         }//success end
     })//ajax end
 }//f end
@@ -104,7 +111,7 @@ function onSearch(){
             console.log("pageObject.keyword : "+document.querySelector(".searchValue").value);
         }
     }//if end
-    printFinishProject();
+    printProjet(1);
 }//f end
 
 //정렬기준
@@ -122,6 +129,5 @@ let sortStandard = document.querySelector(".sortStandard").value;
     }//switch end
     onSearch();
 }//f end
-
 
 

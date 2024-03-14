@@ -19,5 +19,5 @@ public class ProjectDto3 {
     String note;            // 비고
     String compannyname;    // 회사명
     int price;           // 프로젝트 금액
-    String perFormState;    // 평가 완료 여부 , 평가전 평가중 평가완료
+    int perFormState;    // 평가 완료 여부 , 0평가전 1평가중 2평가완료
 }

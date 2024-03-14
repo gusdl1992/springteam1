@@ -1,5 +1,4 @@
 {{>j_projectPage/projectTop}}
-<h3>인사평가가능리스트 출력</h3>
 <!--검색-->
 <!--검색기준-->
 <select class="searchCategory" onchange="searchProject()">
@@ -23,23 +22,22 @@
     <option value="2">필요인원 적은순</option>
 </select>
 
-
+<!--프로젝트 전체 출력-->
 <table>
     <thead>
-    <tr>
-        <th>no.</th>
-        <th>프로젝트명</th>
-        <th>회사명</th>
-        <th>규모</th>
-        <th>시작일</th>
-        <th>종료일</th>
-        <th>평가현황</th>
-    </tr>
+        <tr>
+            <th>no.</th>
+            <th>프로젝트명</th>
+            <th>회사명</th>
+            <th>규모</th>
+            <th>필요인원</th>
+            <th>상태</th>
+            <th>시작일</th>
+            <th>종료일</th>
+        </tr>
     </thead>
 
-    <!--리스트 출력 js처리-->
     <tbody id="projectList">
-
 
     </tbody>
 </table>
@@ -51,5 +49,7 @@
     </ul>
 </nav>
 
-<script src="/js/j_projectPage/perform.js"></script>
+<script src="/js/j_projectPage/salesPage.js"></script>
 {{>j_projectPage/projectBottom}}
+
+

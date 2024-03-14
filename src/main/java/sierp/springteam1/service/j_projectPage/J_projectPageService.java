@@ -33,7 +33,7 @@ public class J_projectPageService {
         projectPageDto.setPage(page);
 
         //총 페이지 수
-        int totalRecode=j_projectPageDao.projectCount();
+        int totalRecode=j_projectPageDao.projectCount(key, keyword, startPrice, endPrice);
         int totalPage=totalRecode%pageBoardSize>0 ? totalRecode/pageBoardSize+1 : totalRecode/pageBoardSize;
         projectPageDto.setTotalPage(totalPage);
 
@@ -45,14 +45,14 @@ public class J_projectPageService {
         System.out.println("startPage = " + startPage);
         projectPageDto.setStartPage(startPage);
 
+        //한페이지당 List
+        projectPageDto.setList(j_projectPageDao.printProjectList(startRow, pageBoardSize, sortKey, key, keyword, startPrice, endPrice));
+
         //마지막 페이지
         int endPage=((page-1)/pageLimit)*pageLimit+pageLimit;
         endPage=endPage>totalPage ? totalPage : endPage;
         System.out.println("endPage = " + endPage);
         projectPageDto.setEndPage(endPage);
-
-        //한페이지당 List
-        projectPageDto.setList(j_projectPageDao.printProjectList(startRow, pageBoardSize, sortKey, key, keyword, startPrice, endPrice));
 
         return projectPageDto;
     }//m end
@@ -72,8 +72,6 @@ public class J_projectPageService {
         return j_projectPageDao.updateProjectDetail(projectDto);
     }//m end
 
-    //프로젝트 내역 삭제
-
     //프로젝트 등록
     public int insertProject(ProjectDto projectDto){
         System.out.println("J_projectPageService.insertProject");
@@ -83,17 +81,34 @@ public class J_projectPageService {
     }//m end
 
     //프로젝트 삭제
-    public boolean deleteProject(int pjno){
+    public boolean deleteProject(int spjno){
         System.out.println("J_projectPageService.deleteProject");
-        System.out.println("pjno = " + pjno);
+        System.out.println("spjno = " + spjno);
 
-        return j_projectPageDao.deleteProject(pjno);
+        return j_projectPageDao.deleteProject(spjno);
     }
 
     //평가 가능한 프로젝트 리스트 출력
-    public List<ProjectDto3> doPrintPerform(){
+    public ProjectPageDto doPrintPerform(){
         System.out.println("J_projectPageService.doPrintPerform");
-
-        return j_projectPageDao.doPrintPerform();
+        ProjectPageDto projectPageDto=new ProjectPageDto().builder()
+                .list3(j_projectPageDao.doPrintPerform())
+                .build();
+        return projectPageDto;
     }//m end
+
+    //상세 평가 프로젝트 리스트 출력
+    public ProjectDto3 doPerformDetail(int pjno){
+        System.out.println("J_projectPageService.doPerformDetail");
+        System.out.println("pjno = " + pjno);
+        return j_projectPageDao.doPerformDetail(pjno);
+    }//m end
+
+    //프로젝트 참여 사원 정보 불러오기
+    public List<Map<String,String>> getperformEmployee(int pjno){
+        System.out.println("J_projectPageService.getperformEmployee");
+        System.out.println("pjno = " + pjno);
+
+        return j_projectPageDao.getperformEmployee(pjno);
+    }
 }//c end
