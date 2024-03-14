@@ -6,31 +6,76 @@ calendar()
 function goToWork(){
     console.log('goToWork()');
     $.ajax({
-        url: '/mypage/attendance/write',
+        url: '/mypage/attendance/goToWork',
         method: 'get',
+        async : false,
         success: (r) => {
             console.log(r);
+            if(r){
+                alert('출근체크 성공')
+                calendar();
+            }else{
+                alert('출근체크 실패 관리자에게 문의')
+            }
         }
     });
 }
 
+function leaveWork(){
+    console.log('leaveWork()');
+    $.ajax({
+        url: '/mypage/attendance/leaveWork',
+        method: 'get',
+        async : false ,
+        success: (r) => {
+            console.log(r);
+            if(r){
+                alert('퇴근체크 성공')
+                calendar();
+            }else{
+                alert('퇴근체크 실패 관리자에게 문의')
+            }
+        }
+    });
+
+}
+
 
 function calendar(){
-
+    let str = '';
     // 데이터를 JAVA 통신
 $.ajax({
     url: '/mypage/event',
     method: 'get',
+    async : false ,
     success: (r) => {
     console.log(r);
+    console.log(r.stat_time);
+    console.log(r.end_time);
     r.forEach(data => {
-        console.log(data.title);
-         arr.push(data.title);
+        console.log(data.stat_time);
+        console.log(data.end_time);
+        console.log(data.stat_time + data.end_time )
+        if(data.stat_time !== null && data.stat_time !== undefined) {
+          str += ' 출근&nbsp&nbsp'+data.stat_time
+        } else {
+          // null 및 undefined인 경우 실행되는 로직
+        }
+        if(data.end_time !== null && data.end_time !== undefined) {
+          str += ',' + '  퇴근&nbsp&nbsp'+data.end_time
+        } else {
+          // null 및 undefined인 경우 실행되는 로직
+        }
+//        str = (' 출근&nbsp&nbsp'+data.stat_time+',' + ' 퇴근&nbsp&nbsp'+data.end_time);
+
     });
     // 배열
-    console.log('arr'+ arr);
+    // arr.push(r.stat_time+"더하기"r.end_time)
+//    console.log('arr'+ arr);
     //
-    let test = arr.join("<br/>");
+//    let str = arr.join();
+    console.log('str' +  str);
+    let test = str.replace(',', '<br/>');
 
        // 달력 생성 함수
        function createCalendar(year, month) {

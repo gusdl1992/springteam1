@@ -10,6 +10,7 @@ function onMypageView(){
     $.ajax({
         url: '/mypage/info',
         method: 'get',
+        async : false ,
         success: (r) => {
             console.log(r);
             let 부서명 = '';
