@@ -1,10 +1,10 @@
 
 
-console.log("salesDetail()-js")
+console.log("perform()-js")
 //============ 페이지 정보 관련 객체 = 여러개의 변수를 묶음 =============
 let pageObject={
-    page : 1,           //현재페이지
-    pageBoardSize : 5,  //페이지당 표시 할 개수
+    //page : 1,           //현재페이지
+    //pageBoardSize : 5,  //페이지당 표시 할 개수
     sortKey : 0,            //정렬 기준
     key : null,   //현재검색 key
     keyword : '',       //현재검색 keyword
@@ -20,12 +20,13 @@ console.log("projectPage-js");
 
 //전체 프로젝트리스트 출력
 function printFinishProject(){
-    console.log("printFinishProject()")
+    console.log("printFinishProject()");
     //pageObject.page=page;   //현재페이지 대입
-
+    console.log("pageObject.sortKey : "+pageObject.sortKey);
     $.ajax({
         url : "/projectPage/perform.do",
         method : "get",
+        data : pageObject,
         success : (r)=>{
             console.log(r);
             console.log("pageObject.keyword : ");
@@ -75,7 +76,7 @@ function searchProject(){
                                         <option value="1"> 평가중 </option>
                                         <option value="2"> 평가완료 </option>
                                     </select>`;
-            pageObject.key="state";
+            pageObject.key="result";
             break;
         case "5" :
             searchInput.innerHTML=`<input class="searchValue" type="date" />`;

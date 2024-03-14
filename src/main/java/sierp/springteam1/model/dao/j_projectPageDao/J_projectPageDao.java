@@ -236,7 +236,9 @@ public class J_projectPageDao extends SuperDao {
     }//m end
 
     //평가 가능한 프로젝트 리스트 출력
-    public List<ProjectDto3> doPrintPerform(){
+    public List<ProjectDto3> doPrintPerform(int sortkey,
+                                            String key, String keyword,
+                                            int startPrice, int endPrice){
         System.out.println("J_projectPageDao.doPrintPerform");
         List<ProjectDto3> list = new ArrayList<>();
 
@@ -247,7 +249,31 @@ public class J_projectPageDao extends SuperDao {
                     "\t\t\t\t\t\twhen ((select max(score) from (select * from projectlog where pjno=pno) as b)>0) then 1\n" +
                     "\t\t\t\t\t\telse 0\n" +
                     "\t\t\t\t\tend as result from projectlog where state=1 group by pjno) \n" +
-                    "as pp on pj.pjno=pp.pno;";
+                    "as pp on pj.pjno=pp.pno ";
+
+            //------------- 검색기준을 선택한 경우 -------------------
+            if(!key.equals("")){
+                if(key.equals("price")){ //검색기준이 규모인 경우
+                    sql+=" where price between "+startPrice*10000 +" and "+endPrice*10000;
+                }
+                else {
+                    sql += " where " + key + " like '%" + keyword + "%' ";
+                }
+            }//if end
+            //------------------------------------------------------
+
+            //----------------------- 정렬기준 -------------------------
+            if(sortkey==1) {
+                sql += " order by price";
+            }
+            else if(sortkey==2){
+                sql+=" order by rank1_count+rank2_count+rank3_count";
+            }
+            else{
+                sql+=" order by start_date";
+            }
+            //----------------------------------------------------------
+
             ps=conn.prepareStatement(sql);
             rs=ps.executeQuery();
 
@@ -323,6 +349,7 @@ public class J_projectPageDao extends SuperDao {
             String sql="select c.eno, c.ename, p.pname, pj.pjno, pj.score,  pj.note, (coalesce(datediff(c.end_date,c.start_date),0))+coalesce(datediff(now(),c.edate),0) as alltime \n" +
                     "from (select * from employee as a left outer join  employeecareer as b using(eno))as c join part as p using(pno) \n" +
                     "inner join projectlog as pj on c.eno=pj.eno where pj.state=1 and pjno=?;";
+
             ps=conn.prepareStatement(sql);
             ps.setInt(1, pjno);
             rs=ps.executeQuery();

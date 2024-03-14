@@ -118,10 +118,12 @@ public class J_ProjectPageController {
     //평가 가능한 프로젝트 리스트 출력
     @GetMapping("/perform.do")
     @ResponseBody
-    public ProjectPageDto doPrintPerform(){
+    public ProjectPageDto doPrintPerform(int sortKey,
+                                         String key, String keyword,
+                                         int startPrice, int endPrice){
         System.out.println("J_ProjectPageController.doPrintPerform");
 
-        return j_projectPageService.doPrintPerform();
+        return j_projectPageService.doPrintPerform(sortKey,key, keyword,startPrice,endPrice);
     }//m end
     
     //상세 평가 프로젝트 페이지 출력

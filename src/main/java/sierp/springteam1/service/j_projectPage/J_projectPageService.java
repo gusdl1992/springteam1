@@ -89,10 +89,12 @@ public class J_projectPageService {
     }
 
     //평가 가능한 프로젝트 리스트 출력
-    public ProjectPageDto doPrintPerform(){
+    public ProjectPageDto doPrintPerform(int sortKey,
+                                         String key, String keyword,
+                                         int startPrice, int endPrice){
         System.out.println("J_projectPageService.doPrintPerform");
         ProjectPageDto projectPageDto=new ProjectPageDto().builder()
-                .list3(j_projectPageDao.doPrintPerform())
+                .list3(j_projectPageDao.doPrintPerform(sortKey,key, keyword,startPrice,endPrice))
                 .build();
         return projectPageDto;
     }//m end
