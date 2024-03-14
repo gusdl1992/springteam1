@@ -17,4 +17,5 @@ public class ProjectPageDto {
 
     private List<ProjectDto> list;
     private List<ProjectDto3> list3;
+
 }

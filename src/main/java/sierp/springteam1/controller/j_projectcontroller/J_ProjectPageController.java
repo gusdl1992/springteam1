@@ -9,6 +9,7 @@ import sierp.springteam1.model.dao.j_projectPageDao.J_projectPageDao;
 import sierp.springteam1.model.dto.ProjectDto;
 import sierp.springteam1.model.dto.ProjectDto3;
 import sierp.springteam1.model.dto.ProjectPageDto;
+import sierp.springteam1.model.dto.ProjectlogDto;
 import sierp.springteam1.service.j_projectPage.J_projectPageService;
 
 import java.util.List;
@@ -108,7 +109,7 @@ public class J_ProjectPageController {
 
     //평가 가능한 프로젝트 페이지 출력
     @GetMapping("/perform")
-    public String pringPerform(){
+    public String printPerform(){
         System.out.println("J_ProjectPageController.pringPerform");
 
         return "/j_projectPage/perform";
@@ -122,4 +123,37 @@ public class J_ProjectPageController {
 
         return j_projectPageService.doPrintPerform();
     }//m end
+    
+    //상세 평가 프로젝트 페이지 출력
+    @GetMapping("/performDetail")
+    public String printPerformDetail(){
+        System.out.println("J_ProjectPageController.printPerformDetail");
+        return "/j_projectPage/performDetail";
+    }//m end
+
+    //상세 평가 프로젝트 리스트 출력
+    @GetMapping("/performDetail.do")
+    @ResponseBody
+    public ProjectDto3 doPerformDetail(int pjno){
+        System.out.println("J_ProjectPageController.doPerformDetail");
+        System.out.println("pjno = " + pjno);
+        return j_projectPageService.doPerformDetail(pjno);
+    }//m end
+
+    //프로젝트 참여 사원 정보 불러오기
+    @GetMapping("/performEmployee")
+    @ResponseBody
+    public List<Map<String,String>> getperformEmployee(int pjno){
+        System.out.println("J_ProjectPageController.getperformEmployee");
+        System.out.println("pjno = " + pjno);
+
+        return j_projectPageService.getperformEmployee(pjno);
+    }//m end
+
+    //프로젝트 참여 사원 평가등록
+    @PostMapping("/insertPerform.do")
+    @ResponseBody
+    public ProjectlogDto doInsertPerform(int pjno){
+        return null;
+    }
 }//c end

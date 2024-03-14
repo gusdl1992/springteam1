@@ -6,10 +6,7 @@ import sierp.springteam1.model.dto.ProjectDto;
 import sierp.springteam1.model.dto.ProjectDto3;
 import sierp.springteam1.model.dto.ProjectPageDto;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Component
 public class J_projectPageDao extends SuperDao {
@@ -246,9 +243,9 @@ public class J_projectPageDao extends SuperDao {
         try{
             String sql="select * from (select * from uploadproject as a join salesproject as b using(spjno)) as pj inner join \n" +
                     "(select pjno as pno, case\n" +
-                    "\t\t\t\t\t\twhen ((select min(score) from (select * from projectlog where pjno=pno) as b)!=0) then '평가완료'\n" +
-                    "\t\t\t\t\t\twhen ((select max(score) from (select * from projectlog where pjno=pno) as b)>0) then '평가중'\n" +
-                    "\t\t\t\t\t\telse '평가전'\n" +
+                    "\t\t\t\t\t\twhen ((select min(score) from (select * from projectlog where pjno=pno) as b)!=0) then 2\n" +
+                    "\t\t\t\t\t\twhen ((select max(score) from (select * from projectlog where pjno=pno) as b)>0) then 1\n" +
+                    "\t\t\t\t\t\telse 0\n" +
                     "\t\t\t\t\tend as result from projectlog where state=1 group by pjno) \n" +
                     "as pp on pj.pjno=pp.pno;";
             ps=conn.prepareStatement(sql);
@@ -266,7 +263,7 @@ public class J_projectPageDao extends SuperDao {
                         .note(rs.getString("note"))
                         .compannyname(rs.getString("compannyname"))
                         .price(rs.getInt("price"))
-                        .perFormState(rs.getString("result"))
+                        .perFormState(rs.getInt("result"))
                         .build();
                 System.out.println("projectDto3 result = " + projectDto3.getPerFormState());
                 list.add(projectDto3);
@@ -277,6 +274,91 @@ public class J_projectPageDao extends SuperDao {
             System.out.println("e = " + e);
         }
 
+        return null;
+    }//m end
+
+    //상세 평가 프로젝트 리스트 출력
+    public ProjectDto3 doPerformDetail(int pjno){
+        System.out.println("J_projectPageDao.doPerformDetail");
+        System.out.println("pjno = " + pjno);
+        try{
+            String sql="select * from (select * from uploadproject as a join salesproject as b using(spjno)) as pj inner join \n" +
+                    "(select pjno as a, case\n" +
+                    "\t\t\t\t\t\twhen ((select min(score) from (select * from projectlog where pjno=a) as b)!=0) then 2\n" +
+                    "\t\t\t\t\t\twhen ((select max(score) from (select * from projectlog where pjno=a) as b)>0) then 1\n" +
+                    "\t\t\t\t\t\telse 0\n" +
+                    "\t\t\t\t\tend as result from projectlog where state=1 group by pjno) #case 끝\n" +
+                    "as pp on pj.pjno=pp.a where pjno=?;";
+            ps=conn.prepareStatement(sql);
+            ps.setInt(1, pjno);
+            rs=ps.executeQuery();
+            if(rs.next()){
+                ProjectDto3 projectDto3=ProjectDto3.builder()
+                        .pjno(rs.getInt("pjno"))
+                        .start_date(rs.getString("start_date"))
+                        .end_date(rs.getString("end_date"))
+                        .title(rs.getString("title"))
+                        .request(rs.getString("request"))
+                        .note(rs.getString("note"))
+                        .compannyname(rs.getString("compannyname"))
+                        .price(rs.getInt("price"))
+                        .perFormState(rs.getInt("result"))
+                        .build();
+                System.out.println("projectDto3 = " + projectDto3);
+                return projectDto3;
+            }//if end
+        }//try end
+        catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return null;
+    }//m end
+
+    //프로젝트 참여 사원 정보 불러오기
+    public List<Map<String,String>> getperformEmployee(int pjno){
+        System.out.println("J_projectPageDao.getperformEmployee");
+        System.out.println("pjno = " + pjno);
+        List<Map<String,String >> list = new ArrayList<>();
+        try{
+            String sql="select c.eno, c.ename, p.pname, pj.pjno, pj.score,  pj.note, (coalesce(datediff(c.end_date,c.start_date),0))+coalesce(datediff(now(),c.edate),0) as alltime \n" +
+                    "from (select * from employee as a join  employeecareer as b using(eno))as c join part as p using(pno) \n" +
+                    "inner join projectlog as pj on c.eno=pj.eno where pj.state=1 and pjno=?;";
+            ps=conn.prepareStatement(sql);
+            ps.setInt(1, pjno);
+            rs=ps.executeQuery();
+            while(rs.next()){
+                Map<String , String > map=new HashMap<>();
+                map.put("eno",rs.getString("eno"));
+                map.put("ename",rs.getString("ename"));
+                map.put("pname",rs.getString("pname"));
+                map.put("pjno",rs.getString("pjno"));
+                map.put("note",rs.getString("note"));
+                map.put("score",rs.getString("score"));
+                
+                //사원 개별 rank 판별
+                int allday=rs.getInt("alltime");
+                if(allday < 1459 ){
+                    map.put("rank" , "초급");
+                }
+                else if (allday > 3650) {
+                    map.put("rank" , "중급");
+                }
+                else {
+                    map.put("rank" , "고급");
+                }
+
+                //사원 개별 평가여부 판별
+                int score=rs.getInt("score");
+                System.out.println("score = " + score);
+                map.put("performState",rs.getInt("score")==0 ? "평가전" : "평가완료");
+
+                list.add(map);
+            }//w end
+            return list;
+        }//try end
+        catch (Exception e){
+            System.out.println("e = " + e);
+        }
         return null;
     }//m end
 

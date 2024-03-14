@@ -1,5 +1,4 @@
 
-printFinishProject();
 
 console.log("salesDetail()-js")
 //============ 페이지 정보 관련 객체 = 여러개의 변수를 묶음 =============
@@ -13,12 +12,14 @@ let pageObject={
     endPrice : 0        //규모로 검색하는 경우 끝 금액
 }
 //================================================================
+searchProject();
+printFinishProject();
 
 //searchProject();    //검색 페이지 띄우기
 console.log("projectPage-js");
 
 //전체 프로젝트리스트 출력
-function printFinishProject(page){
+function printFinishProject(){
     console.log("printFinishProject()")
     //pageObject.page=page;   //현재페이지 대입
 
@@ -34,12 +35,12 @@ function printFinishProject(page){
             r.list3.forEach((result)=>{
                 html+=`<tr>
                            <th>${result.pjno}</th>
-                           <td><a href="/projectPage/detail?spjno=${result.spjno}">${result.title}</a></td>
+                           <td><a href="/projectPage/performDetail?pjno=${result.pjno}">${result.title}</a></td>
                            <td>${result.compannyname}</td>
                            <td>${result.price}</td>
                            <td>${result.start_date}</td>
                            <td>${result.end_date}</td>
-                           <td>${result.perFormState}</td>
+                           <td>${result.perFormState==0 ? '평가전' : result.perFormState==1 ? '평가중' : '평가완료'}</td>
                        </tr>`;
             })//for end
             document.querySelector("#projectList").innerHTML=html;
@@ -103,7 +104,7 @@ function onSearch(){
             console.log("pageObject.keyword : "+document.querySelector(".searchValue").value);
         }
     }//if end
-    printProjet(1);
+    printFinishProject();
 }//f end
 
 //정렬기준

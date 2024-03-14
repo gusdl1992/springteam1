@@ -96,4 +96,19 @@ public class J_projectPageService {
                 .build();
         return projectPageDto;
     }//m end
+
+    //상세 평가 프로젝트 리스트 출력
+    public ProjectDto3 doPerformDetail(int pjno){
+        System.out.println("J_projectPageService.doPerformDetail");
+        System.out.println("pjno = " + pjno);
+        return j_projectPageDao.doPerformDetail(pjno);
+    }//m end
+
+    //프로젝트 참여 사원 정보 불러오기
+    public List<Map<String,String>> getperformEmployee(int pjno){
+        System.out.println("J_projectPageService.getperformEmployee");
+        System.out.println("pjno = " + pjno);
+
+        return j_projectPageDao.getperformEmployee(pjno);
+    }
 }//c end
