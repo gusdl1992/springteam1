@@ -22,16 +22,22 @@ public class AttendanceService {
     @Autowired
     private AttendanceDao attendanceDao;
 
-    // 출석 요청
-    public boolean attendanceWrite(String eno){
+    // 출근 요청
+    public boolean attendanceWrite(String eno , String ip){
         System.out.println("AttendanceService.attendanceWrite");
-        AttendanceLogDto attendanceLogDto = AttendanceLogDto.builder()
-                .jday(nowDay())
-                .stat_time(nowTime())
-                .jip(getUserIp())
-                .eno(Integer.parseInt(eno))
-                .build();
-        return attendanceDao.attendanceWrite(attendanceLogDto);
+        // 이미 출근을 찍었는지 체크 ( 찍으면 true , 아니면 false )
+        boolean result = attendanceWriteCheck(eno);
+        if ( !(result) ){
+            AttendanceLogDto attendanceLogDto = AttendanceLogDto.builder()
+                    .jday(nowDay())
+                    .stat_time(nowTime())
+                    .jip(ip)
+                    .eno(Integer.parseInt(eno))
+                    .build();
+            return attendanceDao.attendanceWrite(attendanceLogDto);
+        }
+
+        return false; // 이미 출근을 찍었으면 false
     }
 
     // 퇴근 요청
@@ -62,64 +68,11 @@ public class AttendanceService {
         return String.valueOf(now);
     }
 
-    public List<Map<String , Object>> getEvent(){
-        String now = nowTime();
-
+    // 출퇴근 출력 1개
+    public List<AttendanceLogDto> getEvent(String eno){
         System.out.println("AttendanceService.getEvent");
-        Map<String, Object> event = new HashMap<String, Object>();
-        List<Map<String, Object>> eventList = new ArrayList<Map<String, Object>>();
-        event.put("start", LocalDate.now());
-        event.put("title", now+"출근");
-        System.out.println("formatter = " + now);
-        event.put("end",LocalDate.now());
-        eventList.add(event);
-        event = new HashMap<String, Object>();
-        event.put("start", LocalDate.now().plusDays(3));
-        event.put("title", "test2");
-        event.put("end",LocalDate.now().plusDays(4));
-        eventList.add(event);
-        return eventList;
-    }
-
-
-    // 클라이언트 IP 가져오기
-    public String getUserIp() {
-
-        String ip = null;
-        try {HttpServletRequest request =
-                ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-
-            ip = request.getHeader("X-Forwarded-For");
-
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-                ip = request.getHeader("Proxy-Client-IP");
-            }
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-                ip = request.getHeader("WL-Proxy-Client-IP");
-            }
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-                ip = request.getHeader("HTTP_CLIENT_IP");
-            }
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-                ip = request.getHeader("HTTP_X_FORWARDED_FOR");
-            }
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-                ip = request.getHeader("X-Real-IP");
-            }
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-                ip = request.getHeader("X-RealIP");
-            }
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-                ip = request.getHeader("REMOTE_ADDR");
-            }
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-                ip = request.getRemoteAddr();
-            }
-
-        } catch (Exception e) {
-            System.out.println("e = " + e);
-        }
-        return ip;
+        String toDay = nowDay();
+        return attendanceDao.getEvent(eno , toDay);
     }
 
 

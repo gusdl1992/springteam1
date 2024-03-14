@@ -54,28 +54,27 @@ public class AttendanceDao extends SuperDao {
     }
 
     // 출 퇴근 출력 값 가져오기 ( 1개 )
-    public List<Map<String , Object>> getEvent(){
+    public List<AttendanceLogDto> getEvent(String eno , String toDay){
         System.out.println("AttendanceDao.getEvent");
-        List<Map<String, Object>> eventList = new ArrayList<Map<String, Object>>();
-        Map<String, Object> event = new HashMap<String, Object>();
+        List<AttendanceLogDto> list = new ArrayList<>();
         try {
             String sql = "select jday , stat_time , end_time , eno from attendance_log where eno = ? and jday = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,eno);
+            ps.setString(2,toDay);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                AttendanceLogDto attendanceLogDto = AttendanceLogDto.builder()
+                        .stat_time(rs.getString("stat_time"))
+                        .end_time(rs.getString("end_time"))
+                        .build();
+                list.add(attendanceLogDto);
+            }
         }catch (Exception e){
             System.out.println("AttendanceDao.getEvent : e = " + e);
         }
-
-
-        // event.put("start", LocalDate.now());
-//        event.put("title", now+"출근");
-//        System.out.println("formatter = " + now);
-//        event.put("end",LocalDate.now());
-//        eventList.add(event);
-//        event = new HashMap<String, Object>();
-//        event.put("start", LocalDate.now().plusDays(3));
-//        event.put("title", "test2");
-//        event.put("end",LocalDate.now().plusDays(4));
-//        eventList.add(event);
-        return eventList;
+        System.out.println("getEvent : list = " + list);
+        return list;
     }
 
     // 오늘 날자로 출근을 찍었는지 검사
@@ -98,3 +97,16 @@ public class AttendanceDao extends SuperDao {
 
 
 }
+
+
+
+// event.put("start", LocalDate.now());
+//        event.put("title", now+"출근");
+//        System.out.println("formatter = " + now);
+//        event.put("end",LocalDate.now());
+//        eventList.add(event);
+//        event = new HashMap<String, Object>();
+//        event.put("start", LocalDate.now().plusDays(3));
+//        event.put("title", "test2");
+//        event.put("end",LocalDate.now().plusDays(4));
+//        eventList.add(event);
