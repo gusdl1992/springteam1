@@ -29,11 +29,11 @@ public class SalesDao extends SuperDao{
         return false;
     }
 
-    public List<ProjectDto> saleslist(int startRow, int pageBoardSize,
+    public List<Object> saleslist(int startRow, int pageBoardSize,
                                       int sortkey,
                                       String key, String keyword,
                                       int startPrice, int endPrice){
-        List<ProjectDto> projectDtos=new ArrayList<>();
+        List<Object> projectDtos=new ArrayList<>();
         try{
             String sql="select * from uploadproject as a inner join salesproject as b on a.spjno = b.spjno  ";
 

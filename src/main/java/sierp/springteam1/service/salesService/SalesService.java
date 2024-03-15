@@ -7,6 +7,7 @@ import sierp.springteam1.model.dao.salesDao.SalesDao;
 import sierp.springteam1.model.dto.ProjectDto;
 import sierp.springteam1.model.dto.ProjectDto2;
 import sierp.springteam1.model.dto.ProjectPageDto;
+import sierp.springteam1.service.j_projectPage.J_projectPageService;
 
 import java.util.List;
 
@@ -16,6 +17,8 @@ public class SalesService {
 
     @Autowired
     SalesDao salesDao;
+    @Autowired
+    J_projectPageService j_projectPageService;
 
 
     public boolean salesPost(int spjno){
@@ -31,33 +34,19 @@ public class SalesService {
         ProjectPageDto projectPageDto=new ProjectPageDto();
         //start row
         int startRow=(page-1)*pageBoardSize;
-        //end row
-        int endRow=startRow+pageBoardSize;
 
         System.out.println("startRow = " + startRow);
         projectPageDto.setPage(page);
 
         //총 페이지 수
         int totalRecode=salesDao.projectCount();
-        int totalPage=totalRecode%pageBoardSize>0 ? totalRecode/pageBoardSize+1 : totalRecode/pageBoardSize;
-        projectPageDto.setTotalPage(totalPage);
 
-        //제한할 페이지수
-        int pageLimit=5;
-
-        //시작페이지
-        int startPage=((page-1)/pageLimit)*pageLimit+1;
-        System.out.println("startPage = " + startPage);
-        projectPageDto.setStartPage(startPage);
-
-        //마지막 페이지
-        int endPage=((page-1)/pageLimit)*pageLimit+pageLimit;
-        endPage=endPage>totalPage ? totalPage : endPage;
-        System.out.println("endPage = " + endPage);
-        projectPageDto.setEndPage(endPage);
+        //**페이징 dto 저장 메소드(매개변수 -> page:현재페이지 , totalRecode:전체게시물수 , pageBoardSize:한페이지당 게시물수)
+        //리턴 : ProjectPageDto
+        projectPageDto = j_projectPageService.deliverPageInfo(page, totalRecode, pageBoardSize);
 
         //한페이지당 List
-        projectPageDto.setList(salesDao.saleslist(startRow, pageBoardSize, sortKey, key, keyword, startPrice, endPrice));
+        projectPageDto.setObjectList(salesDao.saleslist(startRow, pageBoardSize, sortKey, key, keyword, startPrice, endPrice));
 
         return projectPageDto;
     }//m end
