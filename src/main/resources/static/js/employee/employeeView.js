@@ -195,7 +195,7 @@ function onCareerSUm(){
         async : false,
         success: (r)=>{
             console.log(r)
-            document.querySelector(".careerSum").innerHTML="dd";
+            document.querySelector(".careerSum").innerHTML=r;
 
         }
     });
