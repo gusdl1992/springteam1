@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sierp.springteam1.model.dao.EmployeeDao;
 import sierp.springteam1.model.dao.mypageDao.MypageDao;
+import sierp.springteam1.service.j_projectPage.J_projectPageService;
 
 @Controller
 public class IndexController {
@@ -18,6 +19,8 @@ public class IndexController {
     private MypageDao mypageDao;
     @Autowired
     private EmployeeDao employeeDao;
+    @Autowired
+    private J_projectPageService j_projectPageService;
 
     @GetMapping("/")
     public String indexview(){
@@ -69,5 +72,19 @@ public class IndexController {
         return "/employee/login";
     }
 
+    //관리자 식별 메소드(return type -> true : 관리자(인사과) , false : 일반사원)
+    @GetMapping("/managerCheck")
+    @ResponseBody
+    public boolean indexManager(){
+        System.out.println("J_ProjectPageController.indexManager");
+        System.out.println("request.getSession().getAttribute(\"eno\") = " + request.getSession().getAttribute("eno"));
+        Object eno=request.getSession().getAttribute("eno");
+        //만약 비회원일경우 false 출력
+        if(eno==null){
+            return false;
+        }
+
+        return j_projectPageService.indexManager((int)eno);
+    }//m end
 
 } // c e

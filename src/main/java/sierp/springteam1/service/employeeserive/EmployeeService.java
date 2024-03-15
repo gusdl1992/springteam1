@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import sierp.springteam1.model.dao.EmployeeDao;
 import sierp.springteam1.model.dao.mypageDao.MypageDao;
 import sierp.springteam1.model.dto.*;
+import sierp.springteam1.service.j_projectPage.J_projectPageService;
 import sierp.springteam1.service.mypageService.MypageService;
 
 import java.util.List;
@@ -21,6 +22,8 @@ public class EmployeeService {
     private MypageDao mypageDao;
     @Autowired
     private EmailService emailService;
+    @Autowired
+    private J_projectPageService j_projectPageService;
 
     //사원등록 요청
     public boolean eSignup(EmployeeDto employeeDto){
@@ -130,9 +133,23 @@ public class EmployeeService {
     }
 
     // 사원 전체 호출
-    public List<EmployeeDto> employeeList( int key,  String keyword){
+    public ProjectPageDto employeeList(int page, int pageBoardSize, int key,  String keyword){
         System.out.println("EmployeeService.employeeList");
-        return employeeDao.employeeList(key, keyword);
+        //1. start row : 시작할 게시물의 행순서
+        int startRow=(page-1)*pageBoardSize;
+
+        //2. 총 페이지 수
+        int totalRecode=employeeDao.countEmployeeList(key, keyword);  //총 레코트 출력
+
+        //**페이징 dto 저장 메소드(매개변수 -> page:현재페이지 , totalRecode:전체게시물수 , pageBoardSize:한페이지당 게시물수)
+        //리턴 : ProjectPageDto
+        ProjectPageDto projectPageDto = j_projectPageService.deliverPageInfo(page, totalRecode, pageBoardSize);
+
+        //3. 한페이지당 List
+        //dao에서 한페이지에 나타낼 게시물 리스트 가져오기
+        projectPageDto.setObjectList(employeeDao.employeeList(startRow, pageBoardSize, key, keyword));
+
+        return projectPageDto;
     }
 
     //경력 전체 호출

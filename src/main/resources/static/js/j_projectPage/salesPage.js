@@ -38,7 +38,7 @@ function printProjet(page){
                            <td>${result.compannyname}</td>
                            <td>${result.price}</td>
                            <td>${result.rank1_count + result.rank2_count + result.rank3_count}</td>
-                           <td>${result.state==0 ? "진행전" : (result.state==1 ? "진행중" : "진행완료")}</td>
+                           <td>${result.state==0 ? "진행전" : (result.state==1 ? "진행중" :(result.state==2 ?"진행완료" : "영업중" ) )}</td>
                            <td>${result.start_date}</td>
                            <td>${result.end_date}</td>
                        </tr>`;
@@ -78,6 +78,7 @@ function searchProject(){
             break;
         case "4" :
             searchInput.innerHTML=`<select class="searchValue">
+                                        <option value="-1"> 영업중 </option>
                                         <option value="0"> 진행전 </option>
                                         <option value="1"> 진행중 </option>
                                         <option value="2"> 진행완료 </option>

@@ -241,9 +241,9 @@ public class EmployeeDao extends SuperDao{
         return llist;
     }
     // 전체 사원 출력
-    public List<EmployeeDto> employeeList(int key, String keyword){
+    public List<Object> employeeList(int startRow, int pageBoardSize, int key, String keyword){
         System.out.println("EmployeeDao.employeeList");
-        List<EmployeeDto>list=new ArrayList<>();
+        List<Object> list=new ArrayList<>();
         EmployeeDto employeeDto=null;
         try {
             String sql=" select * from employee em , part p where em.pno = p.pno";
@@ -253,7 +253,11 @@ public class EmployeeDao extends SuperDao{
             if(keyword!=null){
                 sql += " and em.ename like '%" + keyword + "%' ";
             }
+            sql+=" limit ?,?";
+
             ps= conn.prepareStatement(sql);
+            ps.setInt(1,startRow);
+            ps.setInt(2,pageBoardSize);
             rs=ps.executeQuery();
             while (rs.next()){
                 employeeDto=EmployeeDto.builder()
@@ -276,6 +280,33 @@ public class EmployeeDao extends SuperDao{
         }
         return list;
     }
+
+    //출력 사원 수 구하기
+    public int countEmployeeList(int key, String keyword) {
+        System.out.println("EmployeeDao.employeeList");
+        List<EmployeeDto> list = new ArrayList<>();
+        EmployeeDto employeeDto = null;
+        try {
+            String sql = " select count(*) from employee em , part p where em.pno = p.pno";
+            //=======  부서 번호로 검색
+            if (key > 0) {
+                sql += " and em.pno=" + key;
+            }
+            //======= 이름 검색
+            if (keyword != null) {
+                sql += " and em.ename like '%" + keyword + "%' ";
+            }
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            System.out.println("e = " + e);
+        }
+        return 0;
+    }
+
     //경력 내역 출력
     public List<EmployeeCareerDto> careerList(int eno){
         System.out.println("EmployeeDao.careerList");

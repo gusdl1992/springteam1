@@ -3,7 +3,6 @@
 
 
     <div id="k_employee">
-        <select onchange="onEmployeeAllView()">
         <select onchange="onPartPrint()" class="key">
             <option value="0">전체</option>
             <option value="1">인사과</option>
@@ -29,6 +28,13 @@
             </tbody>
         </table>
         사원 목록
+
+        <!--페이지네이션-->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination pagination-sm">
+
+            </ul>
+        </nav>
     </div>
 
 <script src="/js/employee/employee.js"></script>
