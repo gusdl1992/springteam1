@@ -36,8 +36,9 @@
             <input type="date" id="edate" name="edate"><br/>
 
             <div>이메일</div>
-            <div >
-                <input type="text" id="email" name="email"><br/>
+            <div>
+                <input onkeyup="emailcheck()" type="text" id="email" name="email">
+                <div  class="emailcheckbox"></div>
             </div>
             <div>학력</div>
             <select id="eeducation" name="eeducation">

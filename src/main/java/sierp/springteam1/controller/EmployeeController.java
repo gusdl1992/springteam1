@@ -54,7 +54,17 @@ public class EmployeeController {
     public boolean employeeDelete(int eno){
         return employeeService.employeeDelete(eno);
     }
+
+    @DeleteMapping("/license/delete")
+    @ResponseBody
+    public boolean licenseDelete(int eno,int lno){
+        return employeeService.licenseDelete(eno,lno);
+    }
+    @DeleteMapping("/career/delete")
+    @ResponseBody
+    public boolean careerDelete(int eno, String companyname){return employeeService.careerDelete(eno,companyname);}
     //================== 수정
+    // 사원 정보 수정
     @PutMapping("/employee/update.do")
     @ResponseBody
     public boolean employeeUpdate (EmployeeDto employeeDto){
@@ -133,5 +143,12 @@ public class EmployeeController {
     public List<EmployeeLicenseDto> licenseViewList(int eno){
         System.out.println("eno = " + eno);
         return employeeService.licenseViewList(eno);
+    }
+
+    // 자격증 중복 검색
+    @PostMapping("/findLicense")
+    @ResponseBody
+    public String findLicense(EmployeeLicenseDto licenseDto){
+        return employeeService.findLicense(licenseDto);
     }
 }

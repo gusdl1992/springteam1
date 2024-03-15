@@ -2,8 +2,8 @@ let eno=new URL(location.href).searchParams.get('eno');
 let index = 1;
 let index1 = 1;
 employeeView();
-CareerPrint(1);
-licensePrint(1);
+CareerPrint();
+licensePrint();
 //등록======================================
 // 경력 등록 함수
 function OnCareer(){
@@ -41,8 +41,8 @@ function OnLicense(){
             let postFormData = new FormData(  licenseFormList[i] );
             postFormData.append('eno', eno);
             console.log(postFormData);
-            $.ajax({
-                 url : '/licensePost',
+            $.ajax({// 자격증 중복 등록 검사
+                 url : '/findLicense',
                  method : 'post',
                  data : postFormData,
                  contentType: false,
@@ -50,15 +50,32 @@ function OnLicense(){
                  success : (r)=>{
                      console.log(r);
                      //4. 결과
-                     if(r){
-                         alert('자격증 등록 성공');
-                         document.querySelector('.licenseBox').innerHTML='';
-                         licensePrint(1);
+
+                     if(r==1){
+                         $.ajax({
+                              url : '/licensePost',
+                              method : 'post',
+                              data : postFormData,
+                              contentType: false,
+                              processData : false,
+                              success : (re)=>{
+                                  console.log(re);
+                                  //4. 결과
+                                  if(re){
+                                      alert('자격증 등록 성공');
+                                      document.querySelector('.licenseBox').innerHTML='';
+                                      licensePrint(1);
+                                  }else {
+                                      alert('자격증 등록 실패.');
+                                  }
+                              }
+                         });//ajax 끝
                      }else {
-                         alert('자격증 등록 실패');
+                         alert(r+' 이미 등록된 자격증입니다.');
                      }
                  }
             });//ajax 끝*/
+
         }
 }
 
@@ -116,8 +133,6 @@ function CareerPrint(num){
         async : false,
         success: (r)=>{
         console.log(r)
-            if(num==1){
-            console.log('if1')
             let careerBox = document.querySelector(".careerBox");
             let html='';
             r.forEach( career => {
@@ -130,73 +145,36 @@ function CareerPrint(num){
                           <div class="td ">${career.eimg}</div>
                         </div>`;
                  careerBox.innerHTML = html;
-
-            });}else if(num==2){
-                console.log('if2')
-                let careerBox = document.querySelector(".careerBox");
-                let html='';
-                careerBox.innerHTML = html;
-                r.forEach( career => {
-                     html+=`
-                          <div class="tr">
-                             <div class="td ">${career.companyname}</div>
-                             <div class="td ">${career.start_date}</div>
-                             <div class="td ">${career.end_date}</div>
-                             <div class="td ">${career.note}</div>
-                             <div class="td ">${career.eimg}</div>
-                             <div class="td cinput"><button onclick="" type="button">삭제</button></div>
-                           </div>`;
-                 careerBox.innerHTML = html;
-
-           });}
-
-
-         }
+         })
+     }
     });
 }
 //자격증 출력
-function licensePrint(num){
+function licensePrint(){
     $.ajax({
-            url: `/licenseView`,
-            method: `get`,
-            data:  {eno:eno} ,
-            success: (r)=>{
-            console.log(r)
-
-            if(num==1){
-            console.log('license 1')
+        url: `/licenseView`,
+        method: `get`,
+        data:  {eno:eno} ,
+        async : false,
+        success: (r)=>{
             console.log(r)
             let licenseBox = document.querySelector(".licenseBox");
             let html='';
-                r.forEach( license => {
-                     html+=`
-                            <div class="tr">
-                               <div class="td ">${license.lname}</div>
-                               <div class="td ">${license.ldate}</div>
-                             </div>`;
-                });
-                licenseBox.innerHTML = html;
-            }else if(num==2){
-            console.log('license 2')
-            let licenseBox = document.querySelector(".licenseBox");
-                        let html='';
-            licenseBox.innerHTML = html;
             r.forEach( license => {
                  html+=`
                         <div class="tr">
                            <div class="td ">${license.lname}</div>
                            <div class="td ">${license.ldate}</div>
-                           <div class="td linput"><button onclick="" type="button">삭제</button></div>
                          </div>`;
             });
-             licenseBox.innerHTML = html;
-            }
-
-
-             }
-        });
+            licenseBox.innerHTML = html;
+        }
+    });
 
 }
+
+// 경력 합산 함수
+
 
 // 경력 입력칸 함수
 function OnCareerPlus(){

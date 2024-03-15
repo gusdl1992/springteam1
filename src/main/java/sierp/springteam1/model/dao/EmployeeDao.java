@@ -140,6 +140,38 @@ public class EmployeeDao extends SuperDao{
         }
         return false;
     }
+    // 경력 삭제
+    public boolean careerDelete(int eno, String companyname){
+        try {
+            String sql="delete from employeecareer where eno =? and companyname=?";
+            ps= conn.prepareStatement(sql);
+            ps.setInt(1,eno);
+            ps.setString(2,companyname);
+            int count=ps.executeUpdate();
+            if (count==1){
+                return true;
+            }
+        }catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return false;
+    }
+
+    //자격증 삭제
+    public boolean licenseDelete(int eno,int lno){
+        try {
+            String sql="delete from employeelicense where eno ="+eno+" and lno="+lno;
+            ps= conn.prepareStatement(sql);
+            int count=ps.executeUpdate();
+
+            if (count==1){
+                return true;
+            }
+        }catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return false;
+    }
     //======================수정
     public boolean employeeUpdate (EmployeeDto employeeDto){
         try{
@@ -214,7 +246,7 @@ public class EmployeeDao extends SuperDao{
         List<EmployeeDto>list=new ArrayList<>();
         EmployeeDto employeeDto=null;
         try {
-            String sql=" select * from employee em , part p where em.pno = p.pno;";
+            String sql=" select * from employee em , part p where em.pno = p.pno";
             //=======  부서 번호로 검색
             if(key>0){sql+=" and em.pno="+key;}
             //======= 이름 검색
@@ -270,6 +302,7 @@ public class EmployeeDao extends SuperDao{
         System.out.println(clist);
         return clist;
     }
+    // 보유 자격증 출력
     public List<EmployeeLicenseDto> licenseViewList(int eno){
         System.out.println("eno = " + eno);
         List<EmployeeLicenseDto>llist=new ArrayList<>();
@@ -292,6 +325,23 @@ public class EmployeeDao extends SuperDao{
             System.out.println("licenseViewList : e = " + e);
         }
         return llist;
+    }
+    // 자격증 중복 검사
+    public String findLicense(EmployeeLicenseDto licenseDto){
+        try {
+            String sql="select * from employeelicense join license using(lno) where eno=? and lno=?";
+            ps=conn.prepareStatement(sql);
+            ps.setInt(1,licenseDto.getEno());
+            ps.setInt(2,licenseDto.getLno());
+            rs= ps.executeQuery();
+            if(rs.next()){
+                return rs.getString("lname");
+
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return "1";
     }
     /*
     create table employee( #사원테이블
