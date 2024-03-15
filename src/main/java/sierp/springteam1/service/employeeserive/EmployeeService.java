@@ -2,6 +2,7 @@ package sierp.springteam1.service.employeeserive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import sierp.springteam1.model.dao.EmployeeDao;
 import sierp.springteam1.model.dao.mypageDao.MypageDao;
 import sierp.springteam1.model.dto.*;
@@ -18,6 +19,8 @@ public class EmployeeService {
     private FileService fileService;
     @Autowired
     private MypageDao mypageDao;
+    @Autowired
+    private EmailService emailService;
 
     //사원등록 요청
     public boolean eSignup(EmployeeDto employeeDto){
@@ -35,9 +38,6 @@ public class EmployeeService {
         //dto에 업로드 성공한 파일명을 대입한다
         employeeDto.setImg(fileName);
 
-        //*이메일 테스트
-        //if(result){emailService.send();}
-
         //1. 아이디 생성 / 후보 : 1.사원번호+이름 2.사원이메일 앞부분 3.?
         //샘플
         String id= employeeDto.getEmail().split("@")[0];
@@ -52,7 +52,12 @@ public class EmployeeService {
         employeeDto.setId(id);
         employeeDto.setPw(newPw);
         System.out.println(employeeDto);
-        return employeeDao.eSignup(employeeDto);
+         boolean result=employeeDao.eSignup(employeeDto);
+         String content="귀하의 입사를 축하드리며 자사 프로그램을 사용할 수 있는 아이디와 임시 비밀번호를 알려드립니다. \n 아이디 : "+employeeDto.getId()+"\n 비밀빈호 : "+employeeDto.getPw()+"\n 임시 비밀번호이기 때문에 로그인하시고 바꿔주시길 바랍니다.";
+        //*이메일 테스트
+        if(result){emailService.send(employeeDto.getEmail(),"팀 프로젝트 로그인 정보 안내",content);}
+        return result;
+
     }
 
     // 경력로그 등록 요청
@@ -83,8 +88,14 @@ public class EmployeeService {
     public boolean employeeDelete(int eno){
         return employeeDao.employeeDelete(eno);
     }
+    //경력 삭제
+    public boolean careerDelete(int eno, String companyname){return employeeDao.careerDelete(eno,companyname);}
 
-    //=================== 수정
+    //자격증 삭제
+    public boolean licenseDelete(int eno,int lno){
+        return employeeDao.licenseDelete(eno,lno);
+    }
+        //=================== 수정
     // 사원정보 수정
     public boolean employeeUpdate (EmployeeDto employeeDto){
             //1. 기존 첨부파일명 구하고
@@ -113,15 +124,15 @@ public class EmployeeService {
         System.out.println("EmployeeService.partDtoList");
         return employeeDao.partList();
     }
-    //자격증 전체 호출
+    //자격증 선택 호출
     public List<LicenseDto> licenseList(){
         return employeeDao.licenseList();
     }
 
     // 사원 전체 호출
-    public List<EmployeeDto> employeeList(){
+    public List<EmployeeDto> employeeList( int key,  String keyword){
         System.out.println("EmployeeService.employeeList");
-        return employeeDao.employeeList();
+        return employeeDao.employeeList(key, keyword);
     }
 
     //경력 전체 호출
@@ -129,9 +140,15 @@ public class EmployeeService {
         System.out.println("EmployeeService.careerList");
         return employeeDao.careerList(eno);
     }
+    //자격증 호출
     public List<EmployeeLicenseDto> licenseViewList(int eno){
         System.out.println("eno = " + eno);
         return employeeDao.licenseViewList(eno);
+    }
+
+    // 자격증 중복 검색
+    public String findLicense(EmployeeLicenseDto licenseDto){
+        return employeeDao.findLicense(licenseDto);
     }
 }
 
