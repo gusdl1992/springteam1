@@ -1,6 +1,9 @@
 {{>employee/employeeTop}}
 
+
+
     <div id="k_employee">
+        <select onchange="onEmployeeAllView()">
         <select onchange="onPartPrint()" class="key">
             <option value="0">전체</option>
             <option value="1">인사과</option>
@@ -28,7 +31,6 @@
         사원 목록
     </div>
 
-</div>
 <script src="/js/employee/employee.js"></script>
 
-{{>headerfooter/footer}}
+{{>employee/employeeBottom}}
