@@ -1,6 +1,6 @@
 
 
-console.log("salesDetail()-js")
+console.log("perform()-js")
 //============ 페이지 정보 관련 객체 = 여러개의 변수를 묶음 =============
 let pageObject={
     page : 1,           //현재페이지
@@ -13,26 +13,27 @@ let pageObject={
 }
 //================================================================
 searchProject();
-printFinishProject();
+printFinishProject(1);
 
 //searchProject();    //검색 페이지 띄우기
 console.log("projectPage-js");
 
 //전체 프로젝트리스트 출력
-function printFinishProject(){
-    console.log("printFinishProject()")
-    //pageObject.page=page;   //현재페이지 대입
-
+function printFinishProject(page){
+    console.log("printFinishProject()");
+    pageObject.page=page;   //현재페이지 대입
+    console.log("pageObject.sortKey : "+pageObject.sortKey);
     $.ajax({
         url : "/projectPage/perform.do",
         method : "get",
+        data : pageObject,
         success : (r)=>{
             console.log(r);
             console.log("pageObject.keyword : ");
 
             //전체 리스트 출력
             let html=``;
-            r.list3.forEach((result)=>{
+            r.objectList.forEach((result)=>{
                 html+=`<tr>
                            <th>${result.pjno}</th>
                            <td><a href="/projectPage/performDetail?pjno=${result.pjno}">${result.title}</a></td>
@@ -45,6 +46,14 @@ function printFinishProject(){
             })//for end
             document.querySelector("#projectList").innerHTML=html;
 
+            //===== 페이지네이션 =====
+            html=`<li class="page-item"><a class="page-link" onclick="printFinishProject(${page-1<1 ? page : page-1})">Previous</a></li>`;
+            for(let i=r.startPage; i<=r.endPage; i++){
+                html+=`<li class="page-item"><a class="page-link" onclick="printFinishProject(${i})">${i}</a></li>`;
+            }
+            html+=`<li class="page-item"><a class="page-link" onclick="printFinishProject(${page+1>r.totalPage ? r.totalPage : page+1})">Next</a></li>`;
+
+            document.querySelector(".pagination").innerHTML=html;
 
         }//success end
     })//ajax end
@@ -71,11 +80,11 @@ function searchProject(){
             break;
         case "4" :
             searchInput.innerHTML=`<select class="searchValue">
-                                        <option value="0"> 진행전 </option>
-                                        <option value="1"> 진행중 </option>
-                                        <option value="2"> 진행완료 </option>
+                                        <option value="0"> 평가전 </option>
+                                        <option value="1"> 평가중 </option>
+                                        <option value="2"> 평가완료 </option>
                                     </select>`;
-            pageObject.key="state";
+            pageObject.key="result";
             break;
         case "5" :
             searchInput.innerHTML=`<input class="searchValue" type="date" />`;
@@ -104,7 +113,7 @@ function onSearch(){
             console.log("pageObject.keyword : "+document.querySelector(".searchValue").value);
         }
     }//if end
-    printFinishProject();
+    printFinishProject(1);
 }//f end
 
 //정렬기준

@@ -89,7 +89,7 @@ function deleteDetail(){
 
 function goToEval(state,pjno){
     if (state >= 1){
-         location.href = "/project/view/eval?pjno="+pjno
+         location.href = "/projectPage/performDetail?pjno="+pjno;   //240314 장은경 수정
     }
     else{
         alert("아직 종료되지 않은 프로젝트입니다")
