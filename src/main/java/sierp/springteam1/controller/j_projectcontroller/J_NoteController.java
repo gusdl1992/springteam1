@@ -87,6 +87,7 @@ public class J_NoteController {
     //쪽지 상세보기 페이지 요청
     @GetMapping("/getDetail")
     public String getNoteDetail(){
+        System.out.println("J_NoteController.getNoteDetail");
         return "/쪽지 상세보기 mustache";
     }//m end
 
@@ -94,7 +95,10 @@ public class J_NoteController {
     @GetMapping("/getDetail.do")
     @ResponseBody
     public NoteDto doGetNoteDetail(int nno){
-        return null;
+        System.out.println("J_NoteController.doGetNoteDetail");
+        System.out.println("nno = " + nno);
+
+        return j_noteService.doGetNoteDetail(nno);
     }//m end
 
 }//c end

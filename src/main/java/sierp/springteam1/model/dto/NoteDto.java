@@ -10,9 +10,12 @@ import lombok.*;
 @Builder
 public class NoteDto {
     private int nno;
-        private int posteno;
+    private int posteno;
     private int sendeno;
     private String ncontent;
     private String ndate;
     int reply;
+
+    String postid;
+    String sendid;
 }

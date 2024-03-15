@@ -10,7 +10,7 @@ import java.util.List;
 
 @Component
 public class J_noteDao extends SuperDao {
-    //받은쪽지 가져오기
+    //쪽지 리스트 가져오기
     public List<Object> doGetNote(String sendMark ,int eno,int startRow, int pageBoardSize){
         System.out.println("J_noteDao.doGetReceiveNote");
         System.out.println("eno = " + eno + ", startRow = " + startRow + ", pageBoardSize = " + pageBoardSize);
@@ -24,6 +24,7 @@ public class J_noteDao extends SuperDao {
             rs=ps.executeQuery();
             while(rs.next()){
                 NoteDto noteDto=NoteDto.builder()
+                        .nno(rs.getInt("nno"))
                         .posteno(rs.getInt("posteno"))
                         .sendeno(rs.getInt("sendeno"))
                         .ncontent(rs.getString("ncontent"))
@@ -83,7 +84,7 @@ public class J_noteDao extends SuperDao {
         return false;
     }//m end
 
-    //쪽지 보낼때 > 받는 사람의 사원번호 가져오기
+    //id > 사원번호 가져오기
     public int getEnoToId(String sendId){
         System.out.println("J_noteDao.getEnoToId");
         System.out.println("sendId = " + sendId);
@@ -99,5 +100,49 @@ public class J_noteDao extends SuperDao {
             System.out.println("e = " + e);
         }
         return 0;
+    }//m end
+
+    //쪽지 상세정보 요청
+    public NoteDto doGetNoteDetail(int nno){
+        System.out.println("J_noteDao.doGetNoteDetail");
+        System.out.println("nno = " + nno);
+        try {
+            String sql = "select * from note where nno=" + nno;
+            ps=conn.prepareStatement(sql);
+            rs=ps.executeQuery();
+            if(rs.next()){
+                NoteDto noteDto=NoteDto.builder()
+                        .nno(rs.getInt("nno"))
+                        .posteno(rs.getInt("posteno"))
+                        .sendeno(rs.getInt("sendeno"))
+                        .ncontent(rs.getString("ncontent"))
+                        .ndate(rs.getString("ndate"))
+                        .reply(rs.getInt("reply"))
+                        .build();
+                System.out.println("noteDto = " + noteDto);
+                return noteDto;
+            }//if end
+        }//t end
+        catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return null;
+    }//m end
+
+    //eno(사원번호) > id 가져오기
+    public String getIDToEno(int eno){
+        System.out.println("J_noteDao.getIDToEno");
+        try{
+            String sql="select id from employee where eno="+eno;
+            ps=conn.prepareStatement(sql);
+            rs=ps.executeQuery();
+            if(rs.next()){
+                return rs.getString("id");
+            }
+        }//t end
+        catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return null;
     }//m end
 }//c end
