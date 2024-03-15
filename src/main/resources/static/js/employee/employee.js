@@ -26,10 +26,10 @@ function onEmployeeAllView(){
                 re.forEach( employee => {
                      html+=`<tr>
                                   <th>${employee.eno}</th>
-                                  <th><a href="employee/view?eno=${employee.eno}">${employee.ename}</a></th>
-                                  <th>${employee.pname}</th>
-                                  <th>${employee.phone}</th>
-                                  <th>${employee.edate}</th>
+                                  <td><a href="employee/view?eno=${employee.eno}">${employee.ename}</a></td>
+                                  <td>${employee.pname}</td>
+                                  <td>${employee.phone}</td>
+                                  <td>${employee.edate}</td>
                               </tr>`;
                 });
                  k_eList.innerHTML = html;

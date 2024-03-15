@@ -4,7 +4,6 @@ employeeView()
 licensePrint()
 CareerPrint()
 //부서명 출력
-//onCareerDelete("ㄴㅁㄴ")
 function onSelectPrint(){// 부서명/자격증명 받아오는 함수
     $.ajax({ // 부서명 전체 출력
         url: `/partList`,

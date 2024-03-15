@@ -2,21 +2,22 @@
 <h3>인사평가가능리스트 출력</h3>
 <!--검색-->
 <!--검색기준-->
-<select class="searchCategory" onchange="searchProject()">
-    <option value="0">전체</option>
-    <option value="1">프로젝트명</option>
-    <option value="2">회사명</option>
-    <option value="3">규모</option>
-    <option value="4">평가현황</option>
-    <option value="5">시작일</option>
-    <option value="6">종료일</option>
-</select>
+<div class="search">
+    <select class="searchCategory" onchange="searchProject()">
+        <option value="0">전체</option>
+        <option value="1">프로젝트명</option>
+        <option value="2">회사명</option>
+        <option value="3">규모</option>
+        <option value="4">평가현황</option>
+        <option value="5">시작일</option>
+        <option value="6">종료일</option>
+    </select>
 
-<span class="searchInput">
+    <span class="searchInput">
 
-</span>
-<button type="button" onclick="onSearch()">검색</button>
-
+    </span>
+    <button type="button" onclick="onSearch()">검색</button>
+</div>
 <select class="sortStandard" onchange="sortProject()">
     <option value="0">시작날짜 빠른순</option>
     <option value="1">규모 적은순</option>
