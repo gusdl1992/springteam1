@@ -125,7 +125,7 @@ public class EmployeeDao extends SuperDao{
         }
         return false;
     }
-    //================== 삭제
+    //=================================== 삭제
     //사원 삭제
     public boolean employeeDelete(int eno){
         try {
@@ -342,6 +342,29 @@ public class EmployeeDao extends SuperDao{
             System.out.println(e);
         }
         return "1";
+    }
+
+    // 경력 합산
+    public String careearSum(){
+        try {
+            String sql=" select a.eno, sum(coalesce(datediff(b.end_date,b.start_date),0)) as 경력\n" +
+                    "from employee as a left outer join  employeecareer as b on a.eno = b.eno\n" +
+                    "where a.eno in(\n" +
+                    "      select d.eno\n" +
+                    "      from \n" +
+                    "      (select b.pjno , end_date, a.eno  from uploadproject b join salesproject d on b.spjno = d.spjno \n" +
+                    "      right outer join projectlog a\n" +
+                    "       on a.pjno = b.pjno) as c \n" +
+                    "      right outer join\n" +
+                    "       employee d \n" +
+                    "       on c.eno = d.eno\n" +
+                    "       group by d.eno\n" +
+                    ")\n" +
+                    "group by a.eno;";
+        }catch (Exception e){
+
+        }
+        return null;
     }
     /*
     create table employee( #사원테이블

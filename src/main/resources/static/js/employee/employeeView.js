@@ -244,18 +244,21 @@ function OnLicensePlus(){
     })
 
 }
+//
 //입력창 닫기 버튼
 function onClose(num){
     console.log('close')
     if(num==1){
         console.log('1')
         document.querySelector('.careerBox').innerHTML='';
-        CareerPrint(1);
+        document.querySelector('.cBtn').innerHTML='';
+        CareerPrint();
     }
     else if(num==2){
         console.log('2')
         document.querySelector('.licenseBox').innerHTML='';
-        licensePrint(1);
+        document.querySelector('.lBtn').innerHTML='';
+        licensePrint();
     }
 
 }
