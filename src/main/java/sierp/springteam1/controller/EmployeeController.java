@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import sierp.springteam1.model.dao.EmployeeDao;
 import sierp.springteam1.model.dto.*;
 import sierp.springteam1.service.employeeserive.EmployeeService;
+import sierp.springteam1.service.j_projectPage.J_projectPageService;
 import sierp.springteam1.service.mypageService.MypageService;
 
 import java.util.List;
@@ -122,9 +123,10 @@ public class EmployeeController {
     // 전체 사원 호출
     @GetMapping("/employeeList")
     @ResponseBody
-    public List<EmployeeDto> employeeList(@RequestParam int key,@RequestParam String keyword){
+    public ProjectPageDto employeeList(@RequestParam int page, int pageBoardSize, int key,@RequestParam String keyword){
         System.out.println("EmployeeController.employeeList");
-        return employeeService.employeeList(key,keyword);
+
+        return employeeService.employeeList(page,pageBoardSize, key,keyword);
     }
     // 개별 사원 호출
     @GetMapping("/employee/view.do")

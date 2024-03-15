@@ -82,10 +82,7 @@ public class J_noteService {
     public NoteDto doGetNoteDetail(int nno){
         System.out.println("J_noteService.doGetNoteDetail");
         System.out.println("nno = " + nno);
-        NoteDto noteDto=j_noteDao.doGetNoteDetail(nno);
-        noteDto.setSendid(j_noteDao.getIDToEno(noteDto.getSendeno()));
-        noteDto.setPostid(j_noteDao.getIDToEno(noteDto.getPosteno()));
 
-        return noteDto;
+        return j_noteDao.doGetNoteDetail(nno);
     }//m end
 }//c end

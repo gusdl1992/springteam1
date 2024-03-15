@@ -38,32 +38,62 @@ function printProjectDetail(){
 
 //수정페이지로 이동
 function changeToUpdate(){
-location.href= `/projectPage/update?spjno=${spjno}`;
+//관리자 권한 확인
+    $.ajax({
+        url : "/managerCheck",
+        method : "Get",
+        success : (r) => {
+            console.log(r);
+            if(r){
+                location.href= `/projectPage/update?spjno=${spjno}`;
+            }
+            else{
+                alert("권한이 없습니다.");
+                //window.history.back();
+            }
+        }
+    })//ajax end
 }//f end
 
 //삭제
 function deleteDetail(){
     console.log("deleteDetail()");
-    if(confirm("삭제하시겠습니까?")){
-        $.ajax({
-            url : "/projectPage/delete",
-            method : "Delete",
-            data : {"spjno" : spjno},
+    //관리자 권한 확인
+    $.ajax({
+            url : "/managerCheck",
+            method : "Get",
             success : (r) => {
                 console.log(r);
                 if(r){
-                    alert("삭제 성공");
-                    location.href="/projectPage/"
+                    if(confirm("삭제하시겠습니까?")){
+                            $.ajax({
+                                url : "/projectPage/delete",
+                                method : "Delete",
+                                data : {"spjno" : spjno},
+                                async : false,
+                                success : (r) => {
+                                    console.log(r);
+                                    if(r){
+                                        alert("삭제 성공");
+                                        location.href="/projectPage/"
+                                    }
+                                    else{
+                                        alert("삭제 실패 : 참여중인 인원이 존재합니다.");
+                                    }
+                                }//success end
+                            })//ajax end
+                        }//if end
+                        else{
+                            alert("삭제가 취소되었습니다.");
+                        }
                 }
                 else{
-                    alert("삭제 실패 : 참여중인 인원이 존재합니다.");
+                    alert("권한이 없습니다.");
+                    //window.history.back();
                 }
-            }//success end
+            }
         })//ajax end
-    }//if end
-    else{
-        alert("삭제가 취소되었습니다.");
-    }
+
 }//f end
 
 function goToEval(state,spjno){
@@ -75,18 +105,35 @@ function goToEval(state,spjno){
     }
 }
 
+//영업완료 프로젝트 등록
 function doPostuploadProject(spjno){
+//관리자 권한 확인
     $.ajax({
-        url:"/sales/Post.do",
-        method:"post",
-        data:{spjno:spjno},
-        success: (r) => {
+        url : "/managerCheck",
+        method : "Get",
+        success : (r) => {
+            console.log(r);
             if(r){
-                alert("등록성공")
-                location.href="/projectPage/"
+                $.ajax({
+                        url:"/sales/Post.do",
+                        method:"post",
+                        data:{spjno:spjno},
+                        async : false,
+                        success: (r) => {
+                            if(r){
+                                alert("등록성공")
+                                location.href="/projectPage/"
+                            }
+                        }
+                    })
+            }
+            else{
+                alert("권한이 없습니다.");
+                //window.history.back();
             }
         }
-    })
+    })//ajax end
+
 }
 function goToRec(state, spjno){
     if(state <= 1){

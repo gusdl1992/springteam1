@@ -25,6 +25,9 @@ public class J_projectPageDao extends SuperDao {
                 if(key.equals("price")){ //검색기준이 규모인 경우
                     sql+=" where price between "+startPrice*10000 +" and "+endPrice*10000;
                 }
+                else if(key.equals("state")){//검색기준이 진행상태인경우
+                    sql += " where state= " + keyword;
+                }
                 else {
                     sql += " where " + key + " like '%" + keyword + "%' ";
                 }
@@ -82,6 +85,9 @@ public class J_projectPageDao extends SuperDao {
             if(!key.equals("")){
                 if(key.equals("price")){ //검색기준이 규모인 경우
                     sql+=" where price between "+startPrice*10000 +" and "+endPrice*10000;
+                }
+                else if(key.equals("state")){//검색기준이 진행상태인경우
+                    sql += " where state= " + keyword;
                 }
                 else {
                     sql += " where " + key + " like '%" + keyword + "%' ";
@@ -457,6 +463,28 @@ public class J_projectPageDao extends SuperDao {
             System.out.println("e = " + e);
         }
 
+        return false;
+    }//m end
+
+    //관리자 식별 메소드(return type -> true : 관리자(인사과) , false : 일반사원)
+    public boolean indexManager(int eno){
+        System.out.println("J_projectPageService.indexManager");
+        try{
+            String sql="select pno from employee where eno="+eno;
+            ps=conn.prepareStatement(sql);
+            rs=ps.executeQuery();
+            if(rs.next()){
+                if(rs.getInt(1)==1){
+                    return true;
+                }
+                else{
+                    return false;
+                }//if 2 end
+            }//if1 end
+        }//t end
+        catch (Exception e){
+            System.out.println("e = " + e);
+        }
         return false;
     }//m end
 

@@ -1,3 +1,18 @@
+$.ajax({
+    url : "/managerCheck",
+    method : "Get",
+    success : (r) => {
+        console.log(r);
+        if(r){
+
+        }
+        else{
+            alert("권한이 없습니다.");
+            window.history.back();
+        }
+    }
+})
+
 let spjno=new URL(location.href).searchParams.get('spjno');
 inputData();
 

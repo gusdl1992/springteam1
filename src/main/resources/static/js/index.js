@@ -1,5 +1,4 @@
 
-
 // 1. 로그인 여부 확인 요청 [ JS 열릴때마다 체크 ]
 $.ajax({
     url : '/employee/login/check' ,
@@ -85,3 +84,19 @@ $.ajax({
     }
 })
 }
+
+function managerCheck(){
+    $.ajax({
+        url : "/managerCheck",
+        method : "Get",
+        success : (r) => {
+            console.log(r);
+            if(r){
+                location.href="/projectPage/insert";
+            }
+            else{
+                alert("권한이 없습니다.");
+            }
+        }
+    })//ajax end
+}//f end

@@ -136,4 +136,11 @@ public class J_projectPageService {
         return projectPageDto;
     }//m end
 
+    //관리자 식별 메소드(return type -> true : 관리자(인사과) , false : 일반사원)
+    public boolean indexManager(int eno){
+        System.out.println("J_projectPageService.indexManager");
+
+        return j_projectPageDao.indexManager(eno);
+    }//m end
+
 }//c end
