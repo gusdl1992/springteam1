@@ -1,5 +1,5 @@
 let eno=new URL(location.href).searchParams.get('eno');
-let index = 1;
+let index = 3;
 let index1 = 1;
 employeeView();
 CareerPrint();
@@ -23,8 +23,8 @@ function OnCareer(){
                  //4. 결과
                  if(r){
                      alert('경력등록 성공');
-                     document.querySelector('.careerBox').innerHTML='';
-                     CareerPrint(1);
+                     onClose(1);
+                     onCareerSUm();
                  }else {
                      alert('경력등록 실패');
                  }
@@ -64,7 +64,7 @@ function OnLicense(){
                                   if(re){
                                       alert('자격증 등록 성공');
                                       document.querySelector('.licenseBox').innerHTML='';
-                                      licensePrint(1);
+                                      onClose(2);
                                   }else {
                                       alert('자격증 등록 실패.');
                                   }
@@ -117,13 +117,26 @@ function employeeView(){
              document.querySelector('.phone').innerHTML=r.phone
              document.querySelector('.email').innerHTML=r.email
              document.querySelector('.address').innerHTML=r.address
-
+             onCareerSUm()
 
 
          }
     });//ajax 끝*/
 }
+// 경력 합산 출력
+function onCareerSUm(){
+    $.ajax({
+        url: `/careerSum`,
+        method: `get`,
+        data:  {eno:eno} ,
+        async : false,
+        success: (r)=>{
+            console.log(r)
+            document.querySelector(".careerSum").innerHTML=r;
 
+        }
+    });
+}
 //경력 내역 출력
 function CareerPrint(num){
     $.ajax({
@@ -173,15 +186,25 @@ function licensePrint(){
 
 }
 
-// 경력 합산 함수
+// 경력 합산 출력
+function onCareerSUm(){
+    $.ajax({
+        url: `/careerSum`,
+        method: `get`,
+        data:  {eno:eno} ,
+        async : false,
+        success: (r)=>{
+            console.log(r)
+            document.querySelector(".careerSum").innerHTML="dd";
 
+        }
+    });
+}
 
 // 경력 입력칸 함수
 function OnCareerPlus(){
-    //CareerPrint(2);
     let careerBox = document.querySelector('.careerBox');
     let html='';
-
     html=`
          <form class="careerForm${index} postForm">
             <div class="tr">
@@ -199,7 +222,6 @@ function OnCareerPlus(){
     btn=`
     <button onclick="OnCareer()" type="button">경력 등록</button>
     <button onclick="onClose(${1})" type="button">닫기</button>
-
     `
     button.innerHTML=btn
     careerBox.innerHTML+=html;
@@ -222,7 +244,7 @@ function OnLicensePlus(){
                                 </select>
                              </div>
                              <div class="td"><input type="date" name="ldate"></div>
-                             <div class="td linput"><button onclick="" type="button">삭제</button></div>
+                             <div class="td linput"><button onclick="onClose(3)" type="button">삭제</button></div>
                         </div>
                     </form>`
             licenseBox.innerHTML+=html;
