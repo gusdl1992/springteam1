@@ -64,7 +64,7 @@ function CareerPrint(){
                          <div class="td ">${career.end_date}</div>
                          <div class="td ">${career.note}</div>
                          <div class="td ">${career.eimg}</div>
-                         <div class="td "><button onclick="onCareerDelete(${career.companyname})" type="button">삭제</button></div>
+                         <div class="td "><button onclick="onCareerDelete('${career.companyname}')" type="button">삭제</button></div>
                        </div>`;
              careerBox.innerHTML = html;
            });

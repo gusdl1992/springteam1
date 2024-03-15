@@ -36,10 +36,15 @@ public class Salarycontroller {
         salaryService.insertsel();
     }
 
+    @GetMapping("/del.do")
+    public boolean deletesalary(){
+        return true;
+    }
     @GetMapping("/list.do")
     @ResponseBody
-    public List<SalaryDto> findSalarylist(){
-        return salaryService.findSalarylist();
+    public BoardPageDTO findSalarylist(int page , int pageBoardSize , int state, String key, String keyword){
+        System.out.println("ddd");
+        return salaryService.findSalarylist(page , pageBoardSize ,state, key, keyword);
     }
 
     @PostMapping("/insert.do")

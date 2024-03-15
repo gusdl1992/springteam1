@@ -3,16 +3,17 @@
 
 
     <div id="k_employee">
-        <select onchange="onEmployeeAllView()">
-        <select onchange="onPartPrint()" class="key">
-            <option value="0">전체</option>
-            <option value="1">인사과</option>
-            <option value="2">영업부</option>
-            <option value="3">프로그래머</option>
-        </select>
+        <div class="search">
+            <select onchange="onPartPrint()" class="key">
+                <option value="0">전체</option>
+                <option value="1">인사과</option>
+                <option value="2">영업부</option>
+                <option value="3">프로그래머</option>
+            </select>
 
-        <div><input type="text" class="keyword" name="k_keyword"></div>
-        <button type="button" onclick="onPartPrint()">검색</button>
+            <div><input type="text" class="keyword" name="k_keyword"></div>
+            <button type="button" onclick="onPartPrint()">검색</button>
+        </div>
         <table>
             <thead>
                 <tr>

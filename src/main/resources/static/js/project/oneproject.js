@@ -32,6 +32,7 @@ function onView(){
             document.querySelector(".price").innerHTML = "가격 : "+r.price
             document.querySelector(".buttons").innerHTML = `<button type="button" onclick="goToRec( ${r.state} ,${pjno})">프로젝트 인원 등록</button>
              <button type="button" onclick="goToRe( ${r.state} ,${pjno})">프로젝트 인원 수정</button>`
+             onclick(pno,매개변수)
         }
     })
 
