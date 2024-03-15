@@ -173,3 +173,11 @@ header {
 .card h2 {
     margin-top: 0;
 }
+
+.pagination {
+display: flex; justify-content: flex-end;
+}
+
+table{
+    min-height: 200px;
+}

@@ -1,14 +1,8 @@
-{{>headerfooter/header}}
 
-<div id="k_container">
-    <div id="k_employeeSideWrap">
-        <ul id="k_employeeSide">
-            <li><a href="/employee">사원보기</a></li>
-            <li><a href="/signup">사원등록</a></li>
-        </ul>
-    </div>
+{{>employee/employeeTop}}
+
     <div id="k_employee">
-        <select onchange="on">
+        <select onchange="onEmployeeAllView()">
             <option value="0">전체</option>
             <option value="1">인사과</option>
             <option value="2">영업부</option>
@@ -35,7 +29,6 @@
         사원 목록
     </div>
 
-</div>
 <script src="/js/employee/employee.js"></script>
 
-{{>headerfooter/footer}}
+{{>employee/employeeBottom}}
