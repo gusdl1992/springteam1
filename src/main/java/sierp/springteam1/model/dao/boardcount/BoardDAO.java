@@ -5,6 +5,7 @@ import sierp.springteam1.model.dao.SuperDao;
 import sierp.springteam1.model.dto.EmployeeDto;
 import sierp.springteam1.model.dto.SalaryDto;
 
+import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -36,13 +37,13 @@ public class BoardDAO extends SuperDao {
         try{  // String sql = "select * from board";
             // SQL 앞부분
             String sql = "select * from "+tablename;
-            // SQL 가운데부분 [ 조건에 따라 where 절 추가 ]
-//            if( state > -2 ){ sql += " where state = "+state ; }
-//            if( !keyWord.isEmpty()){System.out.println("검색 키워드가 존재");
-//                if(state > -2){ sql += " and ";}
-//                else{sql += " where ";}
-//                sql +=  key+" like '%"+keyWord+"%' ";
-//            }
+//             SQL 가운데부분 [ 조건에 따라 where 절 추가 ]
+            if( state > -2 ){ sql += " where state = "+state ; }
+            if( !keyWord.isEmpty()){System.out.println("검색 키워드가 존재");
+                if(state > -2){ sql += " and ";}
+                else{sql += " where ";}
+                sql +=  key+" like '%"+keyWord+"%' ";
+            }
             // SQL 뒷부분
             sql += " limit ? , ?";
 
@@ -59,11 +60,16 @@ public class BoardDAO extends SuperDao {
                          .ename(rs.getString("ename"))
                          .build())
                          .sno(rs.getInt("sno"))
+                         .smonth(rs.getString("smonth"))
                          .price(Double.parseDouble(rs.getString("price")))
                          .build()
                     );
             }
-        }catch (Exception e ){ System.out.println("e = " + e);  }
+        }
+        catch (Exception e ){
+            System.out.println("e = " + e);
+        }
+
         return list;
     }
 

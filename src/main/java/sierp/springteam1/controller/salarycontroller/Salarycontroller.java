@@ -23,7 +23,7 @@ public class Salarycontroller {
     SalaryService salaryService;
 //
 //
-    @GetMapping("/findlist")
+    @GetMapping("/findlist.do")
     @ResponseBody
     public BoardPageDTO findSalayloglist(int page , int pageBoardSize , int state, String key, String keyword){
         System.out.println("컨트롤러");
@@ -89,7 +89,14 @@ public class Salarycontroller {
         return true;
     }
 
-    @GetMapping("list")
+    @GetMapping("/findlist")
+    public String salaryloglist(){
+
+        return "/salary/salaryloglist";
+
+    }
+
+    @GetMapping("/list")
     public String Salarylist(){
 
         return "/salary/salarylist";

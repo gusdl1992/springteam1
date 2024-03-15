@@ -1,0 +1,71 @@
+{{>salary/h}}
+
+<div class="boardTopEtc">
+    <select class="boardBtn pageBoardSize" onchange="onPageBoardSize(this)">
+        <option>5</option>
+        <option>10</option>
+        <option>15</option>
+    </select>
+</div>
+<span class="totalPage"></span>
+<span class="totalBoardSize"></span>
+<div class="catebtn">
+<!--    <button class="boardBtn  ${pageObject.bcno == 0? 'usecate' : '' }" onclick="onBcno(0)" type="button">전체보기</button>-->
+<!--    <button class="boardBtn  ${pageObject.bcno == 1? 'usecate' : '' }" onclick="onBcno(1)" type="button">자유</button>-->
+<!--    <button class="boardBtn  ${pageObject.bcno == 2? 'usecate' : '' }" onclick="onBcno(2)" type="button">노하우</button>-->
+</div>
+
+<div class="searchBox">
+    <select class="key boardBtn">
+        <option value="b.btitle"> <input type="time"> 시간 </option>
+        <option value="b.bcontent"> 내용 </option>
+        <option value="m.id"> 작성자 </option>
+    </select>
+    <input type="text" class="keyword">
+    <button type="button" class="boardBtn" onclick="onSearch()"> 검색 </button>
+</div>
+<table class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <th scope="col" style="width:5%">번호</th>
+        <th scope="col" style="width:60%">제목</th>
+        <th scope="col" style="width:15%">작성자</th>
+        <th scope="col" style="width:15%">작성일</th>
+        <th scope="col" style="width:5%">조회수</th>
+    </tr>
+    </thead>
+    <tbody id="boardTableBody">
+    <tr>
+        <th style="width:5%";>1</th>
+        <td style="width:60%">Mark</td>
+        <td style="width:15%"><img src="/img/default.png" style="width:20px; border-radius:50%"/> 유재석 </td>
+        <td style="width:15%">@mdo</td>
+        <td style="width:5%">@mdo</td>
+    </tr>
+    <tr>
+        <th style="width:5%">2</th>
+        <td style="width:60%">Jacob</td>
+        <td style="width:15%">Thornton</td>
+        <td style="width:15%">@fat</td>
+        <td style="width:5%">@mdo</td>
+    </tr>
+    </tbody>
+</table>
+<!--페이지네이션-->
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+            <a class="page-link">이전</a>
+        </li>
+        <li class="page-item"><a class="page-link" onclick="doViewList(1)">1</a></li>
+        <li class="page-item"><a class="page-link" onclick="doViewList(2)">2</a></li>
+        <li class="page-item"><a class="page-link" onclick="doViewList(3)">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#">다음</a>
+        </li>
+    </ul>
+</nav>
+</div>
+
+<script src="/js/salary/salaryloglist.js"></script>
+{{>salary/f}}

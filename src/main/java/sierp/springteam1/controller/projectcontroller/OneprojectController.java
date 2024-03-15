@@ -103,6 +103,7 @@ public class OneprojectController {
     @GetMapping("/view/auto")
     @ResponseBody
     public int[] autowired(@RequestParam int pjno){
+        System.out.println("오토컨트롤러체크"+pjno);
         return oneprojectService.autowired(pjno);
 
     }
@@ -117,5 +118,12 @@ public class OneprojectController {
     @ResponseBody
     public String findname( String eno){
         return mypageService.doGetLoginInfo(eno).getEname();
+    }
+
+    @GetMapping("/find/spjno")
+    @ResponseBody
+    public int findspjno(int pjno){
+        return oneprojectService.findspjno(pjno);
+
     }
 }

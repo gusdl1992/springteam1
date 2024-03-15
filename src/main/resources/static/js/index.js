@@ -18,12 +18,13 @@ success : (r)=>{
             data:{eno : r},
             async : false ,
             success : (r2) =>{
+                console.log(r2)
                 html = `
                     <li class="nav-item">
                         <a class="nav-link" onclick = "logout()">로그아웃</a>
                     </li>
                     <li class="nav-item">
-                        <img src="/img/${r2.uuidFile}"/> ${r2}님
+                        ${r2}님
                     </li>
                 `;
             }

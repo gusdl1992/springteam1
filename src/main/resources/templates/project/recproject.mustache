@@ -1,24 +1,35 @@
 {{>j_projectPage/projectTop}}
-<div id="index_form">
-    <div class="container">
+
+
         <button type="button" onclick="sortbyscore()">정렬기준: 스코어</button>
         <button type="button" onclick="sortbyeno()">정렬기준: 사원번호</button>
-        <div class="s_check1">
+        <table>
+            <thead><th>초급</th><th>사원번호</th><th>이름</th><th>사진</th><th>고과점수</th></thead>
+            <tbody class="s_check1">
 
-        </div>
-        <div class="s_check2">
+            </tbody>
+        </table>
+        <table>
+            <thead><th>중급</th><th>사원번호</th><th>이름</th><th>사진</th><th>고과점수</th></thead>
+            <tbody class="s_check2">
 
-        </div>
-        <div class="s_check3">
+            </tbody>
+        </table>
+        <table>
+            <thead><th>고급</th><th>사원번호</th><th>이름</th><th>사진</th><th>고과점수</th></thead>
+            <tbody class="s_check3">
 
-        </div>
+            </tbody>
+        </table>
         <div class="selected">
             안녕
         </div>
-        <button type="button" onclick="s_doPost()"> 전송 </button>
-        <button type="button" onclick="autowired()"> 추천 </button>
-    </div>
-</div>
+        <div class="buttons">
+            <button type="button" onclick="s_doPost()"> 전송 </button>
+            <button type="button" class="btn" onclick="autowired()"> 추천 </button>
+        </div>
+
+
 <script src="/js/project/recproject.js"></script>
 
 {{>j_projectPage/projectBottom}}

@@ -1,8 +1,11 @@
 {{>headerfooter/header}}
-<div id="">
-    아이디: <input type="text" id="id" name="id">
-    비밀번호: <input type="text" id="pw" name="pw">
-    <button type="button" onclick="login()">로그인</button>
+
+<div id="login_div">
+    <img src="/img/logo.png">
+    <div id="all_login">
+        <div id="login_input"><input type="text" id="id" name="id" placeholder="id"><input type="text" id="pw" name="pw" placeholder="pw"></div>
+        <button type="button" onclick="login()" class="btn">로그인</button>
+    </div>
 </div>
 <script src="/js/index.js"></script>
 {{>headerfooter/footer}}

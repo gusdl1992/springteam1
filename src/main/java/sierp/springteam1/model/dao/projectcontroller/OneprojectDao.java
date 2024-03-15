@@ -311,7 +311,22 @@ public class OneprojectDao extends SuperDao {
         return result;
     }
 
+    public int findspjno(int pjno){
+        try {
+            String sql ="select spjno from uploadproject where pjno = "+pjno;
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                return rs.getInt(1);
 
+            }
+        }
+        catch (Exception e){
+            System.out.println("spjno를 찾는 도중 발생한 문제:"+e);
+        }
+
+        return -1;
+    }
 
 //    public boolean createprojectlog(){
 //

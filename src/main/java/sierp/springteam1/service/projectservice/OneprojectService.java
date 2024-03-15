@@ -89,4 +89,8 @@ public class OneprojectService {
         return oneprojectDao.findlog2(pjno);
     }
 
+    public int findspjno(int pjno){
+        return oneprojectDao.findspjno(pjno);
+    }
+
 }

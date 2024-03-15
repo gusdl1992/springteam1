@@ -9,7 +9,7 @@ function onWrite(){
             let html ="받을 인물이 없습니다.";
             console.log(r)
             r.forEach((i) => {
-                 html += `<input type="checkbox" value ="{eno:${i.employeeDto.eno},price:${i.price}}"> <a href = "#"> ${i.employeeDto.ename} 사원 </a> 월급 ${i.price}만원 <br/>`  //추후 상세보기 링크로 만들 예정
+                 html += `<input type="checkbox" class="eno${i.employeeDto.eno}" value ="{eno:${i.employeeDto.eno},price:${i.price}}"> <a href = "#"> ${i.employeeDto.ename} 사원 </a> 월급 ${i.price}만원<button type="button" onclick="doDel(${i.employeeDto.eno})">제거</button>  <br/>`  //추후 상세보기 링크로 만들 예정
             })
 
 
@@ -42,4 +42,8 @@ function doPost(){
             console.error("Ajax 오류: " + status, error);
         }
     });
+}
+
+function doDel(i){
+    console.log(i);
 }

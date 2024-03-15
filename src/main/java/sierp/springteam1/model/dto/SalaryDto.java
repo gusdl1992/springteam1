@@ -7,4 +7,5 @@ public class SalaryDto {
     int sno;
     EmployeeDto employeeDto;
     double price;
+    String smonth;
 }
