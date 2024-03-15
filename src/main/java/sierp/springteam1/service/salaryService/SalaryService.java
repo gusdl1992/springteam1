@@ -40,6 +40,15 @@ public class SalaryService {
     @Autowired
     SalaryDAO salaryDAO;
 
+    public boolean salaryloginput(List<SalaryDto> result){
+        if(salaryDAO.insertSalarylog(result)){
+            if(salaryDAO.deleteSalary(result)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Scheduled(cron = "0 0 0 1 * *")
     public void insertsel(){
         //이번달 얼마 출근했는지
@@ -51,6 +60,10 @@ public class SalaryService {
             System.out.println("salaryDto.getPrice() = " + salaryDto.getPrice());
         }
         salaryDAO.insertSalray(result);
+    }
+
+    public List<SalaryDto> findSalarylist(){
+        return salaryDAO.findSalarylist();
     }
 
     public int premonthworking(){ //저번달 총 근무일 계산하기

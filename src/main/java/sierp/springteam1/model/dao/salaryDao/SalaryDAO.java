@@ -8,13 +8,47 @@ import sierp.springteam1.model.dto.SalaryDto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.SQLException;
+import java.util.*;
 
 @Component
 public class SalaryDAO extends SuperDao {
+
+    public boolean insertSalarylog(List<SalaryDto> result){
+        String sql = "INSERT INTO salarylog (eno, price) VALUES (?, ?)";
+        try {
+            ps = conn.prepareStatement(sql);
+            for (SalaryDto dto : result) {
+                ps.setInt(1, dto.getEmployeeDto().getEno());
+                ps.setDouble(2, dto.getPrice());
+                ps.addBatch(); // 배치 처리를 위해 추가
+            }
+            int[] counts = ps.executeBatch(); // 배치 쿼리 실행
+            System.out.println("Inserted rows: " + Arrays.toString(counts));
+            return true;
+        } catch (SQLException e) {
+            System.out.println("삽입도중 발생한 오류"+e);
+        }
+        return false;
+    }
+
+    public boolean deleteSalary(List<SalaryDto> result){
+        try {
+            for (SalaryDto i : result) {
+                String sql = "delete from salary where eno =? and price = ? ";
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1,i.getEmployeeDto().getEno());
+                ps.setString(2,i.getPrice()+"");
+                int count = ps.executeUpdate();
+            }
+            return true;
+        }
+        catch (Exception e){
+            System.out.println("샐러리(입금대기 테이블) 삭제도중 발생한 오류입니다 = " + e);
+        }
+        return false;
+    }
+
     public void insertSalray(List<SalaryDto> result){
         try {
             String sql = "insert into salary(eno,price) values" ;
@@ -31,6 +65,33 @@ public class SalaryDAO extends SuperDao {
             System.out.println("임금 삽입중 발생한 오류 = " + e);
         }
 
+    }
+
+    public List<SalaryDto> findSalarylist(){
+        List<SalaryDto> result = new ArrayList<>();
+        try {
+            String sql = "select a.price , b.* from salary as a inner join employee as b on a.eno = b.eno;";
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                result.add(SalaryDto.builder()
+                                .employeeDto(EmployeeDto.builder()
+                                        .eno(rs.getInt("eno"))
+                                        .id(rs.getString("id"))
+                                        .ename(rs.getString("ename"))
+                                        .email(rs.getString("email"))
+                                        .phone(rs.getString("phone"))
+                                        .address(rs.getString("address"))
+                                        .sex(rs.getBoolean("sex"))
+                                        .build())
+                                .price(Double.parseDouble(rs.getString("price")))
+                        .build());
+            }
+        }
+        catch (Exception e){
+            System.out.println("지급예정 임금 리스트 호출중 발생한 문제 = " + e);
+        }
+        return result;
     }
 
     public List<SalaryDto> findSalary(List<EmployeeDto> allEmployee , int allwork){
@@ -61,7 +122,7 @@ public class SalaryDAO extends SuperDao {
                         "as t\n" +
                         "where z.p_start<= t.alltime and t.alltime <= z.p_end ) as a \n" +
                         "inner join \n" +
-                        "(select  eno, count(*) as 근무일자   from attendance_log where TIMESTAMPDIFF(HOUR, stat_time, end_time)>=8 group by eno) as b\n" +
+                        "(select  eno, count(*) as 근무일자  from attendance_log WHERE MONTH(jday) = MONTH(CURRENT_DATE) - 1 and TIMESTAMPDIFF(HOUR, stat_time, end_time) >= 8  group by eno) as b\n" +
                         "on a.eno = b.eno\n" +
                         "where a.eno = "+employeeDto.getEno();
                 ps =conn.prepareStatement(sql);

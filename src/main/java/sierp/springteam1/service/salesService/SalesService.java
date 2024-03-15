@@ -18,6 +18,7 @@ public class SalesService {
     SalesDao salesDao;
 
 
+
     public boolean salesPost(int spjno){
         System.out.println("SalesService.salesPost");
         return salesDao.salesPost( spjno);

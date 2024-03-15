@@ -289,7 +289,7 @@ function sortbyeno(){
 function test(){
     $.ajax({
         method:"get",
-        url:"/test",
+        url:"/salary/test",
         success:(r)=>{
             console.log("안녕")
         }

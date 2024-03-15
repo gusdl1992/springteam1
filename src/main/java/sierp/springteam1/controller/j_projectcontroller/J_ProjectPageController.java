@@ -32,7 +32,7 @@ public class J_ProjectPageController {
     }//m end
     
     //수주 전체 리스트 출력
-    @GetMapping("/list")
+        @GetMapping("/list")
     @ResponseBody
     public ProjectPageDto printProjectList(int page, int pageBoardSize,
                                            int sortKey,
