@@ -77,4 +77,15 @@ public class J_noteService {
 
         return projectPageDto;
     }//m end
+
+    //쪽지 상세정보 요청
+    public NoteDto doGetNoteDetail(int nno){
+        System.out.println("J_noteService.doGetNoteDetail");
+        System.out.println("nno = " + nno);
+        NoteDto noteDto=j_noteDao.doGetNoteDetail(nno);
+        noteDto.setSendid(j_noteDao.getIDToEno(noteDto.getSendeno()));
+        noteDto.setPostid(j_noteDao.getIDToEno(noteDto.getPosteno()));
+
+        return noteDto;
+    }//m end
 }//c end
