@@ -22,7 +22,7 @@ public class J_NoteController {
     @GetMapping("/receive")
     public String getReceiveNote(){
         System.out.println("J_NoteController.getReceiveNote");
-        return "/받은쪽지 mustache";
+        return "/j_note/noteList";
     }
 
     //받은쪽지 가져오기

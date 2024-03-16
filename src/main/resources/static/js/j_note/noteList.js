@@ -11,7 +11,7 @@ function printNoteList(page){
     pageInfo.page=page;
 
     $.ajax({
-        url : "/receive.do",
+        url : "/note/receive.do",
         method : "Get",
         data : pageInfo,
         success : (r) => {
