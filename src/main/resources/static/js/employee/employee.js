@@ -39,9 +39,9 @@ function onEmployeeAllView(){
 }
 
 function onPartPrint(){
-     let key=document.querySelector('.k_key').value;
-        let keyword=document.querySelector('.k_keyword').value;
-        console.log(k_key,k_keyword);
+     let key=document.querySelector('.key').value;
+        let keyword=document.querySelector('.keyword').value;
+        //console.log(k_key,k_keyword);
 
         //2. 서버에 전송할 객체에 담아주고
         info.key=key;

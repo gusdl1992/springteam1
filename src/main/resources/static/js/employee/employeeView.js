@@ -233,7 +233,6 @@ function OnLicensePlus(){
         method: `get`,
         success: (r)=>{
             console.log(r)
-            //licensePrint(2);
             let licenseBox = document.querySelector('.licenseBox');
             let html='';
                 html=`

@@ -214,7 +214,7 @@ public class EmployeeDao extends SuperDao{
         List<EmployeeDto>list=new ArrayList<>();
         EmployeeDto employeeDto=null;
         try {
-            String sql=" select * from employee em , part p where em.pno = p.pno;";
+            String sql=" select * from employee em , part p where em.pno = p.pno";
             //=======  부서 번호로 검색
             if(key>0){sql+=" and em.pno="+key;}
             //======= 이름 검색
