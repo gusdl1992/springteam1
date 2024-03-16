@@ -55,6 +55,7 @@ public class IndexController {
         Object sessionObj = request.getSession().getAttribute("eno");
         if(sessionObj != null){ loginId = String.valueOf(sessionObj); }
         // 만약에 로그인했으면(세션에 데이터가 있으면) 강제형변환을 통해 데이터 호출 아니면 0
+        System.out.println("여기여기loginId = " + loginId);
         return loginId;
     } // getLoginCheck end
 

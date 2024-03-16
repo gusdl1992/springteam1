@@ -29,15 +29,13 @@ public class MyProjectController {
         return "/mypages/myproject";
     }
 
-    // 진행 중인 프로젝트 전체 출력
+    // 진행 중인 프로젝트 출력
     @GetMapping("/project/list")
     @ResponseBody
     public MyProjectDto myProjectList(){
         System.out.println("MyProjectController.myProjectList");
         // 세션에서 로그인한 사원번호 가져오기.
-         String eno = mypageService.sessionEno();
-        System.out.println("MyProjectController.myProjectList : eno = " + eno);
-
+        String eno = mypageService.sessionEno();
         return myProjectService.myProjectList(eno);
     }
 
