@@ -22,37 +22,19 @@ public class J_projectPageService {
                                            String key, String keyword,
                                            int startPrice, int endPrice){
         System.out.println("J_projectPageService.printProjectList");
-
-        ProjectPageDto projectPageDto=new ProjectPageDto();
-        //start row
+        //1. start row : 시작할 게시물의 행순서
         int startRow=(page-1)*pageBoardSize;
-        //end row
-        int endRow=startRow+pageBoardSize;
 
-        System.out.println("startRow = " + startRow);
-        projectPageDto.setPage(page);
+        //2. 총 페이지 수
+        int totalRecode=j_projectPageDao.projectCount(key, keyword, startPrice, endPrice);  //총 레코트 출력
 
-        //총 페이지 수
-        int totalRecode=j_projectPageDao.projectCount(key, keyword, startPrice, endPrice);
-        int totalPage=totalRecode%pageBoardSize>0 ? totalRecode/pageBoardSize+1 : totalRecode/pageBoardSize;
-        projectPageDto.setTotalPage(totalPage);
+        //**페이징 dto 저장 메소드(매개변수 -> page:현재페이지 , totalRecode:전체게시물수 , pageBoardSize:한페이지당 게시물수)
+        //리턴 : ProjectPageDto
+        ProjectPageDto projectPageDto = deliverPageInfo(page, totalRecode, pageBoardSize);
 
-        //제한할 페이지수
-        int pageLimit=5;
-
-        //시작페이지
-        int startPage=((page-1)/pageLimit)*pageLimit+1;
-        System.out.println("startPage = " + startPage);
-        projectPageDto.setStartPage(startPage);
-
-        //한페이지당 List
-        projectPageDto.setList(j_projectPageDao.printProjectList(startRow, pageBoardSize, sortKey, key, keyword, startPrice, endPrice));
-
-        //마지막 페이지
-        int endPage=((page-1)/pageLimit)*pageLimit+pageLimit;
-        endPage=endPage>totalPage ? totalPage : endPage;
-        System.out.println("endPage = " + endPage);
-        projectPageDto.setEndPage(endPage);
+        //3. 한페이지당 List
+            //dao에서 한페이지에 나타낼 게시물 리스트 가져오기
+        projectPageDto.setObjectList(j_projectPageDao.printProjectList(startRow, pageBoardSize, sortKey, key, keyword, startPrice, endPrice));
 
         return projectPageDto;
     }//m end
@@ -89,11 +71,19 @@ public class J_projectPageService {
     }
 
     //평가 가능한 프로젝트 리스트 출력
-    public ProjectPageDto doPrintPerform(){
+    public ProjectPageDto doPrintPerform(int page, int pageBoardSize, int sortKey,
+                                         String key, String keyword,
+                                         int startPrice, int endPrice){
         System.out.println("J_projectPageService.doPrintPerform");
-        ProjectPageDto projectPageDto=new ProjectPageDto().builder()
-                .list3(j_projectPageDao.doPrintPerform())
-                .build();
+        //1. start row : 시작할 게시물의 행순서
+        int startRow=(page-1)*pageBoardSize;
+
+        //2. 총 페이지 수
+        int totalRecode=j_projectPageDao.getPerformListCount(sortKey, key, keyword, startPrice, endPrice);
+
+        ProjectPageDto projectPageDto= deliverPageInfo(page, totalRecode, pageBoardSize);
+        projectPageDto.setObjectList(j_projectPageDao.doPrintPerform(startRow, pageBoardSize, sortKey,key, keyword,startPrice,endPrice));
+
         return projectPageDto;
     }//m end
 
@@ -110,5 +100,47 @@ public class J_projectPageService {
         System.out.println("pjno = " + pjno);
 
         return j_projectPageDao.getperformEmployee(pjno);
-    }
+    }//m end
+
+    //프로젝트 참여 사원 평가등록
+    public boolean doInsertPerform(int pjno, int eno, String note, String score){
+        System.out.println("J_projectPageService.doInsertPerform");
+        System.out.println("pjno = " + pjno + ", eno = " + eno + ", note = " + note + ", score = " + score);
+        return j_projectPageDao.doInsertPerform(pjno, eno, note, score);
+    }//m end
+
+    //페이징 dto 저장 메소드(매개변수 -> page:현재페이지 , totalRecode:전체게시물수 , pageBoardSize:한페이지당 게시물수)
+                        //리턴 : ProjectPageDto
+    public ProjectPageDto deliverPageInfo(int page , int totalRecode, int pageBoardSize){
+        ProjectPageDto projectPageDto=new ProjectPageDto();
+        projectPageDto.setPage(page);
+
+        //총 페이지 수
+        int totalPage=totalRecode%pageBoardSize>0 ? totalRecode/pageBoardSize+1 : totalRecode/pageBoardSize;
+        projectPageDto.setTotalPage(totalPage);
+
+        //제한할 페이지수
+        int pageLimit=5;
+
+        //시작페이지
+        int startPage=((page-1)/pageLimit)*pageLimit+1;
+        System.out.println("startPage = " + startPage);
+        projectPageDto.setStartPage(startPage);
+
+        //마지막 페이지
+        int endPage=((page-1)/pageLimit)*pageLimit+pageLimit;
+        endPage=endPage>totalPage ? totalPage : endPage;
+        System.out.println("endPage = " + endPage);
+        projectPageDto.setEndPage(endPage);
+        
+        return projectPageDto;
+    }//m end
+
+    //관리자 식별 메소드(return type -> true : 관리자(인사과) , false : 일반사원)
+    public boolean indexManager(int eno){
+        System.out.println("J_projectPageService.indexManager");
+
+        return j_projectPageDao.indexManager(eno);
+    }//m end
+
 }//c end

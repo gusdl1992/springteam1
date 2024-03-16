@@ -1,6 +1,8 @@
 let eno=new URL(location.href).searchParams.get('eno');
 onSelectPrint()
 employeeView()
+licensePrint()
+CareerPrint()
 //부서명 출력
 function onSelectPrint(){// 부서명/자격증명 받아오는 함수
     $.ajax({ // 부서명 전체 출력
@@ -42,7 +44,63 @@ function employeeView(){
          }
     });//ajax 끝*/
 }
+//경력 내역 출력
+function CareerPrint(){
+    $.ajax({
+        url: `/careerView`,
+        method: `get`,
+        data:  {eno:eno} ,
+        async : false,
+        success: (r)=>{
+            console.log(r)
+            let careerBox = document.querySelector(".careerBox");
+            let html='';
+            careerBox.innerHTML = html;
+            r.forEach( career => {
+            console.log(career.companyname)
+            let companyname = career.companyname
+                 html+=`
+                      <div class="tr">
+                         <div class="td ">${career.companyname}</div>
+                         <div class="td ">${career.start_date}</div>
+                         <div class="td ">${career.end_date}</div>
+                         <div class="td ">${career.note}</div>
+                         <div class="td ">${career.eimg}</div>
+                         <div class="td "><button onclick="onCareerDelete( '${companyname}' )" type="button">삭제</button></div>
+                       </div>`;
+             careerBox.innerHTML = html;
+           });
+       }
+    });
+}
+//자격증 출력
+function licensePrint(){
+   $.ajax({
+      url: `/licenseView`,
+      method: `get`,
+      data:  {eno:eno} ,
+      async : false,
+      success: (r)=>{
+      console.log(r)
+      let licenseBox = document.querySelector(".licenseBox");
+      let html='';
+          r.forEach( license => {
+              html+=`
+                    <div class="tr">
+                       <div class="td ">${license.lname}</div>
+                       <div class="td ">${license.ldate}</div>
+                       <div class="td linput"><button onclick="onlicenseDelete(${license.lno})" type="button">삭제</button></div>
+                     </div>`;
+          });
+          licenseBox.innerHTML = html;
+      }
 
+   });
+}
+
+
+
+// 수정 업데이트
 function onUpdate(){
     let employeeForm = document.querySelector('.employeeForm');
         console.log(employeeForm)
@@ -66,4 +124,47 @@ function onUpdate(){
                }
            }
    });//ajax 끝
+}
+
+//=====================삭제
+
+//자격증 삭제
+function onlicenseDelete(lno){
+$.ajax({
+         url : '/license/delete',
+         method : 'delete',
+         data : {'eno':eno, 'lno':lno},
+         success : (r)=>{
+             console.log(r);
+            if(r){
+                 alert('삭제 성공');
+                 licensePrint()
+            }else{
+                 alert('삭제 실패');
+            }
+
+
+        }
+    });//ajax 끝*/
+}
+// 경력 삭제
+function onCareerDelete(companyname){
+console.log("경력 삭제")
+$.ajax({
+         url : '/career/delete',
+         method : 'delete',
+         data : {'eno':eno, 'companyname':companyname},
+         success : (r)=>{
+             console.log(r);
+            if(r){
+                 alert('삭제 성공');
+                 CareerPrint()
+            }else{
+                 alert('삭제 실패');
+            }
+
+
+        }
+
+    });//ajax 끝*/
 }

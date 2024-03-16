@@ -27,7 +27,7 @@ function printProjectDetail(){
             document.querySelector(".buttons").innerHTML += `<button type="button" onclick="goToRec( ${r.state} ,${spjno})">프로젝트 인원 등록</button>
             <button type="button" onclick="goToRe( ${r.state} ,${spjno})">프로젝트 인원 수정</button>
             <button type="button" onclick="goToEval( ${r.state} ,${spjno})">프로젝트 평가</button>
-            <button type="button" onclick="doPostuploadProject(${spjno})">프로젝트 등록</button>`
+            <button type="button" onclick="doPostuploadProject(${r.state} ,${spjno})">프로젝트 등록</button>`
             //버튼 수정 등록 평가버튼 추후 삭제 -> 프로젝트 따온 영업이고 실제 등록 안하게 설계 바뀌었으므로
          }//success end
     })//ajax end
@@ -90,18 +90,23 @@ function goToEval(state,spjno){
     }
 }
 
-function doPostuploadProject(spjno){
-    $.ajax({
-        url:"/sales/Post.do",
-        method:"post",
-        data:{spjno:spjno},
-        success: (r) => {
-            if(r){
-                alert("등록성공")
-                location.href="/projectPage/"
+function doPostuploadProject(state, spjno){
+    if(state == -1){
+        $.ajax({
+            url:"/sales/Post.do",
+            method:"post",
+            data:{spjno:spjno},
+            success: (r) => {
+                if(r){
+                    alert("등록성공")
+                    location.href="/projectPage/"
+                }
             }
-        }
-    })
+        })
+    }
+    else{
+        alert("이미 등록된 프로젝트입니다.")
+    }
 }
 function goToRec(state, spjno){
     if(state <= 1){

@@ -11,12 +11,12 @@ import java.util.*;
 @Component
 public class J_projectPageDao extends SuperDao {
     //프로젝트 전체 리스트 출력
-    public List<ProjectDto> printProjectList(int startRow, int pageBoardSize,
+    public List<Object> printProjectList(int startRow, int pageBoardSize,
                                           int sortkey,
                                           String key, String keyword,
                                           int startPrice, int endPrice){
         System.out.println("J_projectPageDao.printProjectList");
-        List<ProjectDto> projectDtos=new ArrayList<>();
+        List<Object> projectDtos=new ArrayList<>();
         try{
             String sql="select * from salesproject ";
 
@@ -24,6 +24,9 @@ public class J_projectPageDao extends SuperDao {
             if(!key.equals("")){
                 if(key.equals("price")){ //검색기준이 규모인 경우
                     sql+=" where price between "+startPrice*10000 +" and "+endPrice*10000;
+                }
+                else if(key.equals("state")){//검색기준이 진행상태인경우
+                    sql += " where state= " + keyword;
                 }
                 else {
                     sql += " where " + key + " like '%" + keyword + "%' ";
@@ -82,6 +85,9 @@ public class J_projectPageDao extends SuperDao {
             if(!key.equals("")){
                 if(key.equals("price")){ //검색기준이 규모인 경우
                     sql+=" where price between "+startPrice*10000 +" and "+endPrice*10000;
+                }
+                else if(key.equals("state")){//검색기준이 진행상태인경우
+                    sql += " where state= " + keyword;
                 }
                 else {
                     sql += " where " + key + " like '%" + keyword + "%' ";
@@ -236,9 +242,11 @@ public class J_projectPageDao extends SuperDao {
     }//m end
 
     //평가 가능한 프로젝트 리스트 출력
-    public List<ProjectDto3> doPrintPerform(){
+    public List<Object> doPrintPerform(int startRow, int pageBoardSize, int sortkey,
+                                            String key, String keyword,
+                                            int startPrice, int endPrice){
         System.out.println("J_projectPageDao.doPrintPerform");
-        List<ProjectDto3> list = new ArrayList<>();
+        List<Object> list = new ArrayList<>();
 
         try{
             String sql="select * from (select * from uploadproject as a join salesproject as b using(spjno)) as pj inner join \n" +
@@ -247,8 +255,34 @@ public class J_projectPageDao extends SuperDao {
                     "\t\t\t\t\t\twhen ((select max(score) from (select * from projectlog where pjno=pno) as b)>0) then 1\n" +
                     "\t\t\t\t\t\telse 0\n" +
                     "\t\t\t\t\tend as result from projectlog where state=1 group by pjno) \n" +
-                    "as pp on pj.pjno=pp.pno;";
+                    "as pp on pj.pjno=pp.pno ";
+
+            //------------- 검색기준을 선택한 경우 -------------------
+            if(!key.equals("")){
+                if(key.equals("price")){ //검색기준이 규모인 경우
+                    sql+=" where price between "+startPrice*10000 +" and "+endPrice*10000;
+                }
+                else {
+                    sql += " where " + key + " like '%" + keyword + "%' ";
+                }
+            }//if end
+            //------------------------------------------------------
+
+            //----------------------- 정렬기준 -------------------------
+            if(sortkey==1) {
+                sql += " order by price limit ?,?";
+            }
+            else if(sortkey==2){
+                sql+=" order by rank1_count+rank2_count+rank3_count limit ?,?";
+            }
+            else{
+                sql+=" order by start_date limit ?,?";
+            }
+            //----------------------------------------------------------
+
             ps=conn.prepareStatement(sql);
+            ps.setInt(1,startRow);
+            ps.setInt(2,pageBoardSize);
             rs=ps.executeQuery();
 
             while(rs.next()){
@@ -275,6 +309,52 @@ public class J_projectPageDao extends SuperDao {
         }
 
         return null;
+    }//m end
+
+    //평가 가능한 프로젝트 수 출력
+    public int getPerformListCount(int sortkey,
+                                   String key, String keyword,
+                                   int startPrice, int endPrice){
+        System.out.println("J_projectPageDao.getPerformListCount");
+        try {
+            String sql = "select count(*) from (select * from uploadproject as a join salesproject as b using(spjno)) as pj inner join \n" +
+                    "(select pjno as pno, case\n" +
+                    "\t\t\t\t\t\twhen ((select min(score) from (select * from projectlog where pjno=pno) as b)!=0) then 2\n" +
+                    "\t\t\t\t\t\twhen ((select max(score) from (select * from projectlog where pjno=pno) as b)>0) then 1\n" +
+                    "\t\t\t\t\t\telse 0\n" +
+                    "\t\t\t\t\tend as result from projectlog where state=1 group by pjno) \n" +
+                    "as pp on pj.pjno=pp.pno ";
+
+            //------------- 검색기준을 선택한 경우 -------------------
+            if (!key.equals("")) {
+                if (key.equals("price")) { //검색기준이 규모인 경우
+                    sql += " where price between " + startPrice * 10000 + " and " + endPrice * 10000;
+                } else {
+                    sql += " where " + key + " like '%" + keyword + "%' ";
+                }
+            }//if end
+            //------------------------------------------------------
+
+            //----------------------- 정렬기준 -------------------------
+            if (sortkey == 1) {
+                sql += " order by price";
+            } else if (sortkey == 2) {
+                sql += " order by rank1_count+rank2_count+rank3_count";
+            } else {
+                sql += " order by start_date";
+            }
+            //----------------------------------------------------------
+
+            ps=conn.prepareStatement(sql);
+            rs=ps.executeQuery();
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+        }
+        catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return 0;
     }//m end
 
     //상세 평가 프로젝트 리스트 출력
@@ -321,8 +401,9 @@ public class J_projectPageDao extends SuperDao {
         List<Map<String,String >> list = new ArrayList<>();
         try{
             String sql="select c.eno, c.ename, p.pname, pj.pjno, pj.score,  pj.note, (coalesce(datediff(c.end_date,c.start_date),0))+coalesce(datediff(now(),c.edate),0) as alltime \n" +
-                    "from (select * from employee as a join  employeecareer as b using(eno))as c join part as p using(pno) \n" +
+                    "from (select * from employee as a left outer join  employeecareer as b using(eno))as c join part as p using(pno) \n" +
                     "inner join projectlog as pj on c.eno=pj.eno where pj.state=1 and pjno=?;";
+
             ps=conn.prepareStatement(sql);
             ps.setInt(1, pjno);
             rs=ps.executeQuery();
@@ -341,10 +422,10 @@ public class J_projectPageDao extends SuperDao {
                     map.put("rank" , "초급");
                 }
                 else if (allday > 3650) {
-                    map.put("rank" , "중급");
+                    map.put("rank" , "고급");
                 }
                 else {
-                    map.put("rank" , "고급");
+                    map.put("rank" , "중급");
                 }
 
                 //사원 개별 평가여부 판별
@@ -360,6 +441,51 @@ public class J_projectPageDao extends SuperDao {
             System.out.println("e = " + e);
         }
         return null;
+    }//m end
+
+    //프로젝트 참여 사원 평가등록
+    public boolean doInsertPerform(int pjno, int eno, String note, String score){
+        System.out.println("J_projectPageDao.doInsertPerform");
+        System.out.println("pjno = " + pjno + ", eno = " + eno + ", note = " + note + ", score = " + score);
+        try {
+            String sql = "update projectlog set note=?, score=? where pjno=? and eno=?;";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,note);
+            ps.setString(2,score);
+            ps.setInt(3,pjno);
+            ps.setInt(4,eno);
+            int count=ps.executeUpdate();
+            if(count==1){
+                return true;
+            }
+        }
+        catch (Exception e){
+            System.out.println("e = " + e);
+        }
+
+        return false;
+    }//m end
+
+    //관리자 식별 메소드(return type -> true : 관리자(인사과) , false : 일반사원)
+    public boolean indexManager(int eno){
+        System.out.println("J_projectPageService.indexManager");
+        try{
+            String sql="select pno from employee where eno="+eno;
+            ps=conn.prepareStatement(sql);
+            rs=ps.executeQuery();
+            if(rs.next()){
+                if(rs.getInt(1)==1){
+                    return true;
+                }
+                else{
+                    return false;
+                }//if 2 end
+            }//if1 end
+        }//t end
+        catch (Exception e){
+            System.out.println("e = " + e);
+        }
+        return false;
     }//m end
 
 }//c end

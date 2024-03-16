@@ -23,7 +23,7 @@ onWrite();
 
 function onWrite(){
     console.log(pjno)
-    let html = "사용 가능한 초급 인원 : <br/>";
+    let html = "";
 
     $.ajax({
         type: "get",
@@ -31,50 +31,48 @@ function onWrite(){
         async : false,
         success: (r) => {
             check = [r[0].length,r[1].length,r[2].length]
-            console.log(check)
-            console.log(r)
-            for(let j=0; j < r[0].length; j++){
-                let obj = {}; // 빈 객체 생성
-                obj[`${r[0][j].employeeDto.eno}`] = r[0][j].score; // 객체에 속성 추가
-                rank1.push(obj); // 객체를 배열에 추가
-                html += `<div> <input type ="checkbox" onclick='getCheckboxValue()' class ="eno${r[0][j].employeeDto.eno}" value ="${r[0][j].employeeDto.eno}">
-                <span>${r[0][j].employeeDto.eno}번</span>
-                <span>이름 : ${r[0][j].employeeDto.ename}번</span>
-                <span>사진 : ${r[0][j].employeeDto.img}번</span>
-                <span>고과점수 : ${r[0][j].score}</span>
-                </input> </div>`
+                        console.log(check)
+                        console.log(r)
+                        for(let j=0; j < r[0].length; j++){
+                            let obj = {}; // 빈 객체 생성
+                            obj[`${r[0][j].employeeDto.eno}`] = r[0][j].score; // 객체에 속성 추가
+                            rank1.push(obj); // 객체를 배열에 추가
+                            html += `<tr> <td><input type ="checkbox" onclick='getCheckboxValue()' class ="eno${r[0][j].employeeDto.eno}" value ="${r[0][j].employeeDto.eno}"></input>
+                            <td>${r[0][j].employeeDto.eno}</td>
+                            <td>${r[0][j].employeeDto.ename}</td>
+                            <td>${r[0][j].employeeDto.img}</td>
+                            <td>${r[0][j].score}</td></tr>
+                            `
 
-            }
+                        }
 
-            document.querySelector(".s_check1").innerHTML = html;
-            html = "사용 가능한 중급 인원 : <br/>";
-            for(let j=0; j < r[1].length; j++){
-                let obj = {}; // 빈 객체 생성
-                obj[`${r[1][j].employeeDto.eno}`] = r[1][j].score; // 객체에 속성 추가
-                rank2.push(obj); // 객체를 배열에 추가
-                html += `<div> <input type ="checkbox" onclick='getCheckboxValue()' class ="eno${r[1][j].employeeDto.eno}" value ="${r[1][j].employeeDto.eno}">
-                <span>${r[1][j].employeeDto.eno}번</span>
-                <span>이름 : ${r[1][j].employeeDto.ename}</span>
-                <span>사진 : ${r[1][j].employeeDto.img} </span>
-                <span>고과점수 : ${r[1][j].score}</span>
-                </input> </div>`
-            }
-            document.querySelector(".s_check2").innerHTML = html;
+                        document.querySelector(".s_check1").innerHTML = html;
+                        html = "";
+                        for(let j=0; j < r[1].length; j++){
+                            let obj = {}; // 빈 객체 생성
+                            obj[`${r[1][j].employeeDto.eno}`] = r[1][j].score; // 객체에 속성 추가
+                            rank2.push(obj); // 객체를 배열에 추가
+                            html += `<tr> <td><input type ="checkbox" onclick='getCheckboxValue()' class ="eno${r[1][j].employeeDto.eno}" value ="${r[1][j].employeeDto.eno}"></input>
+                                                     <td>${r[1][j].employeeDto.eno}</td>
+                                                     <td>${r[1][j].employeeDto.ename}</td>
+                                                     <td>${r[1][j].employeeDto.img}</td>
+                                                     <td>${r[1][j].score}</td></tr>`
+                        }
+                        document.querySelector(".s_check2").innerHTML = html;
 
-            html = "사용 가능한 고급 인원 :<br/>";
-            for(let j=0; j < r[2].length; j++){
-                let obj = {}; // 빈 객체 생성
-                obj[`${r[2][j].employeeDto.eno}`] = r[2][j].score; // 객체에 속성 추가
-                rank3.push(obj); // 객체를 배열에 추가
-                html += `<div> <input type ="checkbox" onclick='getCheckboxValue()' class ="eno${r[2][j].employeeDto.eno}" value ="${r[0][2].employeeDto.eno}">
-                <span>${r[2][j].employeeDto.eno}번</span>
-                <span>이름 : ${r[2][j].employeeDto.ename}</span>
-                <span>사진 : ${r[2][j].employeeDto.img} </span>
-                <span>고과점수 : ${r[2][j].score}</span>
-                </input> </div>`
-            }
-            document.querySelector(".s_check3").innerHTML = html;
-        }
+                        html = "";
+                        for(let j=0; j < r[2].length; j++){
+                            let obj = {}; // 빈 객체 생성
+                            obj[`${r[2][j].employeeDto.eno}`] = r[2][j].score; // 객체에 속성 추가
+                            rank3.push(obj); // 객체를 배열에 추가
+                            html += `<tr> <td><input type ="checkbox" onclick='getCheckboxValue()' class ="eno${r[2][j].employeeDto.eno}" value ="${r[2][j].employeeDto.eno}"></input>
+                                                     <td>${r[2][j].employeeDto.eno}</td>
+                                                     <td>${r[2][j].employeeDto.ename}</td>
+                                                     <td>${r[2][j].employeeDto.img}</td>
+                                                     <td>${r[2][j].score}</td></tr>`
+                        }
+                        document.querySelector(".s_check3").innerHTML = html;
+                    }
     });
 
 }
@@ -188,14 +186,14 @@ function autowired(){
 
 function sortbyscore(){
     console.log(pjno)
-    let html = "사용 가능한 초급 인원 : <br/>";
+    let html = "";
 
     $.ajax({
         type: "get",
         url: "/project/view/re.do?pjno="+pjno,
         async : false,
         success: (r) => {
-            check = [r[0].length,r[1].length,r[2].length]
+check = [r[0].length,r[1].length,r[2].length]
             r[0].sort((a, b) => {
                 return b.score - a.score;
             });
@@ -208,35 +206,35 @@ function sortbyscore(){
 
             console.log(r[0])
             for(let j=0; j < r[0].length; j++){
-                html += `<div> <input type ="checkbox" onclick='getCheckboxValue()' class ="eno${r[0][j].employeeDto.eno}" value ="${r[0][j].employeeDto.eno}">
-                <span>${r[0][j].employeeDto.eno}번</span>
-                <span>이름 : ${r[0][j].employeeDto.ename}번</span>
-                <span>사진 : ${r[0][j].employeeDto.img}번</span>
-                <span>고과점수 : ${r[0][j].score}</span>
-                </input> </div>`
+                html += `<tr><td> <input type ="checkbox" onclick='getCheckboxValue()' class ="eno${r[0][j].employeeDto.eno}" value ="${r[0][j].employeeDto.eno}"></input> </td>
+                <td>${r[0][j].employeeDto.eno}</td>
+                <td>${r[0][j].employeeDto.ename}</td>
+                <td>${r[0][j].employeeDto.img}</td>
+                <td>${r[0][j].score}</td>
+                </tr>`
 
             }
 
             document.querySelector(".s_check1").innerHTML = html;
-            html = "사용 가능한 중급 인원 : <br/>";
+            html = "";
             for(let j=0; j < r[1].length; j++){
-                html += `<div> <input type ="checkbox" onclick='getCheckboxValue()' class ="eno${r[1][j].employeeDto.eno}" value ="${r[1][j].employeeDto.eno}">
-                <span>${r[1][j].employeeDto.eno}번</span>
-                <span>이름 : ${r[1][j].employeeDto.ename}</span>
-                <span>사진 : ${r[1][j].employeeDto.img} </span>
-                <span>고과점수 : ${r[1][j].score}</span>
-                </input> </div>`
+                html += `<tr><td> <input type ="checkbox" onclick='getCheckboxValue()' class ="eno${r[1][j].employeeDto.eno}" value ="${r[1][j].employeeDto.eno}"></input> </td>
+                                         <td>${r[1][j].employeeDto.eno}</td>
+                                         <td>${r[1][j].employeeDto.ename}</td>
+                                         <td>${r[1][j].employeeDto.img}</td>
+                                         <td>${r[1][j].score}</td>
+                                         </tr>`
             }
             document.querySelector(".s_check2").innerHTML = html;
 
-            html = "사용 가능한 고급 인원 :<br/>";
+            html = "";
             for(let j=0; j < r[2].length; j++){
-                html += `<div> <input type ="checkbox" onclick='getCheckboxValue()' class ="eno${r[2][j].employeeDto.eno}" value ="${r[0][2].employeeDto.eno}">
-                <span>${r[2][j].employeeDto.eno}번</span>
-                <span>이름 : ${r[2][j].employeeDto.ename}</span>
-                <span>사진 : ${r[2][j].employeeDto.img} </span>
-                <span>고과점수 : ${r[2][j].score}</span>
-                </input> </div>`
+                html += `<tr><td> <input type ="checkbox" onclick='getCheckboxValue()' class ="eno${r[2][j].employeeDto.eno}" value ="${r[2][j].employeeDto.eno}"></input> </td>
+                                         <td>${r[2][j].employeeDto.eno}</td>
+                                         <td>${r[2][j].employeeDto.ename}</td>
+                                         <td>${r[2][j].employeeDto.img}</td>
+                                         <td>${r[2][j].score}</td>
+                                         </tr>`
             }
             document.querySelector(".s_check3").innerHTML = html;
         }
@@ -289,7 +287,7 @@ function sortbyeno(){
 function test(){
     $.ajax({
         method:"get",
-        url:"/test",
+        url:"/salary/test",
         success:(r)=>{
             console.log("안녕")
         }

@@ -32,7 +32,7 @@ public class J_ProjectPageController {
     }//m end
     
     //수주 전체 리스트 출력
-    @GetMapping("/list")
+        @GetMapping("/list")
     @ResponseBody
     public ProjectPageDto printProjectList(int page, int pageBoardSize,
                                            int sortKey,
@@ -118,10 +118,12 @@ public class J_ProjectPageController {
     //평가 가능한 프로젝트 리스트 출력
     @GetMapping("/perform.do")
     @ResponseBody
-    public ProjectPageDto doPrintPerform(){
+    public ProjectPageDto doPrintPerform(int page, int pageBoardSize, int sortKey,
+                                         String key, String keyword,
+                                         int startPrice, int endPrice){
         System.out.println("J_ProjectPageController.doPrintPerform");
 
-        return j_projectPageService.doPrintPerform();
+        return j_projectPageService.doPrintPerform(page, pageBoardSize, sortKey,key, keyword,startPrice,endPrice);
     }//m end
     
     //상세 평가 프로젝트 페이지 출력
@@ -153,7 +155,12 @@ public class J_ProjectPageController {
     //프로젝트 참여 사원 평가등록
     @PostMapping("/insertPerform.do")
     @ResponseBody
-    public ProjectlogDto doInsertPerform(int pjno){
-        return null;
-    }
+    public boolean doInsertPerform(int pjno, int eno, String note, String score){
+        System.out.println("J_ProjectPageController.doInsertPerform");
+        System.out.println("pjno = " + pjno + ", eno = " + eno + ", note = " + note + ", score = " + score);
+
+        return j_projectPageService.doInsertPerform(pjno, eno, note, score);
+    }//m end
+
+
 }//c end

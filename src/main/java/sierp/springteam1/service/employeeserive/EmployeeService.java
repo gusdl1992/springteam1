@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import sierp.springteam1.model.dao.EmployeeDao;
 import sierp.springteam1.model.dao.mypageDao.MypageDao;
 import sierp.springteam1.model.dto.*;
+import sierp.springteam1.service.j_projectPage.J_projectPageService;
 import sierp.springteam1.service.mypageService.MypageService;
 
 import java.util.List;
@@ -19,6 +20,10 @@ public class EmployeeService {
     private FileService fileService;
     @Autowired
     private MypageDao mypageDao;
+    @Autowired
+    private EmailService emailService;
+    @Autowired
+    private J_projectPageService j_projectPageService;
 
     //사원등록 요청
     public boolean eSignup(EmployeeDto employeeDto){
@@ -36,9 +41,6 @@ public class EmployeeService {
         //dto에 업로드 성공한 파일명을 대입한다
         employeeDto.setImg(fileName);
 
-        //*이메일 테스트
-        //if(result){emailService.send();}
-
         //1. 아이디 생성 / 후보 : 1.사원번호+이름 2.사원이메일 앞부분 3.?
         //샘플
         String id= employeeDto.getEmail().split("@")[0];
@@ -53,7 +55,12 @@ public class EmployeeService {
         employeeDto.setId(id);
         employeeDto.setPw(newPw);
         System.out.println(employeeDto);
-        return employeeDao.eSignup(employeeDto);
+         boolean result=employeeDao.eSignup(employeeDto);
+         String content="귀하의 입사를 축하드리며 자사 프로그램을 사용할 수 있는 아이디와 임시 비밀번호를 알려드립니다. \n 아이디 : "+employeeDto.getId()+"\n 비밀빈호 : "+employeeDto.getPw()+"\n 임시 비밀번호이기 때문에 로그인하시고 바꿔주시길 바랍니다.";
+        //*이메일 테스트
+        if(result){emailService.send(employeeDto.getEmail(),"팀 프로젝트 로그인 정보 안내",content);}
+        return result;
+
     }
 
     // 경력로그 등록 요청
@@ -84,8 +91,14 @@ public class EmployeeService {
     public boolean employeeDelete(int eno){
         return employeeDao.employeeDelete(eno);
     }
+    //경력 삭제
+    public boolean careerDelete(int eno, String companyname){return employeeDao.careerDelete(eno,companyname);}
 
-    //=================== 수정
+    //자격증 삭제
+    public boolean licenseDelete(int eno,int lno){
+        return employeeDao.licenseDelete(eno,lno);
+    }
+        //=================== 수정
     // 사원정보 수정
     public boolean employeeUpdate (EmployeeDto employeeDto){
             //1. 기존 첨부파일명 구하고
@@ -120,9 +133,23 @@ public class EmployeeService {
     }
 
     // 사원 전체 호출
-    public List<EmployeeDto> employeeList( int key,  String keyword){
+    public ProjectPageDto employeeList(int page, int pageBoardSize, int key,  String keyword){
         System.out.println("EmployeeService.employeeList");
-        return employeeDao.employeeList(key, keyword);
+        //1. start row : 시작할 게시물의 행순서
+        int startRow=(page-1)*pageBoardSize;
+
+        //2. 총 페이지 수
+        int totalRecode=employeeDao.countEmployeeList(key, keyword);  //총 레코트 출력
+
+        //**페이징 dto 저장 메소드(매개변수 -> page:현재페이지 , totalRecode:전체게시물수 , pageBoardSize:한페이지당 게시물수)
+        //리턴 : ProjectPageDto
+        ProjectPageDto projectPageDto = j_projectPageService.deliverPageInfo(page, totalRecode, pageBoardSize);
+
+        //3. 한페이지당 List
+        //dao에서 한페이지에 나타낼 게시물 리스트 가져오기
+        projectPageDto.setObjectList(employeeDao.employeeList(startRow, pageBoardSize, key, keyword));
+
+        return projectPageDto;
     }
 
     //경력 전체 호출
@@ -134,6 +161,16 @@ public class EmployeeService {
     public List<EmployeeLicenseDto> licenseViewList(int eno){
         System.out.println("eno = " + eno);
         return employeeDao.licenseViewList(eno);
+    }
+
+    // 자격증 중복 검색
+    public String findLicense(EmployeeLicenseDto licenseDto){
+        return employeeDao.findLicense(licenseDto);
+    }
+
+    // 합산 경력 호출
+    public String careearSum(int eno){
+        return employeeDao.careearSum(eno);
     }
 }
 

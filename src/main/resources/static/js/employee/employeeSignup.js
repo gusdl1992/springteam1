@@ -19,7 +19,8 @@ function onSelectPrint(){// 부서명/자격증명 받아오는 함수
 
 
 }
-
+// **** 현재 유효성검사 체크 현황
+//let checkArray=[false,false,false,false,false]
 
 function onSignup(){// 사원등록 함수
     //==============사원 form=====================
@@ -63,47 +64,14 @@ console.log('onPlusCareer()')
                     </tr>`
     ecareer.innerHTML += html;
 }
-// 나중에 버튼으로 넣을 예정
 
-/* 자격증 카테고리 불러오는 코드
-$.ajax({// 자격증명
-            url: `/license`,
-            method: `get`,
-            success: (r)=>{
-            console.log(r)
-            let licenseCategory = document.querySelector(".licenseCategory");
-            let html='';
-            r.forEach( license => {
-                         html+=`<option value="${license.lno}">${license.lname}</option>`;
-                    });
-                     licenseCategory.innerHTML = html;
-                 }
-        })
-*/
-
-/*
-
-/*
-   //=================자격증 form==============================
-   let licenseForm = document.querySelector('.licenseForm');
-       console.log(licenseForm)
-
-   let licenseFormData= new FormData(licenseForm);
-   console.log(licenseFormData); // new FormData
-
-   $.ajax({
-          url : '/lsignup',
-          method : 'post',
-          data : licenseFormData,
-          success :(r)=>{
-              console.log(r);
-              //4. 결과
-              if(r){
-              // 자격증까지 성공하면 사원 목록 페이지?
-                  alert('자격증등록 성공');
-                  location.href='/member/login';
-              }else {
-                  alert('자격증등록 실패');
-              }
-          }
-  })//ajax 끝*/
+// 이메일 검사
+function emailcheck(){
+    let email = document.querySelector('#email').value;
+    let 이메일규칙 = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+\.[a-zA-Z]+$/
+    let msg='아이디@도메인 입력해주세요';
+    if(이메일규칙.test(email)){
+        msg='통과';
+    }
+    document.querySelector('.emailcheckbox').innerHTML=msg;
+}

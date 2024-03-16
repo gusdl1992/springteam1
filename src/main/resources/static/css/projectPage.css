@@ -1,23 +1,39 @@
-#j_projectWrap  *{
-    border: 1px red solid;    
-}
+
 
 #j_projectWrap{
     width: 960px;
     height: 550px;
-    margin: 0 auto;
-    border: 1px red solid;
+    /*border: 1px red solid;*/
     display: flex;
 }
 #j_projectSideWrap{
-    width: 170px;
+    width: 150px;
+    background-color: #0A4C8C;
     height: 550px;
+    margin-right: 20px;
+}
+
+#j_projectSideWrap > ul{
+    margin-top: 10px;
+    font-size: 20px;
+}
+#j_projectSideWrap > ul > li{
+    margin-top: 5px;
 }
 #j_pjMainSide{
-    margin: 50px auto;
+    margin: 0px auto;
+    margin-right: 30px;
     padding: 0;
     width: 130px;
+    color: black;
+    margin-left: 10px;
 }
 .searchPrice{
     width : 100px;
+}
+
+#projectMainView{
+    margin-top: 10px;
+    min-width:750px;
+    height:550px;
 }
