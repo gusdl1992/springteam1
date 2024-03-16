@@ -9,6 +9,41 @@ import java.util.List;
 @Component
 public class EmployeeDao extends SuperDao{
     //로그인 요청
+
+    public EmployeeDto findEmployeeid(int eno){
+        EmployeeDto employeeDto = new EmployeeDto();
+        try {
+            String sql = "select * from employee where eno = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,eno);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                employeeDto = EmployeeDto.builder()
+                        .id(rs.getString("id"))
+                        .build();
+            }
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+
+        return employeeDto;
+    }
+    public String findSalt(String id){
+        try {
+            String sql ="select salt from employee where id = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,id);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                return rs.getString(1);
+            }
+        }
+        catch (Exception e){
+            System.out.println("SALT를 찾는 도중 발생한 문제입니다."+e);
+        }
+        return null;
+    }
     public int login(String id, String pw){
         try {
             String sql="select eno from employee where id=? and pw=?";
@@ -30,8 +65,8 @@ public class EmployeeDao extends SuperDao{
     public boolean eSignup(EmployeeDto employeeDto){
         System.out.println("EmployeeDao.eSignup");
         try{
-            String sql= "insert into employee(id, pw, ename,email,  phone, address,sex,img,pno,eeducation)" +
-                    " values(?,?,?,?,?,?,?,?,?,?)";
+            String sql= "insert into employee(id, pw, ename,email,  phone, address,sex,img,pno,eeducation,salt)" +
+                    " values(?,?,?,?,?,?,?,?,?,?,?)";
             ps=conn.prepareStatement(sql);
             ps.setString(1,employeeDto.getId());
             ps.setString(2,employeeDto.getPw());
@@ -43,6 +78,7 @@ public class EmployeeDao extends SuperDao{
             ps.setString(8,employeeDto.getImg());
             ps.setInt(9,employeeDto.getPno());
             ps.setString(10,employeeDto.getEeducation());
+            ps.setString(11,employeeDto.getSalt());
 
             System.out.println(employeeDto);
             int count= ps.executeUpdate();

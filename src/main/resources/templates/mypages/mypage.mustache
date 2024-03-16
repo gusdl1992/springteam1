@@ -1,29 +1,16 @@
-{{>headerfooter/header}}
-
-
-    <div id="p_container">
-        <div id="p_mypageSideWrap">
-            <ul id="p_mypageSide">
-                <li><a href="/mypage">내정보 보기</a></li>
-                <li><a href="/mypage/project">내 프로젝트</a></li>
-                <li><a href="/mypage/attendance">출결 관리</a></li>
-                <li><a href="#">출결 조회</a></li>
-            </ul>
-        </div>
-        <div id="p_dataViewWrap">
+{{>mypages/mypageTop}}
             <div id="p_dataView">
                 <!--  사원 데이터 출력 표시    -->
             </div>
             <div class="btnBox">
                 <button onclick="#" type="button"><a href="/mypage/updateView">수정</a></button>
             </div>
-        </div>
-    </div>
+
 
 
 
 <script src="/js/mypages/mypage.js"></script>
-{{>headerfooter/footer}}
+{{>mypages/mypageBottom}}
 
 <!--
     int eno;

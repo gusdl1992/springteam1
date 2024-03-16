@@ -8,7 +8,7 @@
 }
 #j_projectSideWrap{
     width: 150px;
-    background-color: #0A4C8C;
+    border : 1px solid #e8e8e8;
     height: 550px;
     margin-right: 20px;
 }
@@ -18,7 +18,8 @@
     font-size: 20px;
 }
 #j_projectSideWrap > ul > li{
-    margin-top: 5px;
+    margin-top: 20px;
+    margin-left:10px
 }
 #j_pjMainSide{
     margin: 0px auto;

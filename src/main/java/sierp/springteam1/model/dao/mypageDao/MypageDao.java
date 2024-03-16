@@ -23,17 +23,17 @@ public class MypageDao extends SuperDao {
             if (rs.next()){
                 // 빌드 패턴 사용
                 employeeDto = EmployeeDto.builder()
-                        .eno(rs.getInt(1))
-                        .eeducation(rs.getString(2))
-                        .id(rs.getString(3))
-                        .ename(rs.getString(5))
-                        .email(rs.getString(6))
-                        .phone(rs.getString(7))
-                        .address(rs.getString(8))
-                        .sex(rs.getBoolean(9))//성별
-                        .img(rs.getString(10))
-                        .edate(rs.getString(11))
-                        .pno(rs.getInt(12))
+                        .eno(rs.getInt("eno"))
+                        .eeducation(rs.getString("eeducation"))
+                        .id(rs.getString("id"))
+                        .ename(rs.getString("ename"))
+                        .email(rs.getString("email"))
+                        .phone(rs.getString("phone"))
+                        .address(rs.getString("address"))
+                        .sex(rs.getBoolean("sex"))//성별
+                        .img(rs.getString("img"))
+                        .edate(rs.getString("edate"))
+                        .pno(rs.getInt("pno"))
                         .pname(rs.getString("pname"))
                         .pw(rs.getString("pw"))
                         .build();

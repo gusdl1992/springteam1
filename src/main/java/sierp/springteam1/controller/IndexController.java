@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import sierp.springteam1.model.dao.EmployeeDao;
 import sierp.springteam1.model.dao.mypageDao.MypageDao;
 import sierp.springteam1.service.j_projectPage.J_projectPageService;
+import sierp.springteam1.service.secureservice.SecureService;
 
 @Controller
 public class IndexController {
@@ -22,6 +23,9 @@ public class IndexController {
     @Autowired
     private J_projectPageService j_projectPageService;
 
+    @Autowired
+    private SecureService secureService;
+
     @GetMapping("/")
     public String indexview(){
         /*request.getSession().setAttribute("eno" ,1);*/
@@ -32,7 +36,8 @@ public class IndexController {
     @ResponseBody
     public boolean login(String id, String pw){
         System.out.println("id = " + id);
-        int result= employeeDao.login(id,pw);
+
+        int result= secureService.login(id,pw);
         if(result !=-1){
             request.getSession().setAttribute("eno",result);
             return true;

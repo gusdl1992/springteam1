@@ -8,6 +8,7 @@ import sierp.springteam1.model.dao.mypageDao.MypageDao;
 import sierp.springteam1.model.dto.*;
 import sierp.springteam1.service.j_projectPage.J_projectPageService;
 import sierp.springteam1.service.mypageService.MypageService;
+import sierp.springteam1.service.secureservice.SecureService;
 
 import java.util.List;
 import java.util.Random;
@@ -24,6 +25,9 @@ public class EmployeeService {
     private EmailService emailService;
     @Autowired
     private J_projectPageService j_projectPageService;
+
+    @Autowired
+    private SecureService secureService;
 
     //사원등록 요청
     public boolean eSignup(EmployeeDto employeeDto){
@@ -54,6 +58,8 @@ public class EmployeeService {
 
         employeeDto.setId(id);
         employeeDto.setPw(newPw);
+        //암호화
+        employeeDto = secureService.doSec(employeeDto);
         System.out.println(employeeDto);
          boolean result=employeeDao.eSignup(employeeDto);
          String content="귀하의 입사를 축하드리며 자사 프로그램을 사용할 수 있는 아이디와 임시 비밀번호를 알려드립니다. \n 아이디 : "+employeeDto.getId()+"\n 비밀빈호 : "+employeeDto.getPw()+"\n 임시 비밀번호이기 때문에 로그인하시고 바꿔주시길 바랍니다.";
@@ -118,6 +124,8 @@ public class EmployeeService {
         }else {
             employeeDto.setImg(bfile); // 새로운 첨부파일이 없으면 기존 첨부파일명 그대로 대입
         }
+        //암호화
+        employeeDto = secureService.doSec(employeeDto);
         return employeeDao.employeeUpdate(employeeDto);
     }
 

@@ -1,14 +1,4 @@
-{{>headerfooter/header}}
-<div id="p_container">
-    <div id="p_mypageSideWrap">
-        <ul id="p_mypageSide">
-            <li><a href="/mypage">내정보 보기</a></li>
-            <li><a href="/mypage/project">내 프로젝트</a></li>
-            <li><a href="/mypage/attendance">출결 관리</a></li>
-            <li><a href="#">출결 조회</a></li>
-        </ul>
-    </div>
-    <div id="p_dataViewWrap">
+{{>mypages/mypageTop}}
             <h3> 사원 정보 수정 페이지 </h3>
             이름 : <input class="name" type="text" id="test" value="" disabled /> <br/>
             이메일 : <input class="email" type="text" id="test" value="" /> <br/>
@@ -24,8 +14,7 @@
         <div class="p_UbtnBox">
             <button onclick="#" type="button"><a href="/mypage">뒤로</a></button>
         </div>
-    </div>
-</div>
+
 
 <script src="/js/mypages/mypageUpdate.js"></script>
-{{>headerfooter/footer}}
+{{>mypages/mypageBottom}}

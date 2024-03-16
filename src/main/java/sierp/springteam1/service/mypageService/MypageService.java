@@ -4,8 +4,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
+import sierp.springteam1.model.dao.EmployeeDao;
 import sierp.springteam1.model.dao.mypageDao.MypageDao;
 import sierp.springteam1.model.dto.EmployeeDto;
+import sierp.springteam1.service.secureservice.SecureService;
 
 @Service
 public class MypageService {
@@ -15,6 +17,11 @@ public class MypageService {
     @Autowired
     private HttpServletRequest request;
 
+    @Autowired
+    private SecureService secureService;
+
+    @Autowired
+    private EmployeeDao employeeDao;
 
     // 세션 에서 회원번호 가져오기
     public String sessionEno(){
@@ -59,10 +66,13 @@ public class MypageService {
         // dao 에 접근하여 eno 전달 후 비밀번호 비교
         String existingpw = mypageDao.passwordCheck(eno);
         System.out.println("existingpw = " + existingpw);
+        String id = employeeDao.findEmployeeid(Integer.parseInt(eno)).getId();
+        pw = secureService.get_UsersPW(id,pw);
         // 입력받은 비밀번호 화 DB 에 저장된 비밀번호 비교
         if (existingpw.equals(pw)){
             System.out.println("비밀번호가 같다");
             // 비밀번호가 같을 경우 model dao 에게 회원번호 뉴 패스워드 전달.
+            newpw = secureService.get_UsersPW(id,newpw);
             result = mypageDao.doMypageUpdatePw(eno,newpw);
             return result;
         }else {

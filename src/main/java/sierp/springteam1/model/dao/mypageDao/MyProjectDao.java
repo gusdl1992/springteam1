@@ -16,7 +16,7 @@ public class MyProjectDao extends SuperDao {
     // 진행 중인 프로젝트 전체 출력
     public MyProjectDto myProjectList(String eno){
         System.out.println("MyProjectDao.myProjectList");
-        MyProjectDto myProjectDto = null;
+        MyProjectDto myProjectDto = new MyProjectDto();
         try {
             String sql =
                     "SELECT p.pjno, p.eno , p.state , s.state , s.start_date , s.end_date , s.title , s.compannyname\n" +
@@ -44,7 +44,7 @@ public class MyProjectDao extends SuperDao {
         }catch (Exception e){
             System.out.println("MyProjectDao.myProjectList : e = " + e);
         }
-        return null;
+        return myProjectDto;
     }
 
 
