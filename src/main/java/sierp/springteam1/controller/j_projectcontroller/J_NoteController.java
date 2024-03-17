@@ -97,11 +97,18 @@ public class J_NoteController {
         return j_noteService.doGetPostNote(eno, page, pageBoardSize);
     }//m end
 
-    //쪽지 상세보기 페이지 요청
+    //쪽지 상세보기 페이지 요청(받은쪽지)
     @GetMapping("/getDetail")
     public String getNoteDetail(){
         System.out.println("J_NoteController.getNoteDetail");
         return "/j_note/noteDetail";
+    }//m end
+
+    //쪽지 상세보기 페이지 요청(보낸쪽지)
+    @GetMapping("/getPostDetail")
+    public String getNotePostDetail(){
+        System.out.println("J_NoteController.getNoteDetail");
+        return "/j_note/notePostDetail";
     }//m end
 
     //쪽지 상세정보 요청

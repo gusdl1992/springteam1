@@ -23,7 +23,7 @@ function printNoteList(page){
             r.objectList.forEach((result)=>{
                 html+=`<tr>
                            <th>${--noteCount}</th>
-                           <td><a href="/note/getDetail?nno=${result.nno}">${result.ncontent.substr(0, 8)}...</a></td>
+                           <td><a href="/note/getPostDetail?nno=${result.nno}">${result.ncontent.substr(0, 8)}...</a></td>
                            <td>${result.sendid}</td>
                            <td>${result.ndate}</td>
                        </tr>`;
