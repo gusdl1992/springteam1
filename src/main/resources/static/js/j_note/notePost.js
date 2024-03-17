@@ -1,6 +1,6 @@
 //쪽지보내기
 function doPostNote(){
-    let sendid=document.querySelector(".sencid").value;
+    let sendid=document.querySelector(".sendid").value;
     let sendeno=getSendenoToId(sendid);
     if(sendeno!=0){
         let ncontent=document.querySelector(".ncontent").value;
@@ -9,7 +9,8 @@ function doPostNote(){
             url : "/note/post.do",
             method : "Post",
             data : {"sendeno" : sendeno,
-                    "ncontent" : ncontent},
+                    "ncontent" : ncontent,
+                    "reply" : 0},
             success : (r)=>{
                 console.log(r);
                 alert("쪽지 전송 성공");

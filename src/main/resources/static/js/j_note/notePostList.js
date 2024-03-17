@@ -24,7 +24,7 @@ function printNoteList(page){
                 html+=`<tr>
                            <th>${--noteCount}</th>
                            <td><a href="/note/getDetail?nno=${result.nno}">${result.ncontent.substr(0, 8)}...</a></td>
-                           <td>${result.postid}</td>
+                           <td>${result.sendid}</td>
                            <td>${result.ndate}</td>
                        </tr>`;
             })//for end

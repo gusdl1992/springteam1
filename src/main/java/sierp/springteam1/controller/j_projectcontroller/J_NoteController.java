@@ -48,12 +48,13 @@ public class J_NoteController {
     //쪽지 보내기
     @PostMapping("/post.do")
     @ResponseBody
-    public boolean doPostNote(int sendeno, String ncontent){
+    public boolean doPostNote(int sendeno, String ncontent, int reply){
         System.out.println("J_NoteController.doPostNote");
         System.out.println("sendeno = " + sendeno + ", ncontent = " + ncontent);
         NoteDto noteDto=NoteDto.builder()
                                 .sendeno(sendeno)
                                 .ncontent(ncontent)
+                                .reply(reply)
                                 .build();
         //로그인한 사람의 사원번호 suvlet에서 가져오기
         //int eno=3;
@@ -100,7 +101,7 @@ public class J_NoteController {
     @GetMapping("/getDetail")
     public String getNoteDetail(){
         System.out.println("J_NoteController.getNoteDetail");
-        return "/쪽지 상세보기 mustache";
+        return "/j_note/noteDetail";
     }//m end
 
     //쪽지 상세정보 요청

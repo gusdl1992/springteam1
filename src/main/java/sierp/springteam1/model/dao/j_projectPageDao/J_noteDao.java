@@ -70,11 +70,12 @@ public class J_noteDao extends SuperDao {
         System.out.println("J_noteDao.doPostNote");
         System.out.println("noteDto = " + noteDto);
         try{
-            String sql="insert into note(posteno, sendeno, ncontent) values(?,?,?) ";
+            String sql="insert into note(posteno, sendeno, ncontent, reply) values(?,?,?,?) ";
             ps=conn.prepareStatement(sql);
             ps.setInt(1, noteDto.getPosteno());
             ps.setInt(2, noteDto.getSendeno());
             ps.setString(3, noteDto.getNcontent());
+            ps.setInt(4,noteDto.getReply());
 
             int count=ps.executeUpdate();
             if(count==1){
