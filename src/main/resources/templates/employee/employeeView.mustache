@@ -2,44 +2,48 @@
 
 
     <div id="k_employee">
-        <button type="button" onclick="onEmployeeDelete()">퇴사처리</button>
-        <button type="button" onclick="employeeUpdate()">정보수정</button>
-        <div class="img"></div>
-        부서명:<div class="pname"></div>
-        이름:<div class="ename"></div>
-        성별 :<div class="sex"></div>
-        입사일:<div class="edate"></div>
-        전화번호:<div class="phone"></div>
-        이메일:<div class="email"></div>
-        주소:<div class="address"></div>
-        <div>
-            경력사항
-            <!--<button onclick="OnCareerPlus()" type="button">경력 편집</button>
-            <button onclick="OnCareer()" type="button">경력 등록</button>
--->          <div class="table">
-                <div class="thead">
-                    <div class="tr">
-                        <div class="th">회사명</div>
-                        <div class="th">입사날짜</div>
-                        <div class="th">퇴사날짜</div>
-                        <div class="th">담당업무</div>
-                        <div class="th">경력증명서</div>
-                        <div class="th"><button onclick="OnCareerPlus()" type="button">경력 추가</button></div>
+        <div class="buttonGroup">
+            <button type="button" onclick="onEmployeeDelete()">퇴사처리</button>
+            <button type="button" onclick="employeeUpdate()">정보수정</button>
+        </div>
+        <div class="contentWrapper">
+            <div class="basicInfo">
+                <div class="img"></div>
+                부서명:<div class="pname"></div>
+                이름:<div class="ename"></div>
+                성별 :<div class="sex"></div>
+                입사일:<div class="edate"></div>
+                전화번호:<div class="phone"></div>
+                이메일:<div class="email"></div>
+                주소:<div class="address"></div>
+            </div>
+        <div class="careerAndLicense">
+            <div class="careerInfo">
+                경력사항
+                <!--<button onclick="OnCareerPlus()" type="button">경력 편집</button>
+                <button onclick="OnCareer()" type="button">경력 등록</button>
+    -->          <div class="table">
+                    <div class="thead">
+                        <div class="tr">
+                            <div class="th">회사명</div>
+                            <div class="th">입사날짜</div>
+                            <div class="th">퇴사날짜</div>
+                            <div class="th">담당업무</div>
+                            <div class="th">경력증명서</div>
+                            <div class="th"><button onclick="OnCareerPlus()" type="button">경력 추가</button></div>
+                        </div>
                     </div>
-                </div>
-            <div class="careerSum">여기</div>
-                <div class="tbody careerBox">
-                    <div>
-                        경력사항
+                    <div class="careerSum">여기</div>
+                    <div class="tbody careerBox">
 
+                        <!-- <tr>
+                             <td><input type="text"></td>
+                             <td><input type="date"></td>
+                             <td><input type="date"></td>
+                             <td><input type="text"></td>
+                             <td><input type="file"></td>
+                         </tr>-->
                     </div>
-                    <!-- <tr>
-                         <td><input type="text"></td>
-                         <td><input type="date"></td>
-                         <td><input type="date"></td>
-                         <td><input type="text"></td>
-                         <td><input type="file"></td>
-                     </tr>-->
                 </div>
             </div>
             <div class="cBtn">
@@ -47,28 +51,30 @@
             </div>
 
         </div>
-        자격증
-        <button onclick="OnLicensePlus()" type="button">자격증 추가</button>
-        <div class="table">
-            <div class="thead">
-                <div class="tr">
-                    <div class="th">자격증명</div>
-                    <div class="th">취득일</div>
-                </div>
+            <div class="licenseInfo">
+                자격증
+                <button onclick="OnLicensePlus()" type="button">자격증 추가</button>
+                <div class="table">
+                    <div class="thead">
+                        <div class="tr">
+                            <div class="th">자격증명</div>
+                            <div class="th">취득일</div>
+                        </div>
 
-            </div>
-            <div class="tbody licenseBox">
-                <!-- <tr>
-                     <td>
-                       <select>
-                           <option value="${license.lno}">${license.lname}</option>
-                       </select>
-                   </td>
-                    <td><input type="date"></td>
-                </tr>-->
-            </div>
-            <div class="lBtn">
+                    </div>
+                    <div class="tbody licenseBox">
+                        <!-- <tr>
+                             <td>
+                               <select>
+                                   <option value="${license.lno}">${license.lname}</option>
+                               </select>
+                           </td>
+                            <td><input type="date"></td>
+                        </tr>-->
+                    </div>
+                    <div class="lBtn">
 
+                    </div>
             </div>
         </div>
 

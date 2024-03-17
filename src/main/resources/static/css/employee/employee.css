@@ -22,3 +22,88 @@
     margin-left:170px
 }
 
+  /* 양식 전체 스타일 */
+  /*
+        .employeeForm {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            display: flex;
+        }
+
+        .section1 {
+            width: 50%;
+            padding-right: 10px;
+            box-sizing: border-box;
+        }
+
+        .section2 {
+            width: 50%;
+            padding-left: 10px;
+            box-sizing: border-box;
+        }
+
+        .employeeForm div {
+            margin-bottom: 10px;
+        }
+
+        .employeeForm input[type="text"],
+        .employeeForm input[type="date"],
+        .employeeForm select {
+            width: calc(100% - 10px);
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .employeeForm input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .employeeForm button {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .employeeForm button:hover {
+            background-color: #0056b3;
+        }*/
+
+        /* 버튼 그룹 스타일 */
+        .buttonGroup {
+            text-align: right; /* 오른쪽 정렬 */
+        }
+
+        /* 내용을 가로로 나누는 wrapper 스타일 */
+        .contentWrapper {
+            display: flex; /* Flexbox 사용 */
+        }
+
+        /* 기본 정보 스타일 */
+        .basicInfo {
+            flex: 1; /* 자동으로 나머지 공간을 채움 */
+            padding-right: 20px; /* 오른쪽 여백 추가 */
+        }
+
+        /* 경력 및 자격증 스타일 */
+        .careerAndLicense {
+            flex: 1; /* 자동으로 나머지 공간을 채움 */
+            padding-left: 20px; /* 왼쪽 여백 추가 */
+        }
+
+        /* 경력 정보 스타일 */
+        .careerInfo {
+            /* 경력 정보 스타일링 */
+        }
+
+        /* 자격증 정보 스타일 */
+        .licenseInfo {
+            /* 자격증 정보 스타일링 */
+        }
