@@ -85,6 +85,7 @@ $.ajax({
 })
 }
 
+//관리자 확인    240317 장은경 수정
 function managerCheck(){
     $.ajax({
         url : "/managerCheck",
@@ -100,3 +101,26 @@ function managerCheck(){
         }
     })//ajax end
 }//f end
+
+//로그인 확인  > 쪽지페이지 이동 240317 장은경 수정
+function loginCheck(){
+    $.ajax({
+        url : '/employee/login/check' ,
+        method : 'get' ,
+        async : false,
+        success : (r)=>{
+            console.log(r);
+            // 1. 어디에
+            let login_menu = document.querySelector('#login_menu');
+            // 2. 무엇을
+            let html = '';
+            if(r != ''){ // 로그인 했을떄
+                location.href="/note/receive";
+            }
+            else{
+                alert("로그인이 필요합니다.");
+            }
+        }//s end
+    })//ajax end
+}//f end
+

@@ -1,0 +1,19 @@
+{{>j_note/noteTop}}
+<h3>쪽지보내기</h3>
+
+    <!--받는사람 id-->
+    <div>
+        받는이id : <input type="text" class="sencid" name="sendid"/>
+    </div>
+
+    <!--보낼내용-->
+    <textarea class="ncontent" name="ncontent" placeholder="쪽지내용"></textarea>
+
+    <!--btn-->
+    <div>
+        <button type="button" onclick="doPostNote()">전송</button>
+        <button type="button" onclick="location.href='/note/receive'" >취소</button>
+    </div>
+
+<script src="/js/j_note/notePost.js"></script>
+{{>j_note/noteBottom}}

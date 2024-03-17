@@ -19,7 +19,7 @@ public class J_noteDao extends SuperDao {
             String sql="select n.*, a.postid, b.sendid from \n" +
                     "(select nno,id as postid from note as n inner join employee as e on n.posteno=e.eno)as a inner join\n" +
                     "(select nno,id as sendid from note as n inner join employee as e on n.sendeno=e.eno)as b on a.nno=b.nno inner join \n" +
-                    "note as n on n.nno=b.nno where "+sendMark+"="+eno+" limit ?,?;";
+                    "note as n on n.nno=b.nno where "+sendMark+"="+eno+" order by ndate desc limit ?,?;";
             ps=conn.prepareStatement(sql);
 
             ps.setInt(1,startRow);
@@ -70,13 +70,11 @@ public class J_noteDao extends SuperDao {
         System.out.println("J_noteDao.doPostNote");
         System.out.println("noteDto = " + noteDto);
         try{
-            String sql="insert into note(posteno, sendeno, ncontent, ndate, reply) values(?,?,?,?,?) ";
+            String sql="insert into note(posteno, sendeno, ncontent) values(?,?,?) ";
             ps=conn.prepareStatement(sql);
             ps.setInt(1, noteDto.getPosteno());
             ps.setInt(2, noteDto.getSendeno());
             ps.setString(3, noteDto.getNcontent());
-            ps.setString(4, noteDto.getNdate());
-            ps.setInt(5, noteDto.getReply());
 
             int count=ps.executeUpdate();
             if(count==1){

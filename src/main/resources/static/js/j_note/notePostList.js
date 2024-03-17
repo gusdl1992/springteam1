@@ -11,11 +11,12 @@ function printNoteList(page){
     pageInfo.page=page;
 
     $.ajax({
-        url : "/note/receive.do",
+        url : "/note/getPost.do",
         method : "Get",
         data : pageInfo,
         success : (r) => {
             console.log(r);
+
             //전체 리스트 출력
             let html=``;
             let noteCount=r.objectList.length+1;
@@ -37,7 +38,6 @@ function printNoteList(page){
             html+=`<li class="page-item"><a class="page-link" onclick="printNoteList(${page+1>r.totalPage ? r.totalPage : page+1})">Next</a></li>`;
 
             document.querySelector(".pagination").innerHTML=html;
-
         }//s end
     })//ajax end
 }//f end
