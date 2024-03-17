@@ -1,10 +1,5 @@
 
-table *{
-    border: 1px solid black;
-}
-table td{
-    text-align:center;
-}
+
 #j_projectWrap{
     width: 960px;
     height: 550px;

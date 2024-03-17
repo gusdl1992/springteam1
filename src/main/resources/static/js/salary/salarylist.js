@@ -1,23 +1,57 @@
 
+
+
+let pageObject = {
+    page : 1,
+    pageBoardSize : 20,
+    state : -2 ,       //현재 카테고리
+    key : "",
+    keyword : ""
+}
+
+doViewList(1);
+
+
 console.log("안녕")
-onWrite()
-function onWrite(){
+
+function doViewList(page){
+    console.log(page)
+    pageObject.page =page;
+    console.log(page)
+    let html ="지급받을 대상이 없습니다.";
     $.ajax({
         url:"/salary/list.do",
         method:"get",
+        data:pageObject,
         success: (r) => {
-            let html ="받을 인물이 없습니다.";
+            html ="";
             console.log(r)
-            r.forEach((i) => {
-                 html += `<input type="checkbox" class="eno${i.employeeDto.eno}" value ="{eno:${i.employeeDto.eno},price:${i.price}}"> <a href = "#"> ${i.employeeDto.ename} 사원 </a> 월급 ${i.price}만원<button type="button" onclick="doDel(${i.employeeDto.eno})">제거</button>  <br/>`  //추후 상세보기 링크로 만들 예정
+            r.list.forEach((i) => {
+                 html += `<tr><td><input type="checkbox"
+                 class="eno${i.employeeDto.eno}" value ="{eno:${i.employeeDto.eno},price:${i.price}}"></td>
+                  <td><a href = "#"> ${i.employeeDto.ename} </a></td>
+                   <td> ${i.price}만원</td><td><button type="button" onclick="doDel(${i.employeeDto.eno})">제거</button> </td></tr>`  //추후 상세보기 링크로 만들 예정
             })
-
-
-
-            document.querySelector(".test").innerHTML = html;
+            document.querySelector("#boardTableBody").innerHTML = html;
+            let pagination = document.querySelector(".pagination");
+            let pagehtml = "";
+            pagehtml += `            <li class="page-item">
+                                         <a class="page-link" onclick="doViewList(${page-1 < 1 ?1 : page-1})" >이전</a>
+                                     </li>`
+            for(let i = r.startbtn; i <=r.endbtn; i++){
+                pagehtml +=  `<li class="page-item">
+                                  <a class="page-link ${ i == page ? 'active' : '' }" onclick="doViewList(${i})"> ${i}</a>
+                             </li>`
+            }
+            pagehtml += `            <li class="page-item">
+                                          <a class="page-link" onclick="doViewList(${page+1 > r.totalpage ? r.totalpage : page+1})" >다음</a>
+                                     </li>`
+            pagination.innerHTML = pagehtml;
         }
     })
 }
+
+
 
 function doPost(){
     let checkboxes1 = document.querySelectorAll('input:checked');
@@ -45,5 +79,16 @@ function doPost(){
 }
 
 function doDel(i){
-    console.log(i);
+    let checkbox = document.querySelector(`.eno${i}`).value;
+    let eno = checkbox.eno
+    let price = checkbox.price;
+    console.log(eno)
+    console.log(price)
+}
+
+function onPageBoardSize(object){
+    console.log(object); console.log(object.value);
+    pageObject.pageBoardSize = object.value
+    doViewList(1)
+
 }

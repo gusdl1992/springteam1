@@ -167,6 +167,11 @@ public class EmployeeService {
     public String findLicense(EmployeeLicenseDto licenseDto){
         return employeeDao.findLicense(licenseDto);
     }
+
+    // 합산 경력 호출
+    public String careearSum(int eno){
+        return employeeDao.careearSum(eno);
+    }
 }
 
 

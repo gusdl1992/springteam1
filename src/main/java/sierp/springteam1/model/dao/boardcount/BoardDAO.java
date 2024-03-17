@@ -64,6 +64,21 @@ public class BoardDAO extends SuperDao {
                          .price(Double.parseDouble(rs.getString("price")))
                          .build()
                     );
+                else if(tablename.contains("salary")){
+                    list.add(SalaryDto.builder()
+                            .employeeDto(EmployeeDto.builder()
+                                    .eno(rs.getInt("eno"))
+                                    .id(rs.getString("id"))
+                                    .ename(rs.getString("ename"))
+                                    .email(rs.getString("email"))
+                                    .phone(rs.getString("phone"))
+                                    .address(rs.getString("address"))
+                                    .sex(rs.getBoolean("sex"))
+                                    .build())
+                            .price(Double.parseDouble(rs.getString("price")))
+                            .build());
+                }
+
             }
         }
         catch (Exception e ){

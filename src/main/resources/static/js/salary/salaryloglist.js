@@ -1,7 +1,7 @@
 
 let pageObject = {
     page : 1,
-    pageBoardSize : 5,
+    pageBoardSize : 20,
     state : -2 ,       //현재 카테고리
     key : "",
     keyword : ""
@@ -23,12 +23,10 @@ function doViewList(page){
             let html = ""
             r.list.forEach(board => {
                 html += `        <tr>
-                                     <th style="width:5%";>${board.sno}</th>
-                                     <td style="width:60%"><a href = "/board/view?bno=${board.bno}" >${board.employeeDto.id} </a></td>
-//                                     <td style="width:15%"><img src="/img/${board.mimg}" style="width:20px; border-radius:50%"/>
-//                                      ${board.mid} </td>
-                                     <td style="width:15%">${board.smonth.split(" ")[0]}</td>
-                                     <td style="width:5%">${board.price}</td>
+                                     <th >${board.sno}</th>
+                                     <td ><a href = "/board/view?bno=${board.bno}" >${board.employeeDto.id} </a></td>
+                                     <td >${board.smonth.split(" ")[0]}</td>
+                                     <td >${board.price}</td>
                                  </tr>`
             })
             boardTableBody.innerHTML = html
@@ -46,10 +44,6 @@ function doViewList(page){
                                           <a class="page-link" onclick="doViewList(${page+1 > r.totalpage ? r.totalpage : page+1})" >다음</a>
                                      </li>`
             pagination.innerHTML = pagehtml;
-            // 부가 출력
-
-            document.querySelector(".totalPage").innerHTML = "전체 페이지 수 :"+r.totalpage;
-            document.querySelector(".totalBoardSize").innerHTML= "총 게시물 수 :"+r.totalBoardSize;
         }
     })
 

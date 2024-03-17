@@ -61,9 +61,12 @@ public class EmployeeController {
     public boolean licenseDelete(int eno,int lno){
         return employeeService.licenseDelete(eno,lno);
     }
+
     @DeleteMapping("/career/delete")
     @ResponseBody
-    public boolean careerDelete(int eno, String companyname){return employeeService.careerDelete(eno,companyname);}
+    public boolean careerDelete(int eno, String companyname){
+        System.out.println("companyname = " + companyname);
+        return employeeService.careerDelete(eno,companyname);}
     //================== 수정
     // 사원 정보 수정
     @PutMapping("/employee/update.do")
@@ -79,11 +82,13 @@ public class EmployeeController {
     public String getemployee(){
         return "/employee/employee";
     }
+
     // 개별인사관리 페이지 요청
     @GetMapping("/employee/view")
     public String employeeView(int eno){
         return "/employee/employeeView";
     }
+
     //사원등록 페이지 요청
     @GetMapping("/signup")
     public String viewSignup(){
@@ -153,4 +158,12 @@ public class EmployeeController {
     public String findLicense(EmployeeLicenseDto licenseDto){
         return employeeService.findLicense(licenseDto);
     }
+
+    @GetMapping("/careerSum")
+    @ResponseBody
+    public String careearSum(int eno){
+        System.out.println("EmployeeController.careearSum");
+        return employeeService.careearSum(eno);
+    }
+
 }

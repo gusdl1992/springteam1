@@ -13,15 +13,15 @@ function printperformDetail(){
          success : (r)=>{
             console.log("결과출력");
             console.log(r);
-            document.querySelector(".detaile_pjno").innerHTML=r.pjno;
-            document.querySelector(".detaile_perFormState").innerHTML=r.perFormState==0 ? '평가전' : (r.perFormState==1 ? '평가중' : '평가완료');
-            document.querySelector(".detaile_start_date").innerHTML=r.start_date;
-            document.querySelector(".detaile_end_date").innerHTML=r.end_date;
-            document.querySelector(".detaile_title").innerHTML=r.title;
-            document.querySelector(".detaile_request").innerHTML=r.request;
-            document.querySelector(".detaile_note").innerHTML=r.note;
-            document.querySelector(".detaile_compannyname").innerHTML=r.compannyname;
-            document.querySelector(".detaile_price").innerHTML=r.price;
+//            document.querySelector(".detaile_pjno").innerHTML=r.pjno;
+//            document.querySelector(".detaile_perFormState").innerHTML=r.perFormState==0 ? '평가전' : (r.perFormState==1 ? '평가중' : '평가완료');
+//            document.querySelector(".detaile_start_date").innerHTML=r.start_date;
+//            document.querySelector(".detaile_end_date").innerHTML=r.end_date;
+//            document.querySelector(".detaile_title").innerHTML=r.title;
+//            document.querySelector(".detaile_request").innerHTML=r.request;
+//            document.querySelector(".detaile_note").innerHTML=r.note;
+//            document.querySelector(".detaile_compannyname").innerHTML=r.compannyname;
+//            document.querySelector(".detaile_price").innerHTML=r.price;
             getPjEmployeeInfo();    //참여 사원 정보 불러오기
             document.querySelector(".buttons").innerHTML+=r.perFormState==0 ?
                                                         `<button type="button" onclick="insertPerform()"> 평가등록 </button>` :
@@ -52,7 +52,7 @@ function getPjEmployeeInfo(){
             let html=``;
             r.forEach((result) => {
                 html+=`<tr>
-                          <td> ${result.eno} </td>
+                          <th> ${result.eno} </th>
                           <td>${result.ename} </td>
                           <td> ${result.pname} </td>
                           <td> ${result.rank} </td>

@@ -57,6 +57,8 @@ function CareerPrint(){
             let html='';
             careerBox.innerHTML = html;
             r.forEach( career => {
+            console.log(career.companyname)
+            let companyname = career.companyname
                  html+=`
                       <div class="tr">
                          <div class="td ">${career.companyname}</div>
@@ -64,7 +66,7 @@ function CareerPrint(){
                          <div class="td ">${career.end_date}</div>
                          <div class="td ">${career.note}</div>
                          <div class="td ">${career.eimg}</div>
-                         <div class="td "><button onclick="onCareerDelete(${career.companyname})" type="button">삭제</button></div>
+                         <div class="td "><button onclick="onCareerDelete( '${companyname}' )" type="button">삭제</button></div>
                        </div>`;
              careerBox.innerHTML = html;
            });
@@ -147,6 +149,7 @@ $.ajax({
 }
 // 경력 삭제
 function onCareerDelete(companyname){
+console.log("경력 삭제")
 $.ajax({
          url : '/career/delete',
          method : 'delete',
