@@ -102,7 +102,7 @@ function licensePrint(){
 
 // 수정 업데이트
 function onUpdate(){
-    let employeeForm = document.querySelector('.employeeForm');
+    let employeeForm = document.querySelector('.employeeForm1');
         console.log(employeeForm)
         let employeeFormData= new FormData(employeeForm);
         console.log(employeeFormData); // new FormData

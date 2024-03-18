@@ -22,60 +22,6 @@
     margin-left:170px
 }
 
-  /* 양식 전체 스타일 */
-  /*
-        .employeeForm {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-family: Arial, sans-serif;
-            display: flex;
-        }
-
-        .section1 {
-            width: 50%;
-            padding-right: 10px;
-            box-sizing: border-box;
-        }
-
-        .section2 {
-            width: 50%;
-            padding-left: 10px;
-            box-sizing: border-box;
-        }
-
-        .employeeForm div {
-            margin-bottom: 10px;
-        }
-
-        .employeeForm input[type="text"],
-        .employeeForm input[type="date"],
-        .employeeForm select {
-            width: calc(100% - 10px);
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-
-        .employeeForm input[type="radio"] {
-            margin-right: 5px;
-        }
-
-        .employeeForm button {
-            padding: 10px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        .employeeForm button:hover {
-            background-color: #0056b3;
-        }*/
-
         /* 버튼 그룹 스타일 */
         .buttonGroup {
             text-align: right; /* 오른쪽 정렬 */
@@ -110,11 +56,78 @@
         }
         .tr {
             display: flex; /* 가로로 나열하도록 설정 */
+            width:500px;
         }
-
+        .td.cinput >input {
+            width:85;
+        }
         .th {
             flex: 1; /* 각 열이 동일한 너비를 가지도록 설정 */
         }
         .td {
             flex: 1; /* 각 열이 동일한 너비를 가지도록 설정 */
         }
+ .container {
+        display: flex;
+    }
+    .employeeForm{
+        display:flex;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        margin:0 auto;
+
+    }
+    .section {
+        width: 250px; /* 가로 이등분 */
+        padding: 20px;
+    }
+
+    .section:first-child {
+        margin-right: 10px; /* 첫 번째 섹션 오른쪽 마진 */
+    }
+
+    .section:last-child {
+        margin-left: 10px; /* 두 번째 섹션 왼쪽 마진 */
+    }
+
+    .section div {
+        margin-bottom: 10px;
+    }
+
+    input[type="text"], input[type="date"], select {
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    input[type="radio"] {
+        margin-right: 5px;
+    }
+
+    button {
+        padding: 8px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-left:5px;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+    .ename1 {
+        margin-top: 20;
+    }
+
+.eViewTop {
+        text-align: right; /* 텍스트 오른쪽 정렬 */
+    }
+
+    .eViewTop button {
+        margin-left: 10px; /* 버튼 간격 설정 */
+        margin-top: 10px; /* 버튼 간격 설정 */
+    }
+

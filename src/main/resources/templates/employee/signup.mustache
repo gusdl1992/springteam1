@@ -1,7 +1,7 @@
 {{>employee/employeeTop}}
 
         <form class="employeeForm">
-            <div class="section1">
+            <div class="section">
                 <!-- <div class="label"> 아이디 </div>
                  <input onkeyup="idCheck()" type="text" id="id" name="id" />
                  <div class="idcheckbox checkbox">유효성검사결과</div>
@@ -19,27 +19,17 @@
                     <option>프로그래머</option>-->
                     <!-- js db 가져올 예정 -->
                 </select>
-                <div >이름 : <input type="text" id="ename" name="ename"></div>    <br/>
-
-                <div >전화번호 : <input type="text" id="phone" name="phone"></div>   <br/>
-
-
-                <div >주소 : <input type="text" id="address" name="address"></div>
                 <br/>
 
                 <div >성별</div>
                 <input type="radio" id="sex" name="sex" value="false" checked> 남성
                 <input type="radio" id="sex" name="sex" value="true"> 여성 <br/>
-            </div>
-            <div class="section2">
+
+                <div class="ename1">이름 : <input type="text" id="ename" name="ename"></div>
+
                 <div >입사 날짜</div>
                 <input type="date" id="edate" name="edate"><br/>
 
-                <div>이메일</div>
-                <div>
-                    <input onkeyup="emailcheck()" type="text" id="email" name="email">
-                    <div  class="emailcheckbox"></div>
-                </div>
                 <div>학력</div>
                 <select id="eeducation" name="eeducation">
                     <option>고졸</option>
@@ -48,9 +38,31 @@
                     <option>석사</option>
                     <option>박사</option>
                 </select>
-                <button type="button" onclick="onSignup()">사원 등록</button>
+
+
+
+
+            </div>
+            <div class="section">
+
+
+                <div>이메일: </div>
+                <div>
+                    <input onkeyup="emailcheck()" type="text" id="email" name="email">
+                    <div  class="emailcheckbox"></div>
+                </div>
+
+                <div >전화번호 : <input type="text" id="phone" name="phone"></div>
+
+                <div >주소 : <input type="text" id="address" name="address"></div>
+                <br/>
+
+                <dr/>
+                <div><button type="button" onclick="onSignup()">사원 등록</button>
+                </div>
             </div>
         </form>
+
         <!--<form class="ecareerForm">
             <div>경력사항</div>
             <table>
@@ -85,7 +97,6 @@
             &lt;!&ndash; 1.자격증 선택칸 db에서 받아와야함 3.선택하면 장바구니처럼 남아야할듯? 삭제도 가능해야할듯? 4. 자격증 로그 db  &ndash;&gt;
         </form>-->
 
-    </div>
 
 
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
