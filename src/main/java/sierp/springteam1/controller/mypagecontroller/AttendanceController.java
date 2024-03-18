@@ -36,14 +36,11 @@ public class AttendanceController {
     @ResponseBody
     public boolean attendanceWrite(HttpServletRequest request){
         // HttpServletRequest request ip 가져오기에 필요.
-        System.out.println("AttendanceController.attendanceWrite");
         String eno = mypageService.sessionEno();
         // 세션에 사원 번호 없으면 false
         if (eno == null){return false;}
-        System.out.println("AttendanceController : eno = " + eno);
         // 클라이언트 ip 가져온 후 서비스 전달
         String ip = null;
-        System.out.println("request.getRe = " + request.getRemoteAddr() );
         ip = request.getRemoteAddr();
         return attendanceService.attendanceWrite(eno , ip);
     }
