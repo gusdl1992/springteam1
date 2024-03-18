@@ -211,7 +211,7 @@ public class EmployeeDao extends SuperDao{
     //======================수정
     public boolean employeeUpdate (EmployeeDto employeeDto){
         try{
-            String sql= "update employee set id=?, pw=?, ename=?,email=?,  phone=?, address=?,sex=?,img=?,pno=?,eeducation=? where eno=?";
+            String sql= "update employee set id=?, pw=?, ename=?,email=?,  phone=?, address=?,sex=?,img=?,pno=?,eeducation=?,salt = ? where eno=?";
             ps=conn.prepareStatement(sql);
             ps.setString(1,employeeDto.getId());
             ps.setString(2,employeeDto.getPw());
@@ -223,7 +223,8 @@ public class EmployeeDao extends SuperDao{
             ps.setString(8,employeeDto.getImg());
             ps.setInt(9,employeeDto.getPno());
             ps.setString(10,employeeDto.getEeducation());
-            ps.setInt(11,employeeDto.getEno());
+            ps.setString(11,employeeDto.getSalt());
+            ps.setInt(12,employeeDto.getEno());
 
             System.out.println(employeeDto);
             int count= ps.executeUpdate();

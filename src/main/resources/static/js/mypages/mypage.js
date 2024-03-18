@@ -31,7 +31,7 @@ function onMypageView(){
                 학력     : ${r.eeducation} <br/>
                 입사일   : ${r.edate} <br/>
                 업무 부서 : ${부서명} <br/>
-                이미지   : <img src="/img/${r.img}" alt="프로필사진">
+                이미지   : <img src="/img/eimg/${r.img}" alt="프로필사진">
             `;
                 dataView.innerHTML = html;
         }

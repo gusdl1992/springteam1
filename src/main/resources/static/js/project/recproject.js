@@ -37,7 +37,7 @@ function onWrite(){
                 html += `<tr> <td><input type ="checkbox" onclick='getCheckboxValue()' class ="eno${r[0][j].employeeDto.eno}" value ="${r[0][j].employeeDto.eno}"></input>
                 <td>${r[0][j].employeeDto.eno}</td>
                 <td>${r[0][j].employeeDto.ename}</td>
-                <td><img src= "/img/${r[0][j].employeeDto.img}"</td>
+                <td><img src= "/img/eimg/${r[0][j].employeeDto.img}"></td>
                 <td>${r[0][j].score}</td></tr>
                 `
 
@@ -52,7 +52,7 @@ function onWrite(){
                 html += `<tr> <td><input type ="checkbox" onclick='getCheckboxValue()' class ="eno${r[1][j].employeeDto.eno}" value ="${r[1][j].employeeDto.eno}"></input>
                                          <td>${r[1][j].employeeDto.eno}</td>
                                          <td>${r[1][j].employeeDto.ename}</td>
-                                         <td><img src= "/img/${r[1][j].employeeDto.img}"</td>
+                                         <td><img src= "/img/eimg/${r[1][j].employeeDto.img}"></td>
                                          <td>${r[1][j].score}</td></tr>`
             }
             document.querySelector(".s_check2").innerHTML = html;
@@ -65,7 +65,7 @@ function onWrite(){
                 html += `<tr> <td><input type ="checkbox" onclick='getCheckboxValue()' class ="eno${r[2][j].employeeDto.eno}" value ="${r[2][j].employeeDto.eno}"></input>
                                          <td>${r[2][j].employeeDto.eno}</td>
                                          <td>${r[2][j].employeeDto.ename}</td>
-                                         <td><img src= "/img/${r[2][j].employeeDto.img}"</td>
+                                         <td><img src= "/img/eimg/${r[2][j].employeeDto.img}"></td>
                                          <td>${r[2][j].score}</td></tr>`
             }
             document.querySelector(".s_check3").innerHTML = html;
@@ -214,7 +214,7 @@ function sortbyscore(){
                 html += `<tr><td> <input type ="checkbox" onclick='getCheckboxValue()' class ="eno${r[0][j].employeeDto.eno}" value ="${r[0][j].employeeDto.eno}"></input> </td>
                 <td>${r[0][j].employeeDto.eno}</td>
                 <td>${r[0][j].employeeDto.ename}</td>
-                <td><img src= "/img/${r[0][j].employeeDto.img}"</td>
+                <td><img src= "/img/eimg/${r[0][j].employeeDto.img}"></td>
                 <td>${r[0][j].score}</td>
                 </tr>`
 
@@ -226,7 +226,7 @@ function sortbyscore(){
                 html += `<tr><td> <input type ="checkbox" onclick='getCheckboxValue()' class ="eno${r[1][j].employeeDto.eno}" value ="${r[1][j].employeeDto.eno}"></input> </td>
                                          <td>${r[1][j].employeeDto.eno}</td>
                                          <td>${r[1][j].employeeDto.ename}</td>
-                                         <td><img src= "/img/${r[1][j].employeeDto.img}"</td>
+                                         <td><img src= "/img/eimg/${r[1][j].employeeDto.img}"/></td>
                                          <td>${r[1][j].score}</td>
                                          </tr>`
             }
@@ -237,7 +237,7 @@ function sortbyscore(){
                 html += `<tr><td> <input type ="checkbox" onclick='getCheckboxValue()' class ="eno${r[2][j].employeeDto.eno}" value ="${r[2][j].employeeDto.eno}"></input> </td>
                                          <td>${r[2][j].employeeDto.eno}</td>
                                          <td>${r[2][j].employeeDto.ename}</td>
-                                         <td><img src= "/img/${r[2][j].employeeDto.img}"</td>
+                                         <td><img src= "/img/eimg/${r[2][j].employeeDto.img}"></td>
                                          <td>${r[2][j].score}</td>
                                          </tr>`
             }
