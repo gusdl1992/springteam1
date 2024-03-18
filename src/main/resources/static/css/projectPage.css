@@ -56,14 +56,29 @@
 }
 #insertProjectData .insert_title ,.insert_compannyname,.insert_price{
     float: right;
-    width: 200px;
+    width: 180px;
 }
 #insertProjectData textarea{
     width: 295px;
 }
-#insertProjectData .insertPjCname{
-    margin-top: 5px;
-}
 #insertProjectData .insert_price{
     width: 180px;
+}
+#insertProjectData .insertPjState span{
+    display: block;
+}
+#insertProjectData .insertPjState{
+    display: flex;
+    width: 300px;
+}
+#insertProjectData .insertPjCname span{
+    display: block;
+    
+}
+#insertProjectData .insertPjCname{
+    display: flex;
+    width: 300px;
+}
+#insertProjectData div{
+    margin-top: 5px;
 }
