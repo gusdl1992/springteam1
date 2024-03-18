@@ -86,14 +86,14 @@ $.ajax({
 }
 
 //관리자 확인    240317 장은경 수정
-function managerCheck(){
+function managerCheck(urlString){
     $.ajax({
         url : "/managerCheck",
         method : "Get",
         success : (r) => {
             console.log(r);
             if(r){
-                location.href="/projectPage/insert";
+                location.href=`${urlString}`;
             }
             else{
                 alert("권한이 없습니다.");
@@ -118,7 +118,7 @@ function loginCheck(){
                 location.href="/note/receive";
             }
             else{
-                alert("로그인이 필요합니다.");
+                alert("로그인이 필요한 서비스입니다.");
             }
         }//s end
     })//ajax end
