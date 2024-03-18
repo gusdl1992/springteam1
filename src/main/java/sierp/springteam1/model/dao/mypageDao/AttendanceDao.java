@@ -16,8 +16,6 @@ public class AttendanceDao extends SuperDao {
 
     // 출석 요청
     public boolean attendanceWrite(AttendanceLogDto attendanceLogDto){
-        System.out.println("AttendanceDao.attendanceWrite");
-        System.out.println("attendanceLogDto = " + attendanceLogDto);
         try {
             String sql = "INSERT INTO attendance_log(jday, stat_time,jip, eno) VALUES(?, ?, ?, ?)";
             ps = conn.prepareStatement(sql);

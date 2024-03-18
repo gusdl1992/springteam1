@@ -28,7 +28,6 @@ public class AttendanceService {
 
     // 출근 요청
     public boolean attendanceWrite(String eno , String ip){
-        System.out.println("AttendanceService.attendanceWrite");
         // 이미 출근을 찍었는지 체크 ( 찍으면 true , 아니면 false )
         boolean result = attendanceWriteCheck(eno);
         if ( !(result) ){
@@ -40,7 +39,6 @@ public class AttendanceService {
                     .build();
             return attendanceDao.attendanceWrite(attendanceLogDto);
         }
-
         return false; // 이미 출근을 찍었으면 false
     }
 
