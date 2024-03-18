@@ -34,14 +34,35 @@ public class SalaryDAO extends SuperDao {
         return false;
     }
 
+    public boolean deleteSalary(SalaryDto salaryDto){
+        try {
+            System.out.println(salaryDto.getSmonth());
+        System.out.println(salaryDto.getEmployeeDto().getEno());
+            System.out.println();
+            String sql = "delete from salary where eno =? and smonth = ? ";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,salaryDto.getEmployeeDto().getEno());
+            ps.setString(2,salaryDto.getSmonth());
+            int count = ps.executeUpdate();
+            return true;
+        }
+        catch (Exception e){
+            System.out.println("샐러리(입금대기 테이블) 삭제도중 발생한 오류입니다 = " + e);
+        }
+        return false;
+    }
+
 
     public boolean deleteSalary(List<SalaryDto> result){
         try {
             for (SalaryDto i : result) {
-                String sql = "delete from salary where eno =? and price = ? ";
+                System.out.println(i.getSmonth());
+                System.out.println(i.getEmployeeDto().getEno());
+                System.out.println();
+                String sql = "delete from salary where eno =? and smonth = ? ";
                 ps = conn.prepareStatement(sql);
                 ps.setInt(1,i.getEmployeeDto().getEno());
-                ps.setString(2,i.getPrice()+"");
+                ps.setString(2,i.getSmonth());
                 int count = ps.executeUpdate();
             }
             return true;

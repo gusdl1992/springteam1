@@ -76,6 +76,7 @@ public class BoardDAO extends SuperDao {
                                     .sex(rs.getBoolean("sex"))
                                     .build())
                             .price(Double.parseDouble(rs.getString("price")))
+                            .smonth(rs.getString("smonth"))
                             .build());
                 }
 

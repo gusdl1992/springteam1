@@ -28,9 +28,11 @@ function doViewList(page){
             console.log(r)
             r.list.forEach((i) => {
                  html += `<tr><td><input type="checkbox"
-                 class="eno${i.employeeDto.eno}" value ="{eno:${i.employeeDto.eno},price:${i.price}}"></td>
+                 class="eno${i.employeeDto.eno}" value='{"eno":${i.employeeDto.eno},"smonth":"${i.smonth}" , "price":${i.price}}'></td>
                   <td><a href = "#"> ${i.employeeDto.ename} </a></td>
-                   <td> ${i.price}만원</td><td><button type="button" onclick="doDel(${i.employeeDto.eno})">제거</button> </td></tr>`  //추후 상세보기 링크로 만들 예정
+                   <td> ${i.price}만원</td>
+                   <td> ${i.smonth.split(" ")[0]} </td>
+                   <td><button type="button" onclick="doDel(${i.employeeDto.eno})">제거</button> </td></tr>`  //추후 상세보기 링크로 만들 예정
             })
             document.querySelector("#boardTableBody").innerHTML = html;
             let pagination = document.querySelector(".pagination");
@@ -69,7 +71,8 @@ function doPost(){
         data: JSON.stringify(result),
         success: function(response) {
             // 성공적으로 응답을 받았을 때 실행할 코드
-            console.log("서버 응답: " + response);
+            alert("지급 완료")
+            location.href="/salary/findlist"
         },
         error: function(xhr, status, error) {
             // 오류가 발생했을 때 실행할 코드
@@ -79,11 +82,29 @@ function doPost(){
 }
 
 function doDel(i){
+
     let checkbox = document.querySelector(`.eno${i}`).value;
-    let eno = checkbox.eno
+    let eno = checkbox.eno;
     let price = checkbox.price;
-    console.log(eno)
-    console.log(price)
+    console.log(checkbox)
+    let result = JSON.parse(checkbox)
+    console.log(result.eno)
+    console.log(result.price);
+    console.log(result.smonth)
+    $.ajax({
+        type: "get",
+        url: "/salary/del.do",
+        data : {eno:result.eno,price:result.price,smonth:result.smonth},
+        success: (r) => {
+            if(r){
+                alert("삭제완료")
+                location.href="/salary/list"
+            }
+            else{
+                alert("삭제실패")
+            }
+        }
+    })
 }
 
 function onPageBoardSize(object){

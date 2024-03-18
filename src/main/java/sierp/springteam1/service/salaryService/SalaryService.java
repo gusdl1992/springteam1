@@ -1,6 +1,7 @@
 package sierp.springteam1.service.salaryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -35,6 +36,7 @@ import java.util.Map;
 
 
 @Service
+@EnableScheduling
 public class SalaryService {
     @Autowired
     EmployeeDao employeeDao;
@@ -43,6 +45,14 @@ public class SalaryService {
     SalaryDAO salaryDAO;
     @Autowired
     BoardDAO boardDAO;
+
+    public boolean deleteSalary(SalaryDto salaryDto){
+        System.out.println("del.do");
+        System.out.println(salaryDto.getSmonth());
+
+        return salaryDAO.deleteSalary(salaryDto);
+//        return true;
+    }
 
     public BoardPageDTO findSalayloglist(int page , int pageBoardSize , int state, String key, String keyword){
         System.out.println("서비스 시작");
