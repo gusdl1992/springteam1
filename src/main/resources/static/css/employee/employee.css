@@ -56,7 +56,7 @@
         }
         .tr {
             display: flex; /* 가로로 나열하도록 설정 */
-            width:500px;
+            width:510px;
         }
         .td.cinput >input {
             width:85;
@@ -80,30 +80,36 @@
     }
     .section {
         width: 250px; /* 가로 이등분 */
-        padding: 20px;
+        padding-top: 10px;
+        padding-right: 3px;
+
     }
 
-    .section:first-child {
-        margin-right: 10px; /* 첫 번째 섹션 오른쪽 마진 */
-    }
+
 
     .section:last-child {
-        margin-left: 10px; /* 두 번째 섹션 왼쪽 마진 */
+        margin-right: 5px; /* 두 번째 섹션 왼쪽 마진 */
     }
 
     .section div {
-        margin-bottom: 10px;
+        margin-bottom: 5px;
     }
-
-    input[type="text"], input[type="date"], select {
-        padding: 5px;
+    .k_login{
+            padding: 5px !important;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 93% !important;
+    }
+    /*input[type="text"], input[type="date"], select {
+        padding: 3px;
         border-radius: 5px;
         border: 1px solid #ccc;
+        width: 130px;
     }
 
     input[type="radio"] {
         margin-right: 5px;
-    }
+    }*/
 
     button {
         padding: 8px 20px;
@@ -131,3 +137,41 @@
         margin-top: 10px; /* 버튼 간격 설정 */
     }
 
+.k_ViewImg{
+    width: 100px;
+    height: 100px;
+    /*position: absolute;
+    top: 0px;
+    left: 430px;*/
+}
+.k_ViewImg > img{
+    width: 100px;
+    height: 100px;
+    object-fit:cover;
+}
+.employeeForm1 {
+    display:flex;
+}
+.k_input{
+    padding: 3px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        width: 130px;
+}
+
+.k_eUB {
+
+    margin-top: 10px; /* 상단 여백 설정 */
+    width: 60px;
+}
+.k_emainTop{
+margin-top:5px;
+display:flex;
+}
+.k_emainTop > select,  input, button{
+    margin:3px;
+    height:24px;
+}
+.k_main{
+    padding: 0 !important;
+}
