@@ -34,6 +34,7 @@ public class SalaryDAO extends SuperDao {
         return false;
     }
 
+
     public boolean deleteSalary(SalaryDto salaryDto){
         try {
             System.out.println(salaryDto.getSmonth());
