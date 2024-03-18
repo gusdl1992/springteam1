@@ -34,7 +34,52 @@
 }
 
 #projectMainView{
+    margin: 0 auto;
     margin-top: 10px;
     min-width:750px;
     height:550px;
+}
+
+#insertProjectData{
+    width: 300px;
+    margin: 0 auto; 
+    font-size: 16px;
+}
+
+#insertProjectData span{
+    text-align: left;
+}
+#insertProjectData >.insertPjDate input{
+    margin-left: 15px;
+}
+#insertProjectData >.insertPjmcount input{
+    width: 50px;
+}
+#insertProjectData .insert_title ,.insert_compannyname,.insert_price{
+    float: right;
+    width: 180px;
+}
+#insertProjectData textarea{
+    width: 295px;
+}
+#insertProjectData .insert_price{
+    width: 180px;
+}
+#insertProjectData .insertPjState span{
+    display: block;
+}
+#insertProjectData .insertPjState{
+    display: flex;
+    width: 300px;
+}
+#insertProjectData .insertPjCname span{
+    display: block;
+    
+}
+#insertProjectData .insertPjCname{
+    display: flex;
+    width: 300px;
+}
+#insertProjectData div{
+    margin-top: 5px;
 }
