@@ -41,7 +41,7 @@
 }
 
 #insertProjectData{
-    width: 300px;
+    width: 400px;
     margin: 0 auto; 
     font-size: 16px;
 }
@@ -57,7 +57,6 @@
     margin-left: 10px;
 }
 #insertProjectData .insert_title ,.insert_compannyname,.insert_price{
-    float: right;
     width: 180px;
 }
 #insertProjectData textarea{
@@ -84,6 +83,9 @@
 #insertProjectData .insertPjText input{
     margin-left: 10px;
 }
+#insertProjectData .insertPjPrice input{
+    margin-left: 10px;
+}
 #insertProjectData .insertPjText{
     display: flex;
     width: 300px;
@@ -92,3 +94,26 @@
     margin-top: 5px;
     align-items: center;
 }
+#insertProjectData .insertPjPrice{
+    display: flex;
+    margin-top: 15px;
+}
+#insertProjectData .insertPjCname{
+    padding-left: 39px;
+} 
+#insertProjectData .insertPjTitle{
+    padding-left: 25px;
+}
+#insertProjectData .insertPjmcount{
+    padding-left: 25px;
+}
+#insertProjectData .insertPjDate{
+    padding-left: 40px;
+}
+.insertBtcBox{
+    width: 130px;
+    margin-left: 36%;
+    margin-top: 20px;
+}
+
+
