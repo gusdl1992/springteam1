@@ -10,8 +10,8 @@ create table part( #파트테이블
 
 create table employee( #사원테이블
    eno int auto_increment,
-    eeducation varchar(10),
     id varchar(30) not null unique,
+   eeducation varchar(10),
     salt varchar(255) ,
     pw varchar(255) not null,
     ename varchar(20) not null,
@@ -146,7 +146,6 @@ create table attendance_log(
     constraint employee_eno_fk foreign key(eno) references employee(eno)on delete cascade
 );
 
-# 쪽지 테이블
 drop table if exists note ;
 create table note(
    nno int auto_increment,
@@ -162,37 +161,44 @@ create table note(
 
 
 
-
-
-insert into price(p_start,p_end,pprice) values(0,1459,270);
-insert into price(p_start,p_end,pprice) values(1460,3650,500);
-insert into price(p_start,p_end,pprice) values(3651,999999999,800);
+insert into price(p_start,p_end,pprice) values(0,1459,300);
+insert into price(p_start,p_end,pprice) values(1460,3650,600);
+insert into price(p_start,p_end,pprice) values(3651,999999999,1000);
 
 insert into part values(1,"인사과");
 insert into part values(2,"영업");
 insert into part value(3,"프로그래머");
-insert into employee(id,ename,salt,pw,email,phone,address,pno,sex) values("admina","admina","b467b00048dff114614bc3aaabac1b8b","4ab23e357e7e364233a24c8bf745ba28ea81171de59c22053bf0f2644512d909","aaa@aa.aa","phonea","adressa",1,0);
-insert into employee(id,ename,pw,email,phone,address,pno,sex) values("adminb","adminb","adminb","bbb@bb.bb","phoneb","adressb",1,1);
-insert into employee(id,ename,pw,email,phone,address,pno,sex) values("adminc","adminc","adminc","ccc@cc.cc","phonec","adressc",1,0);
 select * from employee;
-insert into employee(id,ename,pw,email,phone,address,pno,sex) values("salesa","salesa","salesa","ddd@dd.dd","phoned","adressd",2,0);
-insert into employee(id,ename,pw,email,phone,address,pno,sex) values("salesb","salesb","salesb","eee@ee.ee","phonee","adresse",2,1);
-insert into employee(id,ename,pw,email,phone,address,pno,sex) values("salesc","salesc","salesc","fff@ff.ff","phonef","adressf",2,0);
 
-insert into employee(id,ename,pw,email,phone,address,pno,sex) values("programmera","programmera","programmera","ggg@gg.gg","phoneg","adressg",3,0);
-insert into employee(id,ename,pw,email,phone,address,pno,sex) values("programmerb","programmerb","programmerb","hhh@hh.hh","phoneh","adressh",3,1);
-insert into employee(id,ename,pw,email,phone,address,pno,sex) values("programmerc","programmerc","programmerc","iii@ii.ii","phonei","adressi",3,0);
+insert into employee(id,ename,eeducation,salt,pw,email,phone,address,pno,sex) values("admina","일사원","초대졸","b467b00048dff114614bc3aaabac1b8b","4ab23e357e7e364233a24c8bf745ba28ea81171de59c22053bf0f2644512d909","admina@naver.com","010-0000-0000","경기도 안산시",1,0);
+insert into employee(id,ename,eeducation,pw,email,phone,address,pno,sex) values("adminb","이사원","고졸","adminb","adminb@naver.com","010-1111-1111","경기도 안산시",1,1);
+insert into employee(id,ename,eeducation,pw,email,phone,address,pno,sex) values("adminc","삼사원","대졸","adminc","adminc@naver.com","010-2222-2222","경기도 안산시",1,0);
 
-select * from employee;
-insert into employeecareer values(1,"ㅇㅇ","ㅇㅇ","ㅇㅇ","2021-01-01","2024-01-01");
+insert into employee(id,ename,pw,email,phone,address,pno,sex) values("salesa","사사원","salesa","salesd@naver.com","010-3333-3333","강남",2,0);
+insert into employee(id,ename,pw,email,phone,address,pno,sex) values("salesb","오사원","salesb","salese@naver.com","010-4444-4444","부천",2,1);
+insert into employee(id,ename,pw,email,phone,address,pno,sex) values("salesc","육사원","salesc","salesf@naver.com","010-5555-5555","인천",2,0);
+
+insert into employee(id,ename,pw,email,phone,address,pno,sex) values("programmera","칠사원","programmera","prog@naver.com","010-6666-6666","수원",3,0);
+insert into employee(id,ename,pw,email,phone,address,pno,sex) values("programmerb","팔사원","programmerb","proh@naver.com","010-7777-7777","구로",3,1);
+insert into employee(id,ename,pw,email,phone,address,pno,sex) values("programmerc","구사원","programmerc","proi@naver.com","010-8888-8888","강남",3,0);
+
+insert into employeecareer values(1,"구회사1","","경력증명서","2016-01-01","2024-01-01");
+insert into employeecareer values(2,"구회사1","","경력증명서","2016-01-01","2024-01-01");
+insert into employeecareer values(3,"구회사2","","경력증명서","2010-01-01","2024-01-01");
+insert into employeecareer values(4,"구회사3","","경력증명서","2010-01-01","2024-01-01");
 insert into salesproject(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
-values("2024-02-29","2024-03-09",3,5,1,"ezen site 차세대 프로젝트","일잘하는애들로","ezen",5000000);
+values("2024-02-29","2024-03-09",2,1,1,"ezen site 차세대 프로젝트1","일잘하는애들로","ezen",5000000),
+("2022-01-20","2022-01-21",2,1,1,"ezen site 차세대 프로젝트2","일잘하는애들로","ezen",5000000),
+("2022-03-29","2022-06-20",2,1,1,"ezen site 차세대 프로젝트3","일잘하는애들로","ezen",5000000),
+("2022-07-29","2022-08-29",2,1,1,"ezen site 차세대 프로젝트4","일잘하는애들로","ezen",5000000),
+("2022-07-29","2023-06-09",2,1,1,"ezen site 차세대 프로젝트5","일잘하는애들로","ezen",5000000),
+("2023-02-28","2024-01-09",2,1,1,"ezen site 차세대 프로젝트6","일잘하는애들로","ezen",5000000);
 
 insert into salesproject(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
-values("2024-03-08","2024-07-10",5,0,0,"쇼핑몰 구축2"," ","ezen쇼핑몰",30000000);
+values("2024-03-08","2024-07-10",2,0,0,"국가지원사업1"," ","국가",25000000);
 
 insert into salesproject(start_date,end_date,rank1_count,rank2_count,rank3_count,title,request,compannyname,price)
-values("2030-08-08","2030-12-10",5,0,0,"쇼핑몰 구축3"," ","ezen쇼핑몰",30000000);
+values("2024-04-20","2025-01-01",3,0,0,"국가지원사업3"," ","국가",30000000);
 
 insert into uploadproject(spjno) values(1);
 insert into uploadproject(spjno) values(2);
@@ -203,7 +209,7 @@ insert into report(settoeno,setfromeno,title,content) values(1,2,"이거사줘",
 insert into report(settoeno,setfromeno,title,content) values(1,3,"휴가","ㅇㅇ");
 
 
-truncate projectlog;
+
 insert into projectlog(eno, pjno) values(2,1);
 insert into projectlog(eno, pjno) values(3,1);
 insert into projectlog(eno, pjno) values(7,1);
@@ -211,6 +217,9 @@ insert into projectlog(eno, pjno) values(6,1);
 
 insert into projectlog(eno, pjno) values(2,2);
 insert into projectlog(eno, pjno) values(3,2);
+
+select * from projectlog;
+update projectlog set score = 100 where pjno = 1;
 
 insert into projectlike(eno, pjno) values(2,1);
 insert into projectlike(eno, pjno) values(2,3);
@@ -229,36 +238,232 @@ select * from employeecareer;
 
 # 출퇴근 DB 검색
 insert into salarylog(eno,price) values(1,10);
-INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-03-13", "08:50:00", "18:00:00", "09:10:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
-INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-12", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
-INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-12", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
-INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-12", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
-INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-12", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
-INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-12", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
-INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-12", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
-INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-12", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
-INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-12", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
-INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-12", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
-INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-12", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
-INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-12", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
-INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-12", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
-INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-12", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
-INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-12", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
-INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-12", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
-INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-12", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
-INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-12", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-01", "08:50:00", "18:00:00", "09:10:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-02", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-05", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-06", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-07", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-08", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-13", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-14", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-15", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-16", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-19", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-20", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-21", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-22", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-23", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-26", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-27", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-28", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-29", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 2); # 테스트 더미
 
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-01", "08:50:00", "18:00:00", "09:10:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-02", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-05", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-06", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-07", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-08", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-13", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-14", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-15", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-16", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-19", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-20", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-21", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-22", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-23", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-26", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-27", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-28", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-29", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-03-04", "08:50:00", "18:00:00", "09:10:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-03-05", "08:50:00", "18:00:00", "09:10:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-03-06", "08:50:00", "18:00:00", "09:10:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-03-07", "08:50:00", "18:00:00", "09:10:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-03-08", "08:50:00", "18:00:00", "09:10:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-03-11", "08:50:00", "18:00:00", "09:10:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-03-12", "08:50:00", "18:00:00", "09:10:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-03-13", "08:50:00", "18:00:00", "09:10:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-03-14", "08:50:00", "18:00:00", "09:10:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-03-15", "08:50:00", "18:00:00", "09:10:00", "192.111.111.11", "비고없음", 1); # 테스트 더미
+
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-01", "08:50:00", "18:00:00", "09:10:00", "192.111.111.11", "비고없음", 3); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-02", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 3); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-05", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 3); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-06", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 3); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-07", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 3); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-08", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 3); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-13", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 3); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-14", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 3); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-15", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 3); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-16", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 3); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-19", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 3); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-20", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 3); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-21", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 3); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-22", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 3); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-23", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 3); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-26", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 3); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-27", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 3); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-28", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 3); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-29", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 3); # 테스트 더미
+
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-01", "08:50:00", "18:00:00", "09:10:00", "192.111.111.11", "비고없음", 4); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-02", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 4); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-05", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 4); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-06", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 4); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-07", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 4); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-08", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 4); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-13", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 4); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-14", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 4); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-15", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 4); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-16", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 4); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-19", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 4); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-20", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 4); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-21", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 4); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-22", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 4); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-23", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 4); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-26", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 4); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-27", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 4); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-28", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 4); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-29", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 4); # 테스트 더미
+
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-01", "08:50:00", "18:00:00", "09:10:00", "192.111.111.11", "비고없음", 5); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-02", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 5); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-05", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 5); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-06", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 5); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-07", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 5); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-08", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 5); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-13", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 5); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-14", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 5); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-15", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 5); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-16", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 5); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-19", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 5); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-20", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 5); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-21", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 5); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-22", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 5); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-23", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 5); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-26", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 5); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-27", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 5); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-28", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 5); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-29", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 5); # 테스트 더미
+
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-01", "08:50:00", "18:00:00", "09:10:00", "192.111.111.11", "비고없음", 6); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-02", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 6); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-05", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 6); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-06", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 6); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-07", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 6); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-08", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 6); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-13", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 6); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-14", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 6); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-15", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 6); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-16", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 6); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-19", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 6); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-20", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 6); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-21", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 6); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-22", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 6); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-23", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 6); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-26", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 6); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-27", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 6); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-28", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 6); # 테스트 더미
+
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-01", "08:50:00", "18:00:00", "09:10:00", "192.111.111.11", "비고없음", 7); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-02", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 7); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-05", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 7); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-06", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 7); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-07", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 7); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-08", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 7); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-13", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 7); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-14", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 7); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-15", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 7); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-16", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 7); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-19", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 7); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-20", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 7); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-21", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 7); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-22", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 7); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-23", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 7); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-26", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 7); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-27", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 7); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-28", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 7); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-29", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 7); # 테스트 더미
+
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-01", "08:50:00", "18:00:00", "09:10:00", "192.111.111.11", "비고없음", 8); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-02", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 8); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-05", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 8); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-06", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 8); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-07", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 8); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-08", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 8); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-13", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 8); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-14", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 8); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-15", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 8); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-16", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 8); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-19", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 8); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-20", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 8); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-21", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 8); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-22", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 8); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-23", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 8); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-26", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 8); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-27", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 8); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-28", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 8); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-29", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 8); # 테스트 더미
+
+
+
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-01", "08:50:00", "18:00:00", "09:10:00", "192.111.111.11", "비고없음", 9); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-02", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 9); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-05", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 9); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-06", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 9); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-07", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 9); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-08", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 9); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-13", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 9); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-14", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 9); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-15", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 9); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-16", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 9); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-19", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 9); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-20", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 9); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-21", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 9); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-22", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 9); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-23", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 9); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-26", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 9); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-27", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 9); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-28", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 9); # 테스트 더미
+INSERT INTO attendance_log(jday, stat_time, end_time, working_time, jip, jnote, eno) VALUES("2024-02-29", "08:40:00", "18:00:00", "09:20:00", "192.111.111.11", "비고없음", 9); # 테스트 더미
+
+insert into note(posteno, sendeno, ncontent, reply) value(1,2,'안녕하세요. 출장보고 드립니다.', 0);
+insert into note(posteno, sendeno, ncontent, reply) value(1,3,'안녕하세요. 지출결의 보고 드립니다.', 0);
+insert into note(posteno, sendeno, ncontent, reply) value(1,2,'법인카드 구매내역 입니다..', 0);
+insert into note(posteno, sendeno, ncontent, reply) value(2,3,'집에가고싶다', 0);
+insert into note(posteno, sendeno, ncontent, reply) value(2,3,'오', 0);
+insert into note(posteno, sendeno, ncontent, reply) value(2,1,'확인했습니다.', 1);
+insert into note(posteno, sendeno, ncontent, reply) value(3,1,'확인 완료했습니다.', 2);
+insert into note(posteno, sendeno, ncontent, reply) value(3,2,'마감일 언제인지 알려주세요', 5);
+
+insert into license values(1,  "정보처리기사",50000 );
+insert into license values(2,  "정보보안기사",10000000 );
+insert into license values(3, "전자계산기조직응용기사",3000000) ;
+insert into license values(4,  "전자계산기기사",20000 );
 select * from attendance_log;
 
-select jday , stat_time , end_time , eno from attendance_log where eno = 2 and jday = "2024-03-13";
-update attendance_log set end_time = "18:00:00" where eno = 2 and jday = "2024-03-13";
 
 UPDATE salesproject SET state=1 WHERE spjno = 1; # 스테이터스 변경 진행중으로 바꾸기
 
+select * from employee;
+select * from part;
+select * from salesproject;
+select * from uploadproject;
+select * from projectlog;
+SELECT * FROM license;
+SELECT * FROM employeelicense;
+SELECT * FROM employeecareer;
+select * from price;
 
-
-
+select * from salary;
 select * from salarylog;
+
+select * from attendance_log;
+select * from note;
+
 # 박시현 더미 데이터 추가용.
 
 
@@ -319,7 +524,7 @@ BEGIN
                 WHEN end_date < NOW() THEN 2 #종료일자가 오늘 날짜보다 작으면 종료된 프로젝트
                 ELSE 1 #그 사이인 경우이니 아직 진행중인 프로젝트
               END
-  WHERE spjno IN (SELECT spjno FROM uploadproject);
+  WHERE spjno IN (SELECT spjno FROM uploadproject) and state <> -1;
 END//
 
 CREATE TRIGGER update_project_state
@@ -334,8 +539,23 @@ BEGIN
   END IF;
 END //
 
+
+CREATE TRIGGER update_project_state2
+AFTER insert
+ON uploadproject -- 트리거를 부착할 테이블
+FOR EACH ROW -- 아래 나올 조건에 해당하는 모든 row에 적용한다는 뜻
+
+BEGIN
+  -- 트리거시 실행되는 코드
+  IF NEW.spjno IS NOT NULL THEN -- update 트리거는 old와 new 값이 존재한다.
+    UPDATE salesproject SET state = 0 WHERE spjno = new.spjno;
+  END IF;
+END //
 DELIMITER ;
 
+select * from uploadproject;
+select * from salesproject;
+select * from employee;
 show events;
 show triggers;
 
