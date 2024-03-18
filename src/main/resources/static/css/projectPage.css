@@ -50,10 +50,11 @@
     text-align: left;
 }
 #insertProjectData >.insertPjDate input{
-    margin-left: 15px;
+    margin-left: 10px;
 }
 #insertProjectData >.insertPjmcount input{
     width: 50px;
+    margin-left: 10px;
 }
 #insertProjectData .insert_title ,.insert_compannyname,.insert_price{
     float: right;
@@ -71,15 +72,23 @@
 #insertProjectData .insertPjState{
     display: flex;
     width: 300px;
+    padding-left: 39px;
 }
-#insertProjectData .insertPjCname span{
+#insertProjectData .insertPjState select{
+    margin-left: 10px;
+}
+#insertProjectData .insertPjText span{
     display: block;
-    
+
 }
-#insertProjectData .insertPjCname{
+#insertProjectData .insertPjText input{
+    margin-left: 10px;
+}
+#insertProjectData .insertPjText{
     display: flex;
     width: 300px;
 }
 #insertProjectData div{
     margin-top: 5px;
+    align-items: center;
 }
