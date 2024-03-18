@@ -19,7 +19,7 @@ public class OneprojectDao extends SuperDao {
     public ProjectDto oneProject(int pjno){
         ProjectDto projectDto = null;
         try {
-            String sql = "select * from salesproject where spjno=?";
+            String sql = "select * from salesproject where spjno in (select spjno from uploadproject where pjno=?)";
             ps = conn.prepareStatement(sql);
             ps.setInt(1,pjno);
             rs = ps.executeQuery();
