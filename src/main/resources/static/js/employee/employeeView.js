@@ -195,7 +195,12 @@ function onCareerSUm(){
         async : false,
         success: (r)=>{
             console.log(r)
-            document.querySelector(".careerSum").innerHTML=r;
+            let years = Math.floor(r / 365);
+            let months = Math.floor((r % 365) / 30);
+            let remainingDays = Math.floor((r % 365) % 30);
+            html=` ${years}년 ${months}개월, ${remainingDays}일`
+             document.querySelector(".careerSum").innerHTML=html;
+
 
         }
     });
@@ -213,7 +218,6 @@ function OnCareerPlus(){
               <div class="td cinput"><input onchange=" " id="end_date" name="end_date" type="date"></div>
               <div class="td cinput"><input type="text" id="note" name="note"></div>
               <div class="td cinput"><input type="file" id="cimg" name="cimg"></div>
-              <div class="td cinput"><button onclick="" type="button">삭제</button></div>
             </div>
         </form>
         `
@@ -243,7 +247,6 @@ function OnLicensePlus(){
                                 </select>
                              </div>
                              <div class="td"><input type="date" name="ldate"></div>
-                             <div class="td linput"><button onclick="onClose(3)" type="button">삭제</button></div>
                         </div>
                     </form>`
             licenseBox.innerHTML+=html;
