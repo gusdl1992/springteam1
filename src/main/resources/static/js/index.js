@@ -119,6 +119,7 @@ function loginCheck(){
             }
             else{
                 alert("로그인이 필요한 서비스입니다.");
+                location.href="/login"; // 로그인 페이지로 이동
             }
         }//s end
     })//ajax end

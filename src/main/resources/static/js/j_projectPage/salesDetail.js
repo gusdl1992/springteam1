@@ -1,6 +1,7 @@
 console.log("salesDetail()-js")
 let spjno=new URL(location.href).searchParams.get('spjno');
 console.log(spjno);
+let currentState=0;
 printProjectDetail();
 //개별 프로젝트리스트 출력
 function printProjectDetail(){
@@ -25,6 +26,7 @@ function printProjectDetail(){
             document.querySelector(".detaile_note").innerHTML=r.note;
             document.querySelector(".detaile_compannyname").innerHTML=r.compannyname;
             document.querySelector(".detaile_state").innerHTML=r.state==0 ? "진행전" : (r.state==1 ? "진행중" : "진행완료");
+            currentState=r.state;
             document.querySelector(".detaile_price").innerHTML=r.price;
             document.querySelector(".buttons").innerHTML += `
             <button type="button" onclick="doPostuploadProject(${spjno})">프로젝트 등록</button>`
@@ -113,7 +115,7 @@ function doPostuploadProject(spjno){
         method : "Get",
         success : (r) => {
             console.log(r);
-            if(r){
+            if(r && currentState==-1){
                 $.ajax({
                         url:"/sales/Post.do",
                         method:"post",
@@ -127,9 +129,12 @@ function doPostuploadProject(spjno){
                         }
                     })
             }
-            else{
+            else if(!r){
                 alert("권한이 없습니다.");
                 //window.history.back();
+            }
+            else{
+                alert("이미 등록된 프로젝트입니다.");
             }
         }
     })//ajax end
