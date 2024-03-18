@@ -13,7 +13,7 @@ function myProjectList(){
         success : (r) => {
             console.log(r);
             // ajax 통신 후 받은 값이 null 이면 진행중 프로젝트 X
-            if(r === ""){
+            if(r.pjno === 0){
                 html += `
                     <h4>현재 진행중인 프로젝트가 없습니다.</h4>
                     <div>
