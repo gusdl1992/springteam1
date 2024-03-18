@@ -21,17 +21,33 @@ function onMypageView(){
             if(r.pno == 3){부서명 = '프로그래머' };
 
             html += `
-                사원번호 : ${r.eno} <br/>
-                아이디   : ${r.id} <br/>
-                이름     : ${r.ename} <br/>
-                이메일   : ${r.email} <br/>
-                전화번호  : ${r.phone} <br/>
-                주소     : ${r.address} <br/>
-                성별     : ${성별} <br/>
-                학력     : ${r.eeducation} <br/>
-                입사일   : ${r.edate} <br/>
-                업무 부서 : ${부서명} <br/>
-                이미지   : <img src="/img/eimg/${r.img}" alt="프로필사진">
+            <div class="p_Viewbox" >
+                <div>
+                    <span>이름 </span>${r.ename}
+                </div>
+                <div>
+                    <span>이메일 </span>${r.email}
+                </div>
+                <div>
+                    <span>전화번호 </span>${r.phone}
+                </div>
+                <div>
+                    <span>주소 </span>${r.address}
+                </div>
+                <div>
+                    <span>학력 </span>${r.eeducation}
+                </div>
+                <div>
+                    <span>업무부서 </span>${부서명}
+                </div>
+                <div>
+                    <span>입사일 </span>${r.edate}
+                </div>
+            </div>
+                <div class="p_ViewImg">
+                    <img src="/img/eimg/${r.img}" alt="프로필사진">
+                </div>
+
             `;
                 dataView.innerHTML = html;
         }
