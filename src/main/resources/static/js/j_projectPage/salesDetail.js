@@ -25,7 +25,7 @@ function printProjectDetail(){
             document.querySelector(".detaile_request").innerHTML=r.request;
             document.querySelector(".detaile_note").innerHTML=r.note;
             document.querySelector(".detaile_compannyname").innerHTML=r.compannyname;
-            document.querySelector(".detaile_state").innerHTML=r.state==0 ? "진행전" : (r.state==1 ? "진행중" : "진행완료");
+            document.querySelector(".detaile_state").innerHTML=r.state==0 ? "진행전" : (r.state==1 ? "진행중" : (r.state==2 ? "진행완료" : "영업중") );
             currentState=r.state;
             document.querySelector(".detaile_price").innerHTML=r.price;
             document.querySelector(".buttons").innerHTML += `
