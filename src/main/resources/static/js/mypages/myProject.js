@@ -1,5 +1,6 @@
 console.log('myProject.js');
 myProjectList()
+
 // 나의 진행중인 프로젝트 리스트 출력
 function myProjectList(){
     console.log('myProjectList()')
@@ -11,26 +12,39 @@ function myProjectList(){
         async : false ,
         success : (r) => {
             console.log(r);
-            html += `
-                <div><span class="viewTitle">사원 명 :</span><span class="id">${r.id}</span></div>
-                <div><span class="viewTitle">프로젝트 번호 :</span><span class="pjno">${r.pjno}</span></div>
-                <div><span class="viewTitle">시작 날짜 :</span><span class="start_date">${r.start_date}</span></div>
-                <div><span class="viewTitle">종료 날짜 :</span><span class="end_date">${r.end_date}</span></div>
-                <div><span class="viewTitle">프로젝트 명 :</span><span class="title">${r.title}</span></div>
-                <div><span class="viewTitle">회사 명 :</span><span class="compannyname">${r.compannyname}</span></div>
-                <div><span class="viewTitle">프로젝트 현재 상황 :</span><span class="state">${r.state == 0 ? "대기중" : r.state == 1 ? "진행중" : r.state == 2 ? "완료" : "관리자 문의"}</span></div>
-                        <div>
+            // ajax 통신 후 받은 값이 null 이면 진행중 프로젝트 X
+            if(r === ""){
+                html += `
+                    <h4>현재 진행중인 프로젝트가 없습니다.</h4>
+                    <div>
                         <!--  - 즐겨찾기한 프로젝트 - 이전 프로젝트  버튼 -->
-                            <button onclick="p_myProjectLike()" type="button">즐겨찾기한 프로젝트</button>
-                            <button onclick="getPreviousProjectInfo()"type="button">내 이전 프로젝트</button>
-                        </div>
-            `
+                        <button onclick="p_myProjectLike()" type="button">즐겨찾기한 프로젝트</button>
+                        <button onclick="getPreviousProjectInfo()"type="button">내 이전 프로젝트</button>
+                    </div>
+                    `
+            }else{
+                html += `
+                    <div><span class="viewTitle">사원 명 :</span><span class="id">${r.id}</span></div>
+                    <div><span class="viewTitle">프로젝트 번호 :</span><span class="pjno">${r.pjno}</span></div>
+                    <div><span class="viewTitle">시작 날짜 :</span><span class="start_date">${r.start_date}</span></div>
+                    <div><span class="viewTitle">종료 날짜 :</span><span class="end_date">${r.end_date}</span></div>
+                    <div><span class="viewTitle">프로젝트 명 :</span><span class="title">${r.title}</span></div>
+                    <div><span class="viewTitle">회사 명 :</span><span class="compannyname">${r.compannyname}</span></div>
+                    <div><span class="viewTitle">프로젝트 현재 상황 :</span><span class="state">${r.state == 0 ? "대기중" : r.state == 1 ? "진행중" : r.state == 2 ? "완료" : "관리자 문의"}</span></div>
+                    <div>
+                        <!--  - 즐겨찾기한 프로젝트 - 이전 프로젝트  버튼 -->
+                        <button onclick="p_myProjectLike()" type="button">즐겨찾기한 프로젝트</button>
+                        <button onclick="getPreviousProjectInfo()"type="button">내 이전 프로젝트</button>
+                    </div>
+                    `
+            }
                 document.querySelector("#p_myProjectdate").innerHTML=html;
         }
 
     }); // ajax 종료
 } // 함수 종료
 
+// 즐겨찾기한 프로젝트
 function p_myProjectLike(){
     console.log('p_myProjectLike()');
     let tableHtml = ``;

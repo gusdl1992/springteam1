@@ -1,8 +1,9 @@
 var arr = new Array(); // 빈 배열 생성 출근체크 값 가져오기
 
+// 기본 달력 실행 함수
 calendar()
 
-
+// 출근 체크 통신 함수
 function goToWork(){
     console.log('goToWork()');
     $.ajax({
@@ -21,6 +22,7 @@ function goToWork(){
     });
 }
 
+// 퇴근 체크 통신 함수
 function leaveWork(){
     console.log('leaveWork()');
     $.ajax({
@@ -41,21 +43,18 @@ function leaveWork(){
 }
 
 
+// 달력 출력 함수
 function calendar(){
     let str = '';
     // 데이터를 JAVA 통신
-$.ajax({
+$.ajax({    // 달력에 출근 , 퇴근 시간 출력 통신
     url: '/mypage/event',
     method: 'get',
     async : false ,
     success: (r) => {
     console.log(r);
-    console.log(r.stat_time);
-    console.log(r.end_time);
+
     r.forEach(data => {
-        console.log(data.stat_time);
-        console.log(data.end_time);
-        console.log(data.stat_time + data.end_time )
         if(data.stat_time !== null && data.stat_time !== undefined) {
           str += ' 출근&nbsp&nbsp'+data.stat_time
         } else {
@@ -69,12 +68,9 @@ $.ajax({
 //        str = (' 출근&nbsp&nbsp'+data.stat_time+',' + ' 퇴근&nbsp&nbsp'+data.end_time);
 
     });
-    // 배열
-    // arr.push(r.stat_time+"더하기"r.end_time)
-//    console.log('arr'+ arr);
-    //
-//    let str = arr.join();
+
     console.log('str' +  str);
+    // 출근 퇴근을 하나의 문자열로 만든 거에 "," 문자를 <br/> 태그로 치환
     let test = str.replace(',', '<br/>');
 
        // 달력 생성 함수

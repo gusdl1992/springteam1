@@ -21,9 +21,11 @@ public class MyProjectService {
     public MyProjectDto myProjectList(String eno){
         System.out.println("MyProjectService.myProjectList");
         MyProjectDto myProjectDto = myProjectDao.myProjectList(eno);
-        String id = mypageDao.doGetNameInfo(eno);
-        myProjectDto.setId(id);
-        System.out.println("myProjectDto 서비스 = " + myProjectDto);
+        // DAO 에서 Dto 값이 null 이 아니면 정상 null 이면 진행중 프로젝트 X
+        if (myProjectDto != null){
+            String id = mypageDao.doGetNameInfo(eno);
+            myProjectDto.setId(id);
+        }
         return myProjectDto;
     }
 

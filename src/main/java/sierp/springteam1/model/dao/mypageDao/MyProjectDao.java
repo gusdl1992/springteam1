@@ -13,7 +13,7 @@ import java.util.List;
 public class MyProjectDao extends SuperDao {
 
 
-    // 진행 중인 프로젝트 전체 출력
+    // 진행 중인 프로젝트 출력
     public MyProjectDto myProjectList(String eno){
         System.out.println("MyProjectDao.myProjectList");
         MyProjectDto myProjectDto = new MyProjectDto();

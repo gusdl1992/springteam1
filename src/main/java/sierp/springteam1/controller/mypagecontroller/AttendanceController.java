@@ -69,6 +69,22 @@ public class AttendanceController {
         return attendanceService.getEvent(eno);
 
     }
+    
+    // 내 출근내역 리스트 사이트 요청
+    @GetMapping("/attendance/list")
+    public String attendanceListView(){
+        System.out.println("AttendanceController.attendanceListView");
+        return "/mypages/attendanceList";
+    }
+
+    // 내 출근내역 리스트 출력 요청 ( 여러개 )
+    @GetMapping("/attendance/list.do")
+    @ResponseBody
+    public List<AttendanceLogDto> getEvents(){
+        System.out.println("AttendanceController.getEvents");
+        String eno = mypageService.sessionEno();
+        return attendanceService.getEvents(eno);
+    }
 
 
 
