@@ -62,6 +62,7 @@ public class AttendanceService {
 
 
 
+
     public String nowTime(){ // 현재 시간 반환
         LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
