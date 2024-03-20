@@ -124,7 +124,7 @@ public class OneprojectDao extends SuperDao {
                     "where a.eno in(\n" +
                     "\t\tselect d.eno\n" +
                     "\t\tfrom \n" +
-                    "\t\t(select b.pjno , end_date, a.eno  from uploadproject b  \n" +
+                    "\t\t(select b.pjno , end_date, a.eno from uploadproject b join salesproject d on b.spjno = d.spjno  \n" +
                     "\t\tright outer join projectlog a\n" +
                     "\t\t on a.pjno = b.pjno) as c \n" +
                     "\t\tright outer join\n" +

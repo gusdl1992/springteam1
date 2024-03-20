@@ -125,15 +125,15 @@ function getCheckboxValue()  {
     checkboxes1.forEach(function(checkbox) {
         enos[0].push(checkbox.value);
         console.log(checkbox)
-        result += checkbox.value+"번 ";
+        result += checkbox.value+" ";
     });
     checkboxes2.forEach(function(checkbox) {
             enos[1].push(checkbox.value);
-            result += checkbox.value+"번 ";
+            result += checkbox.value+" ";
         });
     checkboxes3.forEach(function(checkbox) {
         enos[2].push(checkbox.value);
-        result += checkbox.value+"번 ";
+        result += checkbox.value+" ";
     });
 
     console.log(enos)

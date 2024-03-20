@@ -94,6 +94,7 @@ public class SalaryService {
     public void insertsel(){
         //이번달 얼마 출근했는지
         //총 출근일
+
         int allwork = premonthworking();
         List<EmployeeDto> allEmployee = employeeDao.findAllEmployee();
         List<SalaryDto> result = salaryDAO.findSalary(allEmployee,allwork);
