@@ -18,7 +18,7 @@ public class SalesDao extends SuperDao{
             ps=conn.prepareStatement(sql);
             ps.setInt(1,spjno);
             int count = ps.executeUpdate();
-            System.out.println("count = " + count);
+
             if(count == 1){
                 return true;
             }
@@ -79,7 +79,7 @@ public class SalesDao extends SuperDao{
                         .state(rs.getInt("state"))
                         .price(rs.getString("price"))
                         .build();
-                System.out.println(rs.getInt("pjno"));
+
                 projectDtos.add(projectDto);
             }//w end
             return projectDtos;

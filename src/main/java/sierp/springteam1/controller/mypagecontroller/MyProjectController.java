@@ -25,7 +25,7 @@ public class MyProjectController {
     // 내 프로젝트 페이지 요청
     @GetMapping("/project")
     public String myProjectView(){
-        System.out.println("MyProjectController.myProjectView");
+
         return "/mypages/myproject";
     }
 
@@ -33,7 +33,7 @@ public class MyProjectController {
     @GetMapping("/project/list")
     @ResponseBody
     public MyProjectDto myProjectList(){
-        System.out.println("MyProjectController.myProjectList");
+
         // 세션에서 로그인한 사원번호 가져오기.
         String eno = mypageService.sessionEno();
         return myProjectService.myProjectList(eno);
@@ -43,10 +43,10 @@ public class MyProjectController {
     @GetMapping("/project/list/like")
     @ResponseBody
     public List<ProjectDto> myProjectLikeView(){
-        System.out.println("MyProjectController.myProjectLikeView");
+
         // 세션에서 로그인한 사원번호 가져오기
         String eno = mypageService.sessionEno();
-        System.out.println("MyProjectController.myProjectLikeView : eno = " + eno);
+
         return myProjectService.myProjectLikeView(eno);
     }
 
@@ -54,7 +54,7 @@ public class MyProjectController {
     @GetMapping("/project/previousList")
     @ResponseBody
     public  List<ProjectDto> myProjectPreviousView(){
-        System.out.println("MyProjectController.myProjectPreviousView");
+
         // 세션에서 로그인한 사원번호 가져오기
         String eno = mypageService.sessionEno();
         return myProjectService.myProjectPreviousView(eno);

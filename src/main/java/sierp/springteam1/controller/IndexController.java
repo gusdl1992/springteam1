@@ -35,7 +35,7 @@ public class IndexController {
     @PostMapping("/login")
     @ResponseBody
     public boolean login(String id, String pw){
-        System.out.println("id = " + id);
+
 
         int result= secureService.login(id,pw);
         if(result !=-1){
@@ -60,7 +60,7 @@ public class IndexController {
         Object sessionObj = request.getSession().getAttribute("eno");
         if(sessionObj != null){ loginId = String.valueOf(sessionObj); }
         // 만약에 로그인했으면(세션에 데이터가 있으면) 강제형변환을 통해 데이터 호출 아니면 0
-        System.out.println("여기여기loginId = " + loginId);
+
         return loginId;
     } // getLoginCheck end
 
@@ -68,7 +68,7 @@ public class IndexController {
     @GetMapping("employee/login/checkname")
     @ResponseBody
     public String doGetLoginName(String eno){
-        System.out.println("IndexController.doGetLoginName");
+
         return mypageDao.doGetNameInfo(eno); // 세션에 사원번호로 DAO 접근 후 아이디 표시로 전환
     }
 
@@ -82,8 +82,7 @@ public class IndexController {
     @GetMapping("/managerCheck")
     @ResponseBody
     public boolean indexManager(){
-        System.out.println("J_ProjectPageController.indexManager");
-        System.out.println("request.getSession().getAttribute(\"eno\") = " + request.getSession().getAttribute("eno"));
+
         Object eno=request.getSession().getAttribute("eno");
         //만약 비회원일경우 false 출력
         if(eno==null){

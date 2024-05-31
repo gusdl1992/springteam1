@@ -88,7 +88,7 @@ public class OneprojectDao extends SuperDao {
                        .build();
 
                int allday = rs.getInt("alltime");
-               System.out.println(allday);
+
 
                if(allday < 1459 ){
                    result[0].add(employeeDto);

@@ -28,7 +28,6 @@ public class EmployeeController {
     @PostMapping("/signup")
     @ResponseBody
     public boolean eSignup(EmployeeDto employeeDto){
-        System.out.println("EmployeeController.eSignup");
         return employeeService.eSignup(employeeDto);
     }
 
@@ -36,8 +35,6 @@ public class EmployeeController {
     @PostMapping("/careerPost")
     @ResponseBody
     public boolean careerPost(EmployeeCareerDto careerDto){
-        System.out.println("EmployeeController.cSignup");
-        System.out.println(careerDto);
         return employeeService.careerPost(careerDto);
     }
 
@@ -45,7 +42,7 @@ public class EmployeeController {
     @PostMapping("/licensePost")
     @ResponseBody
     public boolean lSignup(EmployeeLicenseDto licenseDto){
-        System.out.println("EmployeeController.lSignup");
+
         return employeeService.lSignup(licenseDto);
     }
     //================ 삭제 요청
@@ -65,7 +62,6 @@ public class EmployeeController {
     @DeleteMapping("/career/delete")
     @ResponseBody
     public boolean careerDelete(int eno, String companyname){
-        System.out.println("companyname = " + companyname);
         return employeeService.careerDelete(eno,companyname);}
     //================== 수정
     // 사원 정보 수정
@@ -92,13 +88,13 @@ public class EmployeeController {
     //사원등록 페이지 요청
     @GetMapping("/signup")
     public String viewSignup(){
-        System.out.println("EmployeeController.viewSignup");
+
         return "/employee/signup";
     }
     //사원정보 수정 페이지 요청
     @GetMapping("/employee/update")
     public String employeeUpdateView(){
-        System.out.println("EmployeeController.viewSignup");
+
         return "/employee/employeeUpdate";
     }
 
@@ -108,7 +104,7 @@ public class EmployeeController {
     @GetMapping("/partList")
     @ResponseBody
     public List<PartDto> partList (){
-        System.out.println("EmployeeController.partDtoList");
+
         return employeeService.partList();
     }
 
@@ -116,7 +112,7 @@ public class EmployeeController {
     @GetMapping("/licenseSelect")
     @ResponseBody
     public List<LicenseDto> licenseList(){
-        System.out.println("EmployeeController.licenseList");
+
         return employeeService.licenseList();
     }
 
@@ -124,7 +120,7 @@ public class EmployeeController {
     @GetMapping("/employeeList")
     @ResponseBody
     public ProjectPageDto employeeList(@RequestParam int page, int pageBoardSize, int key,@RequestParam String keyword){
-        System.out.println("EmployeeController.employeeList");
+
 
         return employeeService.employeeList(page,pageBoardSize, key,keyword);
     }
@@ -140,7 +136,7 @@ public class EmployeeController {
     @GetMapping("/careerView")
     @ResponseBody
     public List<EmployeeCareerDto> careerList(int eno){
-        System.out.println("EmployeeController.careerList");
+
         return employeeService.careerList(eno);
     }
 
@@ -148,7 +144,7 @@ public class EmployeeController {
     @GetMapping("/licenseView")
     @ResponseBody
     public List<EmployeeLicenseDto> licenseViewList(int eno){
-        System.out.println("eno = " + eno);
+
         return employeeService.licenseViewList(eno);
     }
 
@@ -162,7 +158,7 @@ public class EmployeeController {
     @GetMapping("/careerSum")
     @ResponseBody
     public String careearSum(int eno){
-        System.out.println("EmployeeController.careearSum");
+
         return employeeService.careearSum(eno);
     }
 

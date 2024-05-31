@@ -21,7 +21,7 @@ public class J_NoteController {
     //받은쪽지 페이지 출력
     @GetMapping("/receive")
     public String getReceiveNote(){
-        System.out.println("J_NoteController.getReceiveNote");
+
         return "/j_note/noteList";
     }
 
@@ -29,18 +29,18 @@ public class J_NoteController {
     @GetMapping("/receive.do")
     @ResponseBody
     public ProjectPageDto doGetReceiveNote(int page, int pageBoardSize){
-        System.out.println("J_NoteController.doGetReceiveNote");
+
         //로그인한 사람의 사원번호 suvlet에서 가져오기
         //int eno=1;
         int eno=(int)request.getSession().getAttribute("eno");
-        System.out.println(eno);
+
 
         return j_noteService.doGetReceiveNote(eno, page, pageBoardSize);
     }//m end
 
     @GetMapping("/post")
     public String getPostNotePage(){
-        System.out.println("J_NoteController.getPostNotePage");
+
 
         return "/j_note/notePost";
     }
@@ -49,8 +49,8 @@ public class J_NoteController {
     @PostMapping("/post.do")
     @ResponseBody
     public boolean doPostNote(int sendeno, String ncontent, int reply){
-        System.out.println("J_NoteController.doPostNote");
-        System.out.println("sendeno = " + sendeno + ", ncontent = " + ncontent);
+
+
         NoteDto noteDto=NoteDto.builder()
                                 .sendeno(sendeno)
                                 .ncontent(ncontent)
@@ -59,7 +59,7 @@ public class J_NoteController {
         //로그인한 사람의 사원번호 suvlet에서 가져오기
         //int eno=3;
         int eno=(int)request.getSession().getAttribute("eno");
-        System.out.println(eno);
+
         noteDto.setPosteno(eno);
 
         return j_noteService.doPostNote(noteDto);
@@ -69,8 +69,6 @@ public class J_NoteController {
     @GetMapping("/geteno.do")
     @ResponseBody
     public int getEnoToId(String sendid){
-        System.out.println("J_NoteController.getEnoToId");
-        System.out.println("sendid = " + sendid);
 
         return j_noteService.getEnoToId(sendid);
     }//m end
@@ -78,7 +76,6 @@ public class J_NoteController {
     //보낸쪽지 가져오기 페이지 출력
     @GetMapping("/getPost")
     public String getPostNote(){
-        System.out.println("J_NoteController.getPostNote");
 
         return "/j_note/notePostList";
     }//me nd
@@ -87,11 +84,11 @@ public class J_NoteController {
     @GetMapping("/getPost.do")
     @ResponseBody
         public ProjectPageDto doGetPostNote(int page, int pageBoardSize){
-        System.out.println("J_NoteController.doGetPostNote");
+
         //로그인한 사람의 사원번호 suvlet에서 가져오기
         //int eno=1;
         int eno=(int)request.getSession().getAttribute("eno");
-        System.out.println(eno);
+
 
 
         return j_noteService.doGetPostNote(eno, page, pageBoardSize);
@@ -100,14 +97,14 @@ public class J_NoteController {
     //쪽지 상세보기 페이지 요청(받은쪽지)
     @GetMapping("/getDetail")
     public String getNoteDetail(){
-        System.out.println("J_NoteController.getNoteDetail");
+
         return "/j_note/noteDetail";
     }//m end
 
     //쪽지 상세보기 페이지 요청(보낸쪽지)
     @GetMapping("/getPostDetail")
     public String getNotePostDetail(){
-        System.out.println("J_NoteController.getNoteDetail");
+
         return "/j_note/notePostDetail";
     }//m end
 
@@ -115,8 +112,7 @@ public class J_NoteController {
     @GetMapping("/getDetail.do")
     @ResponseBody
     public NoteDto doGetNoteDetail(int nno){
-        System.out.println("J_NoteController.doGetNoteDetail");
-        System.out.println("nno = " + nno);
+
 
         return j_noteService.doGetNoteDetail(nno);
     }//m end

@@ -25,7 +25,7 @@ public class SaleProjectController {
     @PostMapping("/Post.do")
     @ResponseBody
     public boolean salesPost(int spjno){
-        System.out.println("SaleProjectController.salesPost");
+
         return salesService.salesPost(spjno);
     }
     //2.리스트
@@ -35,7 +35,7 @@ public class SaleProjectController {
                                     int sortKey,
                                     String key, String keyword,
                                     int startPrice, int endPrice){
-        System.out.println("SaleProjectController.salesPost");
+
         return salesService.saleslist(page, pageBoardSize,sortKey, key, keyword, startPrice, endPrice);
     }
 
@@ -53,7 +53,7 @@ public class SaleProjectController {
     @GetMapping("/view.do")
     @ResponseBody
     public ProjectDto oneProject(int spjno){
-        System.out.println("OneprojectController.oneProject");
+
         return salesService.oneProject(spjno);
     }
     //1.리스트

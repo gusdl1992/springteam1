@@ -31,15 +31,15 @@ public class BoardDAO extends SuperDao {
         return -1;
     }
 
-    public List<Object> doGetBoardViewList(String tablename ,int startRow , int pageBoardSize , int state  , String key , String keyWord ){ System.out.println("BoardDao.doGetBoardViewList");
+    public List<Object> doGetBoardViewList(String tablename ,int startRow , int pageBoardSize , int state  , String key , String keyWord ){
         List<Object> list = new ArrayList<>();
-        System.out.println("startRow = " + startRow + ", pageBoardSize = " + pageBoardSize + ", state = " + state + ", key = " + key + ", keyword = " + keyWord);
+
         try{  // String sql = "select * from board";
             // SQL 앞부분
             String sql = "select * from "+tablename;
 //             SQL 가운데부분 [ 조건에 따라 where 절 추가 ]
             if( state > -2 ){ sql += " where state = "+state ; }
-            if( !keyWord.isEmpty()){System.out.println("검색 키워드가 존재");
+            if( !keyWord.isEmpty()){
                 if(state > -2){ sql += " and ";}
                 else{sql += " where ";}
                 sql +=  key+" like '%"+keyWord+"%' ";

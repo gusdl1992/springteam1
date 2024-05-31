@@ -12,13 +12,13 @@ public class FileService {
     String cUpload="C:\\Users\\504\\Desktop\\springteam1\\build\\resources\\main\\static\\img\\cimg\\";
 
     public String eFileUpload(MultipartFile multipartFile){
-        System.out.println("FileService.eFileUpload");
+
 
         String uuid= UUID.randomUUID().toString();
         String filename =uuid+"_"+multipartFile.getOriginalFilename().replace("_","-");
         File file= new File(eUpload+filename);
-        System.out.println("file = " + file);
-        System.out.println("file.exists() = " + file.exists());
+
+
         //2.
         try {
             multipartFile.transferTo(file);
@@ -34,8 +34,7 @@ public class FileService {
         String uuid= UUID.randomUUID().toString();
         String filename = uuid+"_"+multipartFile.getOriginalFilename().replace("_","-");
         File file1= new File(cUpload+filename);
-        System.out.println("file = " + file1);
-        System.out.println("file.exists() = " + file1.exists());
+
         //2.
         try {
             multipartFile.transferTo(file1);

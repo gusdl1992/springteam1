@@ -12,8 +12,7 @@ import java.util.List;
 public class J_noteDao extends SuperDao {
     //쪽지 리스트 가져오기
     public List<Object> doGetNote(String sendMark ,int eno,int startRow, int pageBoardSize){
-        System.out.println("J_noteDao.doGetReceiveNote");
-        System.out.println("eno = " + eno + ", startRow = " + startRow + ", pageBoardSize = " + pageBoardSize);
+
         List<Object> list=new ArrayList<>();
         try{
             String sql="select n.*, a.postid, b.sendid from \n" +
@@ -49,8 +48,7 @@ public class J_noteDao extends SuperDao {
 
     //받은쪽지 수 추출
     public int countNote(String sendMark, int eno){
-        System.out.println("J_noteDao.countReceiveNote");
-        System.out.println("eno = " + eno);
+
         try{
             String sql="select count(*) from note where "+sendMark+"="+eno;
             ps=conn.prepareStatement(sql);
@@ -67,8 +65,7 @@ public class J_noteDao extends SuperDao {
 
     //쪽지 보내기
     public boolean doPostNote(NoteDto noteDto){
-        System.out.println("J_noteDao.doPostNote");
-        System.out.println("noteDto = " + noteDto);
+
         try{
             String sql="insert into note(posteno, sendeno, ncontent, reply) values(?,?,?,?) ";
             ps=conn.prepareStatement(sql);
@@ -90,8 +87,7 @@ public class J_noteDao extends SuperDao {
 
     //id > 사원번호 가져오기
     public int getEnoToId(String sendId){
-        System.out.println("J_noteDao.getEnoToId");
-        System.out.println("sendId = " + sendId);
+
         try{
             String sql="select eno from employee where id='"+sendId+"'";
             ps=conn.prepareStatement(sql);
@@ -108,8 +104,7 @@ public class J_noteDao extends SuperDao {
 
     //쪽지 상세정보 요청
     public NoteDto doGetNoteDetail(int nno){
-        System.out.println("J_noteDao.doGetNoteDetail");
-        System.out.println("nno = " + nno);
+
         try {
             String sql = "select n.*, a.postid, b.sendid from \n" +
                     "(select nno,id as postid from note as n inner join employee as e on n.posteno=e.eno)as a inner join\n" +
@@ -128,7 +123,7 @@ public class J_noteDao extends SuperDao {
                         .postid(rs.getString("postid"))
                         .sendid(rs.getString("sendid"))
                         .build();
-                System.out.println("noteDto = " + noteDto);
+
                 return noteDto;
             }//if end
         }//t end

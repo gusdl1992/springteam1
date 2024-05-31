@@ -10,8 +10,6 @@ public class MypageDao extends SuperDao {
 
     // 사원 정보 요청
     public EmployeeDto doGetLoginInfo(String eno){
-        System.out.println("MypageDao.doGetLoginInfo");
-        System.out.println("MypageDao eno = " + eno);
 
         EmployeeDto employeeDto = null;
         try {
@@ -48,8 +46,7 @@ public class MypageDao extends SuperDao {
 
     // 사원 번호로 사원 아이디 반환
     public String doGetNameInfo(String eno){
-        System.out.println("MypageDao.doGetNameInfo");
-        System.out.println("MypageDao.doGetNameInfo eno = " + eno);
+
         String id = "";
         try {
             String sql = "select id from employee where eno = ?;";
@@ -63,7 +60,7 @@ public class MypageDao extends SuperDao {
         }catch (Exception e){
             System.out.println("MypageDao.doGetNameInfo e = " + e);
         }
-        System.out.println("id = " + id);
+
         return id;
     }
 
@@ -72,8 +69,7 @@ public class MypageDao extends SuperDao {
 
     // 마이페이지 내 개인정보 수정 요청
     public boolean doMypageUpdate( EmployeeDto employeeDto){
-        System.out.println("MypageDao.doMypageUpdate");
-        System.out.println("employeeDto = " + employeeDto);
+
         try {
         String sql = "update employee set email = ? , phone = ? ,address = ? where eno = ?";
         ps = conn.prepareStatement(sql);
@@ -93,7 +89,7 @@ public class MypageDao extends SuperDao {
 
     // 마이페이지 비밀번호 수정 요청
     public boolean doMypageUpdatePw(String eno, String newpw){ // pwc : 변경 패스워드
-        System.out.println("MypageDao.doMypageUpdatePw");
+
         try {
             String sql = "update employee set pw = ? where eno = ?";
             ps = conn.prepareStatement(sql);
@@ -111,15 +107,13 @@ public class MypageDao extends SuperDao {
 
     // 사원 번호로 패스워드 반환
     public String passwordCheck(String eno){
-        System.out.println("MypageDao.passwordCheck");
-        System.out.println("MypageDao.passwordCheck : eno = " + eno);
+
         try {
             String sql = "select pw from employee where eno = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1,eno);
             rs = ps.executeQuery();
             if (rs.next()){
-                System.out.println("rs.getString(1) = " + rs.getString(1));
                 return rs.getString(1);
             }
         }catch (Exception e){

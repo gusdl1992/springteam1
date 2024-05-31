@@ -27,7 +27,6 @@ public class AttendanceController {
 
     @GetMapping("/attendance")
     public String AttendanceView(){
-        System.out.println("AttendanceController.AttendanceView");
         return "/mypages/attendance";
     }
 
@@ -50,10 +49,10 @@ public class AttendanceController {
     @GetMapping("/attendance/leaveWork")
     @ResponseBody
     public boolean attendanceLeaveWork(){
-        System.out.println("AttendanceController.attendanceLeaveWork");
+
         String eno = mypageService.sessionEno();
         if (eno == null){return false;}
-        System.out.println("eno = " + eno);
+
         return attendanceService.attendanceLeaveWork(eno);
     }
 
@@ -61,7 +60,7 @@ public class AttendanceController {
     @GetMapping("/event")
     @ResponseBody
     public List<AttendanceLogDto> getEvent() {
-        System.out.println("AttendanceController.getEvent");
+
         String eno = mypageService.sessionEno();
         return attendanceService.getEvent(eno);
 
@@ -70,7 +69,7 @@ public class AttendanceController {
     // 내 출근내역 리스트 사이트 요청
     @GetMapping("/attendance/list")
     public String attendanceListView(){
-        System.out.println("AttendanceController.attendanceListView");
+
         return "/mypages/attendanceList";
     }
 
@@ -78,7 +77,7 @@ public class AttendanceController {
     @GetMapping("/attendance/list.do")
     @ResponseBody
     public List<AttendanceLogDto> getEvents(){
-        System.out.println("AttendanceController.getEvents");
+
         String eno = mypageService.sessionEno();
         return attendanceService.getEvents(eno);
     }

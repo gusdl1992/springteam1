@@ -62,7 +62,7 @@ public class OneprojectController {
     @GetMapping("/view.do")
     @ResponseBody
     public ProjectDto oneProject(int pjno){
-        System.out.println("OneprojectController.oneProject");
+
         return oneprojectService.oneProject(pjno);
     }
     @GetMapping("/view/re.do")
@@ -73,7 +73,7 @@ public class OneprojectController {
     @GetMapping("/view/rec.do")
     @ResponseBody
     public  ArrayList<PsendEmployeeDto>[] memberlist(@RequestParam int pjno){
-        System.out.println("안뇽안뇽");
+
         return oneprojectService.memberlist(pjno);
     }
 
@@ -103,7 +103,7 @@ public class OneprojectController {
     @GetMapping("/view/auto")
     @ResponseBody
     public int[] autowired(@RequestParam int pjno){
-        System.out.println("오토컨트롤러체크"+pjno);
+
         return oneprojectService.autowired(pjno);
 
     }

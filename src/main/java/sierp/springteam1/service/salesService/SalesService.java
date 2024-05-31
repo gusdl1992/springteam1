@@ -23,7 +23,7 @@ public class SalesService {
 
 
     public boolean salesPost(int spjno){
-        System.out.println("SalesService.salesPost");
+
         return salesDao.salesPost( spjno);
     }
 
@@ -36,7 +36,7 @@ public class SalesService {
         //start row
         int startRow=(page-1)*pageBoardSize;
 
-        System.out.println("startRow = " + startRow);
+
         projectPageDto.setPage(page);
 
         //총 페이지 수
@@ -53,7 +53,6 @@ public class SalesService {
     }//m end
 
     public ProjectDto oneProject(int spjno){
-        System.out.println("OneprojectController.oneProject");
         return salesDao.oneProject(spjno);
     }
     public int findpjno(int spjno){return salesDao.findpjno(spjno);}

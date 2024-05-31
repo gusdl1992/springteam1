@@ -15,7 +15,6 @@ public class J_projectPageDao extends SuperDao {
                                           int sortkey,
                                           String key, String keyword,
                                           int startPrice, int endPrice){
-        System.out.println("J_projectPageDao.printProjectList");
         List<Object> projectDtos=new ArrayList<>();
         try{
             String sql="select * from salesproject ";
@@ -78,7 +77,7 @@ public class J_projectPageDao extends SuperDao {
 
     //전체 영업 프로젝드 수 추출
     public int projectCount(String key, String keyword, int startPrice, int endPrice){
-        System.out.println("J_projectPageDao.projectCount");
+
         try{
             String sql="select count(*) from salesproject as pj ";
             //------------- 검색기준을 선택한 경우 -------------------
@@ -97,7 +96,7 @@ public class J_projectPageDao extends SuperDao {
             ps=conn.prepareStatement(sql);
             rs=ps.executeQuery();
             if(rs.next()){
-                System.out.println("rs.getInt(1) = " + rs.getInt(1));
+
                 return rs.getInt(1);
             }
         }
@@ -109,7 +108,7 @@ public class J_projectPageDao extends SuperDao {
 
     //프로젝트 세부 리스트 출력
     public ProjectDto getProjectDetail(int spjno){
-        System.out.println("J_projectPageDao.getProjectDetail");
+
         try{
             String sql="select * from salesproject where spjno=?;";
             ps=conn.prepareStatement(sql);
@@ -141,8 +140,7 @@ public class J_projectPageDao extends SuperDao {
 
     //프로젝트 내역 수정
     public boolean updateProjectDetail(ProjectDto projectDto){
-        System.out.println("J_projectPageDao.updateProjectDetail");
-        System.out.println("projectDto = " + projectDto);
+
         try{
             String sql="update salesproject set \n" +
                     "\tstart_date=?, \n" +
@@ -172,7 +170,7 @@ public class J_projectPageDao extends SuperDao {
             ps.setInt(12,projectDto.getSpjno());
 
             int count= ps.executeUpdate();
-            System.out.println("count = " + count);
+
             if(count==1){
                 return true;
             }
@@ -188,8 +186,7 @@ public class J_projectPageDao extends SuperDao {
 
     //수주 등록
     public int insertProject(ProjectDto projectDto){
-        System.out.println("J_projectPageDao.insertProject");
-        System.out.println("projectDto = " + projectDto);
+
         try{
             String[] key={"spjno"};
             String sql="insert into salesproject(start_date, end_date, rank1_count, rank2_count, rank3_count, title, request, note, compannyname, state, price) " +
@@ -206,7 +203,7 @@ public class J_projectPageDao extends SuperDao {
             ps.setString(9,projectDto.getCompannyname());
             ps.setInt(10,projectDto.getState());
             ps.setString(11,projectDto.getPrice());
-            System.out.println("check");
+
 
             ps.executeUpdate();
             rs=ps.getGeneratedKeys();
@@ -224,8 +221,7 @@ public class J_projectPageDao extends SuperDao {
 
     //프로젝트 삭제
     public boolean deleteProject(int spjno){
-        System.out.println("J_projectPageDao.deleteProject");
-        System.out.println("spjno = " + spjno);
+
         try{
             String sql="delete from salesproject where spjno="+spjno;
             ps=conn.prepareStatement(sql);
@@ -245,7 +241,7 @@ public class J_projectPageDao extends SuperDao {
     public List<Object> doPrintPerform(int startRow, int pageBoardSize, int sortkey,
                                             String key, String keyword,
                                             int startPrice, int endPrice){
-        System.out.println("J_projectPageDao.doPrintPerform");
+
         List<Object> list = new ArrayList<>();
 
         try{
@@ -286,7 +282,7 @@ public class J_projectPageDao extends SuperDao {
             rs=ps.executeQuery();
 
             while(rs.next()){
-                System.out.println("rs = "+rs.getString("result"));
+
                 //평가 row 1개저장
                 ProjectDto3 projectDto3=ProjectDto3.builder()
                         .pjno(rs.getInt("pjno"))
@@ -299,7 +295,7 @@ public class J_projectPageDao extends SuperDao {
                         .price(rs.getInt("price"))
                         .perFormState(rs.getInt("result"))
                         .build();
-                System.out.println("projectDto3 result = " + projectDto3.getPerFormState());
+
                 list.add(projectDto3);
             }//w end
             return list;
@@ -315,7 +311,7 @@ public class J_projectPageDao extends SuperDao {
     public int getPerformListCount(int sortkey,
                                    String key, String keyword,
                                    int startPrice, int endPrice){
-        System.out.println("J_projectPageDao.getPerformListCount");
+
         try {
             String sql = "select count(*) from (select * from uploadproject as a join salesproject as b using(spjno)) as pj inner join \n" +
                     "(select pjno as pno, case\n" +
@@ -359,8 +355,7 @@ public class J_projectPageDao extends SuperDao {
 
     //상세 평가 프로젝트 리스트 출력
     public ProjectDto3 doPerformDetail(int pjno){
-        System.out.println("J_projectPageDao.doPerformDetail");
-        System.out.println("pjno = " + pjno);
+
         try{
             String sql="select * from (select * from uploadproject as a join salesproject as b using(spjno)) as pj inner join \n" +
                     "(select pjno as a, case\n" +
@@ -384,7 +379,7 @@ public class J_projectPageDao extends SuperDao {
                         .price(rs.getInt("price"))
                         .perFormState(rs.getInt("result"))
                         .build();
-                System.out.println("projectDto3 = " + projectDto3);
+
                 return projectDto3;
             }//if end
         }//try end
@@ -396,8 +391,7 @@ public class J_projectPageDao extends SuperDao {
 
     //프로젝트 참여 사원 정보 불러오기
     public List<Map<String,String>> getperformEmployee(int pjno){
-        System.out.println("J_projectPageDao.getperformEmployee");
-        System.out.println("pjno = " + pjno);
+
         List<Map<String,String >> list = new ArrayList<>();
         try{
             String sql="select c.eno, c.ename, p.pname, pj.pjno, pj.score,  pj.note, (coalesce(datediff(c.end_date,c.start_date),0))+coalesce(datediff(now(),c.edate),0) as alltime \n" +
@@ -430,7 +424,7 @@ public class J_projectPageDao extends SuperDao {
 
                 //사원 개별 평가여부 판별
                 int score=rs.getInt("score");
-                System.out.println("score = " + score);
+
                 map.put("performState",rs.getInt("score")==0 ? "평가전" : "평가완료");
 
                 list.add(map);
@@ -445,8 +439,7 @@ public class J_projectPageDao extends SuperDao {
 
     //프로젝트 참여 사원 평가등록
     public boolean doInsertPerform(int pjno, int eno, String note, String score){
-        System.out.println("J_projectPageDao.doInsertPerform");
-        System.out.println("pjno = " + pjno + ", eno = " + eno + ", note = " + note + ", score = " + score);
+
         try {
             String sql = "update projectlog set note=?, score=? where pjno=? and eno=?;";
             ps = conn.prepareStatement(sql);
@@ -468,7 +461,7 @@ public class J_projectPageDao extends SuperDao {
 
     //관리자 식별 메소드(return type -> true : 관리자(인사과) , false : 일반사원)
     public boolean indexManager(int eno){
-        System.out.println("J_projectPageService.indexManager");
+
         try{
             String sql="select pno from employee where eno="+eno;
             ps=conn.prepareStatement(sql);

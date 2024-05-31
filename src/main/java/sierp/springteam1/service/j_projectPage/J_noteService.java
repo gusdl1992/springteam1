@@ -20,8 +20,7 @@ public class J_noteService {
 
     //받은쪽지 가져오기
     public ProjectPageDto doGetReceiveNote(int eno, int page, int pageBoardSize){
-        System.out.println("J_noteService.doGetReceiveNote");
-        System.out.println("eno = " + eno);
+
         String sendMark="sendeno";
 
         //1. start row : 시작할 게시물의 행순서
@@ -42,24 +41,19 @@ public class J_noteService {
 
     //쪽지 보내기
     public boolean doPostNote(NoteDto noteDto){
-        System.out.println("J_noteService.doPostNote");
-        System.out.println("noteDto = " + noteDto);
 
         return j_noteDao.doPostNote(noteDto);
     }//m end
 
     //쪽지 보낼때 > 받는 사람의 사원번호 가져오기
     public int getEnoToId(String sendId){
-        System.out.println("J_noteService.getEnoToId");
-        System.out.println("sendId = " + sendId);
 
         return j_noteDao.getEnoToId(sendId);
     }//m end
 
     //보낸쪽지 가져오기
     public ProjectPageDto doGetPostNote(int eno, int page, int pageBoardSize){
-        System.out.println("J_noteService.doGetReceiveNote");
-        System.out.println("eno = " + eno);
+
         String sendMark="posteno";
 
         //1. start row : 시작할 게시물의 행순서
@@ -80,8 +74,7 @@ public class J_noteService {
 
     //쪽지 상세정보 요청
     public NoteDto doGetNoteDetail(int nno){
-        System.out.println("J_noteService.doGetNoteDetail");
-        System.out.println("nno = " + nno);
+
 
         return j_noteDao.doGetNoteDetail(nno);
     }//m end

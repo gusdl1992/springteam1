@@ -20,7 +20,7 @@ public class MypageController {
     // 마이페이지 페이지 요청
     @GetMapping("")
     public String mypageView(){
-        System.out.println("MypageController.mypageView");
+
         return "/mypages/mypage";
     }
 
@@ -28,10 +28,10 @@ public class MypageController {
     @GetMapping("/info")
     @ResponseBody
     public EmployeeDto doGetLoginInfo(){
-        System.out.println("MypageController.doGetLoginInfo");
+
         String eno = mypageService.sessionEno();
         EmployeeDto employeeDto = mypageService.doGetLoginInfo(eno);
-        System.out.println("employeeDto = " + employeeDto);
+
         return employeeDto;
     }
 
@@ -40,7 +40,7 @@ public class MypageController {
     // 마이페이지 수정 페이지 요청
     @GetMapping("/updateView")
     public String doGetUpdateView(){
-        System.out.println("MypageController.doGetUpdateView");
+
         return "/mypages/mypageupdate";
     }
 
@@ -49,7 +49,7 @@ public class MypageController {
     @PutMapping("/update.do")
     @ResponseBody
     public boolean doMypageUpdate(String email , String phone , String address){
-        System.out.println("MypageController.doMypageUpdate");
+
         // 세션에서 사원번호 가져오기
         String eno = mypageService.sessionEno();
         // 빌더 패턴 생성자 객체화
@@ -69,7 +69,7 @@ public class MypageController {
     @PutMapping("/updatepw.do")
     @ResponseBody
     public boolean doMypageUpdatePw(String pw , String newpw){ // pwc : 변경 패스워드
-        System.out.println("MypageController.doMypageUpdatePw");
+
         // 세션에서 사원번호 가져오기
         String eno = mypageService.sessionEno();
         // 사원번호 와 입력받은 값 서비스 전달

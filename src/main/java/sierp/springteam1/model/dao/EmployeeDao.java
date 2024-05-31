@@ -63,7 +63,7 @@ public class EmployeeDao extends SuperDao{
 
     //사원등록 요청
     public boolean eSignup(EmployeeDto employeeDto){
-        System.out.println("EmployeeDao.eSignup");
+
         try{
             String sql= "insert into employee(id, pw, ename,email,  phone, address,sex,img,pno,eeducation,salt)" +
                     " values(?,?,?,?,?,?,?,?,?,?,?)";
@@ -80,7 +80,7 @@ public class EmployeeDao extends SuperDao{
             ps.setString(10,employeeDto.getEeducation());
             ps.setString(11,employeeDto.getSalt());
 
-            System.out.println(employeeDto);
+
             int count= ps.executeUpdate();
             if(count==1){return true;}
         }catch (Exception e){
@@ -123,7 +123,7 @@ public class EmployeeDao extends SuperDao{
 
     // 경력로그 등록 요청
     public boolean careerPost(EmployeeCareerDto careerDto){
-        System.out.println("EmployeeDao.cSignup");
+
         try {
             String sql="insert into employeecareer( companyname, note, eimg ,start_date,  end_date, eno)" +
                     "values(?,?,?,?,?,?)";
@@ -134,7 +134,7 @@ public class EmployeeDao extends SuperDao{
             ps.setString(4,careerDto.getStart_date());
             ps.setString(5,careerDto.getEnd_date());
             ps.setInt(6,careerDto.getEno());
-            System.out.println(careerDto);
+
             int count= ps.executeUpdate();
             if(count==1){return true;}
         }catch (Exception e){
@@ -145,7 +145,7 @@ public class EmployeeDao extends SuperDao{
 
     // 자격증로그 등록 요청
     public boolean lSignup(EmployeeLicenseDto licenseDto){
-        System.out.println("EmployeeDao.lSignup");
+
         try {
             String sql="insert into employeelicense values(?,?,?); ";
             ps= conn.prepareStatement(sql);
@@ -226,7 +226,7 @@ public class EmployeeDao extends SuperDao{
             ps.setString(11,employeeDto.getSalt());
             ps.setInt(12,employeeDto.getEno());
 
-            System.out.println(employeeDto);
+
             int count= ps.executeUpdate();
             if(count==1){return true;}
         }catch (Exception e){
@@ -237,7 +237,7 @@ public class EmployeeDao extends SuperDao{
     //====================== 호출
     //부서명 전체 출력
     public List<PartDto> partList(){
-        System.out.println("EmployeeDao.partDtoList");
+
         List<PartDto>list=new ArrayList<>();
         PartDto partDto=null;
         try {
@@ -279,7 +279,7 @@ public class EmployeeDao extends SuperDao{
     }
     // 전체 사원 출력
     public List<Object> employeeList(int startRow, int pageBoardSize, int key, String keyword){
-        System.out.println("EmployeeDao.employeeList");
+
         List<Object> list=new ArrayList<>();
         EmployeeDto employeeDto=null;
         try {
@@ -320,7 +320,7 @@ public class EmployeeDao extends SuperDao{
 
     //출력 사원 수 구하기
     public int countEmployeeList(int key, String keyword) {
-        System.out.println("EmployeeDao.employeeList");
+
         List<EmployeeDto> list = new ArrayList<>();
         EmployeeDto employeeDto = null;
         try {
@@ -346,7 +346,7 @@ public class EmployeeDao extends SuperDao{
 
     //경력 내역 출력
     public List<EmployeeCareerDto> careerList(int eno){
-        System.out.println("EmployeeDao.careerList");
+
         List<EmployeeCareerDto>clist=new ArrayList<>();
         EmployeeCareerDto careerDto;
         try {
@@ -367,12 +367,12 @@ public class EmployeeDao extends SuperDao{
         }catch (Exception e){
             System.out.println("careerList e = " + e);
         }
-        System.out.println(clist);
+
         return clist;
     }
     // 보유 자격증 출력
     public List<EmployeeLicenseDto> licenseViewList(int eno){
-        System.out.println("eno = " + eno);
+
         List<EmployeeLicenseDto>llist=new ArrayList<>();
         EmployeeLicenseDto licenseDto;
         try {
@@ -415,7 +415,7 @@ public class EmployeeDao extends SuperDao{
     // 경력 합산
     public String careearSum(int eno){
         try {
-            System.out.println("EmployeeDao.careearSum");
+
             String sql=" SELECT eno, \n" +
                     "SUM(DATEDIFF(COALESCE(end_date, CURDATE()), start_date)) AS 경력\n" +
                     "FROM employeecareer\n" +
@@ -425,9 +425,6 @@ public class EmployeeDao extends SuperDao{
 
             if(rs.next()){
                 int sum=rs.getInt(2);
-                System.out.println(sum);
-
-                System.out.println("rs.getString(\"rud\") = " + rs.getString("경력"));
                 return rs.getString("경력");
 
             }

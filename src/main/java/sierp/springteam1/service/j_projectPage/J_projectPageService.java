@@ -21,7 +21,7 @@ public class J_projectPageService {
                                            int sortKey,
                                            String key, String keyword,
                                            int startPrice, int endPrice){
-        System.out.println("J_projectPageService.printProjectList");
+
         //1. start row : 시작할 게시물의 행순서
         int startRow=(page-1)*pageBoardSize;
 
@@ -41,31 +41,24 @@ public class J_projectPageService {
 
     //프로젝트 세부 리스트 출력
     public ProjectDto getProjectDetail(int pjno){
-        System.out.println("J_projectPageService.getProjectDetail");
 
         return j_projectPageDao.getProjectDetail(pjno);
     }//m end
 
     //프로젝트 내역 수정
     public boolean updateProjectDetail(ProjectDto projectDto){
-        System.out.println("J_projectPageService.updateProjectDetail");
-        System.out.println("projectDto = " + projectDto);
 
         return j_projectPageDao.updateProjectDetail(projectDto);
     }//m end
 
     //프로젝트 등록
     public int insertProject(ProjectDto projectDto){
-        System.out.println("J_projectPageService.insertProject");
-        System.out.println("projectDto = " + projectDto);
 
         return j_projectPageDao.insertProject(projectDto);
     }//m end
 
     //프로젝트 삭제
     public boolean deleteProject(int spjno){
-        System.out.println("J_projectPageService.deleteProject");
-        System.out.println("spjno = " + spjno);
 
         return j_projectPageDao.deleteProject(spjno);
     }
@@ -74,7 +67,7 @@ public class J_projectPageService {
     public ProjectPageDto doPrintPerform(int page, int pageBoardSize, int sortKey,
                                          String key, String keyword,
                                          int startPrice, int endPrice){
-        System.out.println("J_projectPageService.doPrintPerform");
+
         //1. start row : 시작할 게시물의 행순서
         int startRow=(page-1)*pageBoardSize;
 
@@ -89,23 +82,17 @@ public class J_projectPageService {
 
     //상세 평가 프로젝트 리스트 출력
     public ProjectDto3 doPerformDetail(int pjno){
-        System.out.println("J_projectPageService.doPerformDetail");
-        System.out.println("pjno = " + pjno);
         return j_projectPageDao.doPerformDetail(pjno);
     }//m end
 
     //프로젝트 참여 사원 정보 불러오기
     public List<Map<String,String>> getperformEmployee(int pjno){
-        System.out.println("J_projectPageService.getperformEmployee");
-        System.out.println("pjno = " + pjno);
 
         return j_projectPageDao.getperformEmployee(pjno);
     }//m end
 
     //프로젝트 참여 사원 평가등록
     public boolean doInsertPerform(int pjno, int eno, String note, String score){
-        System.out.println("J_projectPageService.doInsertPerform");
-        System.out.println("pjno = " + pjno + ", eno = " + eno + ", note = " + note + ", score = " + score);
         return j_projectPageDao.doInsertPerform(pjno, eno, note, score);
     }//m end
 
@@ -124,13 +111,13 @@ public class J_projectPageService {
 
         //시작페이지
         int startPage=((page-1)/pageLimit)*pageLimit+1;
-        System.out.println("startPage = " + startPage);
+
         projectPageDto.setStartPage(startPage);
 
         //마지막 페이지
         int endPage=((page-1)/pageLimit)*pageLimit+pageLimit;
         endPage=endPage>totalPage ? totalPage : endPage;
-        System.out.println("endPage = " + endPage);
+
         projectPageDto.setEndPage(endPage);
         
         return projectPageDto;
@@ -138,7 +125,6 @@ public class J_projectPageService {
 
     //관리자 식별 메소드(return type -> true : 관리자(인사과) , false : 일반사원)
     public boolean indexManager(int eno){
-        System.out.println("J_projectPageService.indexManager");
 
         return j_projectPageDao.indexManager(eno);
     }//m end

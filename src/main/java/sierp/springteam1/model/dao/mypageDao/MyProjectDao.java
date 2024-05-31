@@ -15,7 +15,7 @@ public class MyProjectDao extends SuperDao {
 
     // 진행 중인 프로젝트 출력
     public MyProjectDto myProjectList(String eno){
-        System.out.println("MyProjectDao.myProjectList");
+
         MyProjectDto myProjectDto = new MyProjectDto();
         try {
             String sql =
@@ -39,7 +39,7 @@ public class MyProjectDao extends SuperDao {
                 rs.getInt("state")
             );
         }
-            System.out.println("myProjectDto = " + myProjectDto);
+
             return myProjectDto;
         }catch (Exception e){
             System.out.println("MyProjectDao.myProjectList : e = " + e);
@@ -50,8 +50,7 @@ public class MyProjectDao extends SuperDao {
 
     // 즐겨찾기한 프로젝트 전체 출력
     public List<ProjectDto> myProjectLikeView(String eno){
-        System.out.println("MyProjectDao.myProjectLikeView");
-        System.out.println("MyProjectDao.myProjectLikeView : eno = " + eno);
+
         List<ProjectDto> list = new ArrayList<>();
         ProjectDto projectDto = null;
 
@@ -74,7 +73,7 @@ public class MyProjectDao extends SuperDao {
                         .build();
                 list.add(projectDto);
             }
-            System.out.println("list = " + list);
+
             return list;
         }catch (Exception e){
             System.out.println("MyProjectDao.myProjectLikeView : e = " + e);
@@ -85,7 +84,7 @@ public class MyProjectDao extends SuperDao {
 
     // 내 이전 프로젝트 전체 출력
     public  List<ProjectDto> myProjectPreviousView(String eno){
-        System.out.println("MyProjectDao.myProjectPreviousView");
+
         List<ProjectDto> list = new ArrayList<>();
         ProjectDto projectDto = null;
         try {
@@ -107,7 +106,7 @@ public class MyProjectDao extends SuperDao {
                         .build();
                 list.add(projectDto);
             }
-            System.out.println("list = " + list);
+
             return list;
         }catch (Exception e){
             System.out.println("MyProjectDao.myProjectPreviousView : e = " + e);

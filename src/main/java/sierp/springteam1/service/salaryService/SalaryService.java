@@ -47,21 +47,19 @@ public class SalaryService {
     BoardDAO boardDAO;
 
     public boolean deleteSalary(SalaryDto salaryDto){
-        System.out.println("del.do");
-        System.out.println(salaryDto.getSmonth());
 
         return salaryDAO.deleteSalary(salaryDto);
 //        return true;
     }
 
     public BoardPageDTO findSalayloglist(int page , int pageBoardSize , int state, String key, String keyword){
-        System.out.println("서비스 시작");
+
         int startRow = (page-1)*pageBoardSize;
         String table = " salarylog join employee using (eno) ";
-        System.out.println("카운트 전");
+
         int totalBoardSize = boardDAO.getBoardSize(table , state, key , keyword);
         int totalpage = (totalBoardSize+pageBoardSize-1)/pageBoardSize;
-        System.out.println("리스트 호출 전");
+
         List<Object> list = boardDAO.doGetBoardViewList( table,startRow , pageBoardSize , state ,key , keyword );
         int btnsize = 5;
         //2.페이지 버튼 시작 번호
@@ -97,20 +95,18 @@ public class SalaryService {
         int allwork = premonthworking();
         List<EmployeeDto> allEmployee = employeeDao.findAllEmployee();
         List<SalaryDto> result = salaryDAO.findSalary(allEmployee,allwork);
-        for (SalaryDto salaryDto : result) {
-            System.out.println("salaryDto.getPrice() = " + salaryDto.getPrice());
-        }
+
         salaryDAO.insertSalray(result);
     }
 
     public BoardPageDTO findSalarylist(int page , int pageBoardSize , int state, String key, String keyword){
-        System.out.println("서비스 시작");
+
         int startRow = (page-1)*pageBoardSize;
         String table = " salary as a inner join employee as b on a.eno = b.eno ";
-        System.out.println("카운트 전");
+
         int totalBoardSize = boardDAO.getBoardSize(table , state, key , keyword);
         int totalpage = (totalBoardSize+pageBoardSize-1)/pageBoardSize;
-        System.out.println("리스트 호출 전");
+
         List<Object> list = boardDAO.doGetBoardViewList( table,startRow , pageBoardSize , state ,key , keyword );
         int btnsize = 5;
         //2.페이지 버튼 시작 번호
@@ -139,8 +135,8 @@ public class SalaryService {
         // 이전 달의 월과 년도 구하기
         String lastMonth = lastMonthDate.getMonthValue()>=10?lastMonthDate.getMonthValue()+"":"0"+lastMonthDate.getMonthValue();
         String lastYear = lastMonthDate.getYear()+"";
-        System.out.println(lastYear);
-        System.out.println("lastMonth = " + lastMonth);
+
+
         List<String> dateNames = new ArrayList<>();
         String sb = new String();
         try {
@@ -219,7 +215,7 @@ public class SalaryService {
         }
 
         for (LocalDate formattedDate : formattedDates) {
-            System.out.println("formattedDate = " + formattedDate);
+            // System.out.println("formattedDate = " + formattedDate);
         }
 
 
@@ -238,7 +234,7 @@ public class SalaryService {
         while (!date.isAfter(lastDayOfPreviousMonth)) {
             // 주말인지 확인하여 평일인 경우 개수 증가
             if (date.getDayOfWeek() != DayOfWeek.SATURDAY && date.getDayOfWeek() != DayOfWeek.SUNDAY && !formattedDates.contains(date)) {
-                System.out.println("date = " + date);
+                // System.out.println("date = " + date);
                 weekdayCount++;
             }
             // 다음 날로 이동
@@ -246,7 +242,7 @@ public class SalaryService {
         }
 
         // 결과 출력
-        System.out.println("저번 달의 평일 수: " + weekdayCount);
+        // System.out.println("저번 달의 평일 수: " + weekdayCount);
 
         return weekdayCount;
     }

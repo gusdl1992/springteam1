@@ -38,7 +38,6 @@ public class SecureService {
         try {
             String[] result = get_UsersPW(employeeDto.getPw());
             employeeDto.setSalt(result[0]);
-            System.out.println("새로운 소금 = "+result[0]);
             employeeDto.setPw(result[1]);
         }
         catch (Exception e){

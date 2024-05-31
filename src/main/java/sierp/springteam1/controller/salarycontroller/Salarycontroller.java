@@ -26,7 +26,7 @@ public class Salarycontroller {
     @GetMapping("/findlist.do")
     @ResponseBody
     public BoardPageDTO findSalayloglist(int page , int pageBoardSize , int state, String key, String keyword){
-        System.out.println("컨트롤러");
+
         return salaryService.findSalayloglist(page,pageBoardSize,state,key,keyword);
 
     }
@@ -51,7 +51,7 @@ public class Salarycontroller {
     @GetMapping("/list.do")
     @ResponseBody
     public BoardPageDTO findSalarylist(int page , int pageBoardSize , int state, String key, String keyword){
-        System.out.println("ddd");
+
         return salaryService.findSalarylist(page , pageBoardSize ,state, key, keyword);
     }
 
@@ -74,15 +74,12 @@ public class Salarycontroller {
 
             // JSON을 파싱하여 객체 배열로 변환
             String jsonData = sb.toString();
-            System.out.println(jsonData);
+
             String[] jsonArray = jsonData.substring(1, jsonData.length() - 1).split(",");
 
-            System.out.println(jsonArray.length);
+
             ArrayList<SalaryDto> result = new ArrayList<>();
             for (int i = 0; i < jsonArray.length; i += 3) {
-                System.out.println("ddd"+jsonArray[i].split(":")[1]);
-                System.out.println("dddddddddd"+jsonArray[i+1].split("\"")[3].split("\\\\")[0]);
-                System.out.println("dddddddddd"+jsonArray[i+2].split(":")[1].split("}")[0]);
 
 //                System.out.println(jsonArray[i].split(":")[1]);
 //                System.out.println(jsonArray[i]);

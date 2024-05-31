@@ -26,7 +26,7 @@ public class SalaryDAO extends SuperDao {
                 ps.addBatch(); // 배치 처리를 위해 추가
             }
             int[] counts = ps.executeBatch(); // 배치 쿼리 실행
-            System.out.println("Inserted rows: " + Arrays.toString(counts));
+
             return true;
         } catch (SQLException e) {
             System.out.println("삽입도중 발생한 오류"+e);
@@ -37,9 +37,6 @@ public class SalaryDAO extends SuperDao {
 
     public boolean deleteSalary(SalaryDto salaryDto){
         try {
-            System.out.println(salaryDto.getSmonth());
-        System.out.println(salaryDto.getEmployeeDto().getEno());
-            System.out.println();
             String sql = "delete from salary where eno =? and smonth = ? ";
             ps = conn.prepareStatement(sql);
             ps.setInt(1,salaryDto.getEmployeeDto().getEno());
@@ -57,9 +54,6 @@ public class SalaryDAO extends SuperDao {
     public boolean deleteSalary(List<SalaryDto> result){
         try {
             for (SalaryDto i : result) {
-                System.out.println(i.getSmonth());
-                System.out.println(i.getEmployeeDto().getEno());
-                System.out.println();
                 String sql = "delete from salary where eno =? and smonth = ? ";
                 ps = conn.prepareStatement(sql);
                 ps.setInt(1,i.getEmployeeDto().getEno());
@@ -81,10 +75,10 @@ public class SalaryDAO extends SuperDao {
                      sql += "("+i.getEmployeeDto().getEno()+","+i.getPrice()+"),";
             }
             String sql2 = sql.substring(0, sql.length()-1);
-            System.out.println("sql = " + sql2);
+
             ps = conn.prepareStatement(sql2);
             int count = ps.executeUpdate();
-            System.out.println("count = " + count);
+
         }
         catch (Exception e){
             System.out.println("임금 삽입중 발생한 오류 = " + e);
@@ -154,7 +148,7 @@ public class SalaryDAO extends SuperDao {
                 rs = ps.executeQuery();
                 if(rs.next()){
                     double price = Math.ceil(1.0*rs.getInt("근무일자")/allwork*rs.getInt("pprice"));
-                    System.out.println("price = " + price);
+
                     result.add(SalaryDto.builder()
                             .employeeDto(employeeDto)
                             .price(price)

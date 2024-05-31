@@ -27,7 +27,7 @@ public class J_ProjectPageController {
     //프로젝트 관리메뉴 출력
     @GetMapping("/")
     public String test(){
-        System.out.println("Jcontroller1.test");
+
         return "/j_projectPage/salesPage";
     }//m end
     
@@ -38,8 +38,7 @@ public class J_ProjectPageController {
                                            int sortKey,
                                            String key, String keyword,
                                             int startPrice, int endPrice){
-        System.out.println("J_ProjectPageController.printProjectList");
-        System.out.println("page = " + page + ", pageBoardSize = " + pageBoardSize + ", key = " + key + ", keyword = " + keyword + ", startPrice = " + startPrice + ", endPrice = " + endPrice);
+
 
         return j_projectPageService.printProjectList(page, pageBoardSize,sortKey, key, keyword, startPrice, endPrice);
     }//m end
@@ -47,7 +46,7 @@ public class J_ProjectPageController {
     //수주 세부리스트 출력
     @GetMapping("/detail")
     public String printProjectDetail(int spjno){
-        System.out.println("J_ProjectPageController.printProjectDetail");
+
 
         return "/j_projectPage/salesDetail";
     }//m end
@@ -56,7 +55,6 @@ public class J_ProjectPageController {
     @GetMapping("/detail.do")
     @ResponseBody
     public ProjectDto getProjectDetail(int spjno){
-        System.out.println("J_ProjectPageController.printProjectDetail");
 
         return j_projectPageService.getProjectDetail(spjno);
     }//m end
@@ -64,7 +62,6 @@ public class J_ProjectPageController {
     //수주 내역 수정페이지 호출
     @GetMapping("/update")
     public String updateProjectDetailPage(){
-        System.out.println("J_ProjectPageController.updateProjectDetail");
 
         return "/j_projectPage/updateProject";
     }//m end
@@ -73,8 +70,6 @@ public class J_ProjectPageController {
     @PutMapping("/update.do")
     @ResponseBody
     public boolean updateProjectDetail(ProjectDto projectDto){
-        System.out.println("J_ProjectPageController.updateProjectDetail");
-        System.out.println("projectDto = " + projectDto);
 
         return j_projectPageService.updateProjectDetail(projectDto);
     }//m end
@@ -91,8 +86,6 @@ public class J_ProjectPageController {
     @PostMapping("/insert.do")
     @ResponseBody
     public int insertProject(ProjectDto projectDto){
-        System.out.println("J_ProjectPageController.insertProject");
-        System.out.println("projectDto = " + projectDto);
 
         return j_projectPageService.insertProject(projectDto);
     }//m end
@@ -101,8 +94,6 @@ public class J_ProjectPageController {
     @DeleteMapping("/delete")
     @ResponseBody
     public boolean deleteProject(int spjno){
-        System.out.println("J_ProjectPageController.deleteProject");
-        System.out.println("spjno = " + spjno);
 
         return j_projectPageService.deleteProject(spjno);
     }//m end
@@ -110,7 +101,6 @@ public class J_ProjectPageController {
     //평가 가능한 프로젝트 페이지 출력
     @GetMapping("/perform")
     public String printPerform(){
-        System.out.println("J_ProjectPageController.pringPerform");
 
         return "/j_projectPage/perform";
     }//m end
@@ -121,7 +111,6 @@ public class J_ProjectPageController {
     public ProjectPageDto doPrintPerform(int page, int pageBoardSize, int sortKey,
                                          String key, String keyword,
                                          int startPrice, int endPrice){
-        System.out.println("J_ProjectPageController.doPrintPerform");
 
         return j_projectPageService.doPrintPerform(page, pageBoardSize, sortKey,key, keyword,startPrice,endPrice);
     }//m end
@@ -129,7 +118,7 @@ public class J_ProjectPageController {
     //상세 평가 프로젝트 페이지 출력
     @GetMapping("/performDetail")
     public String printPerformDetail(){
-        System.out.println("J_ProjectPageController.printPerformDetail");
+
         return "/j_projectPage/performDetail";
     }//m end
 
@@ -137,8 +126,7 @@ public class J_ProjectPageController {
     @GetMapping("/performDetail.do")
     @ResponseBody
     public ProjectDto3 doPerformDetail(int pjno){
-        System.out.println("J_ProjectPageController.doPerformDetail");
-        System.out.println("pjno = " + pjno);
+
         return j_projectPageService.doPerformDetail(pjno);
     }//m end
 
@@ -146,8 +134,7 @@ public class J_ProjectPageController {
     @GetMapping("/performEmployee")
     @ResponseBody
     public List<Map<String,String>> getperformEmployee(int pjno){
-        System.out.println("J_ProjectPageController.getperformEmployee");
-        System.out.println("pjno = " + pjno);
+
 
         return j_projectPageService.getperformEmployee(pjno);
     }//m end
@@ -156,8 +143,6 @@ public class J_ProjectPageController {
     @PostMapping("/insertPerform.do")
     @ResponseBody
     public boolean doInsertPerform(int pjno, int eno, String note, String score){
-        System.out.println("J_ProjectPageController.doInsertPerform");
-        System.out.println("pjno = " + pjno + ", eno = " + eno + ", note = " + note + ", score = " + score);
 
         return j_projectPageService.doInsertPerform(pjno, eno, note, score);
     }//m end

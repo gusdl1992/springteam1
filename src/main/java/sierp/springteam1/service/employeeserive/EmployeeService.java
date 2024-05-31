@@ -31,10 +31,10 @@ public class EmployeeService {
 
     //사원등록 요청
     public boolean eSignup(EmployeeDto employeeDto){
-        System.out.println("EmployeeService.eSignup");
+
         //증명사진 파일 처리
         String fileName="";
-        System.out.println("employeeDto.getMfile() = " + employeeDto.getMfile());
+
         if(!employeeDto.getMfile().isEmpty()) {
             fileName = fileService.eFileUpload(employeeDto.getMfile());
             if (fileName == null) { // 업로드 성공했으면
@@ -54,13 +54,13 @@ public class EmployeeService {
         for(int i=1; i<=6; i++){
             newPw+=random.nextInt(10);
         }
-        System.out.println("newPw = " + newPw);
+
 
         employeeDto.setId(id);
         employeeDto.setPw(newPw);
         //암호화
         employeeDto = secureService.doSec(employeeDto);
-        System.out.println(employeeDto);
+
          boolean result=employeeDao.eSignup(employeeDto);
          String content="귀하의 입사를 축하드리며 자사 프로그램을 사용할 수 있는 아이디와 임시 비밀번호를 알려드립니다. \n 아이디 : "+employeeDto.getId()+"\n 비밀빈호 : "+employeeDto.getPw()+"\n 임시 비밀번호이기 때문에 로그인하시고 바꿔주시길 바랍니다.";
         //*이메일 테스트
@@ -71,10 +71,10 @@ public class EmployeeService {
 
     // 경력로그 등록 요청
     public boolean careerPost(EmployeeCareerDto careerDto){
-        System.out.println("EmployeeService.cSignup");
+
         //경력증명서 파일 처리
         String fileName="";
-        System.out.println("careerDto.getCimg() = " + careerDto.getCimg());
+
         if(!careerDto.getCimg().isEmpty()) {
             fileName = fileService.cFileUpload(careerDto.getCimg());
             if (fileName == null) { // 업로드 성공했으면
@@ -89,7 +89,7 @@ public class EmployeeService {
 
     // 자격증로그 등록 요청
     public boolean lSignup(EmployeeLicenseDto licenseDto){
-        System.out.println("EmployeeService.lSignup");
+
         return employeeDao.lSignup(licenseDto);
     }
     //=================== 삭제
@@ -132,7 +132,7 @@ public class EmployeeService {
     //===================호출
     // 부서 전체 호출
     public List<PartDto> partList (){
-        System.out.println("EmployeeService.partDtoList");
+
         return employeeDao.partList();
     }
     //자격증 선택 호출
@@ -142,7 +142,7 @@ public class EmployeeService {
 
     // 사원 전체 호출
     public ProjectPageDto employeeList(int page, int pageBoardSize, int key,  String keyword){
-        System.out.println("EmployeeService.employeeList");
+
         //1. start row : 시작할 게시물의 행순서
         int startRow=(page-1)*pageBoardSize;
 
@@ -162,7 +162,7 @@ public class EmployeeService {
 
     //경력 전체 호출
     public List<EmployeeCareerDto> careerList(int eno){
-        System.out.println("EmployeeService.careerList");
+
         return employeeDao.careerList(eno);
     }
     //자격증 호출
